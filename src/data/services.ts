@@ -98,19 +98,19 @@ export const pillars = [
     title: "Import",
     description: "Sourcing machinery, raw materials, and goods from global markets to fuel Bangladesh's industries.",
     image: "/images/import-machinery.png",
-    link: "/services#import",
+    link: "/services/import",
   },
   {
     title: "Export",
     description: "Delivering Bangladesh's finest textiles, agro products, and goods to buyers across 40+ countries.",
     image: "/images/cargo-ship.png",
-    link: "/services#export",
+    link: "/services/export",
   },
   {
     title: "Supply",
     description: "End-to-end supply chain management — warehousing, cold chain, and distribution across the region.",
     image: "/images/container-trucks.png",
-    link: "/services#supply",
+    link: "/services/supply",
   },
 ];
 

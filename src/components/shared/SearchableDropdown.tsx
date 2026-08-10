@@ -32,10 +32,10 @@ export default function SearchableDropdown({ options, value, onChange, placehold
   return (
     <div className="relative w-full max-w-sm" ref={dropdownRef}>
       <div 
-        className="flex items-center justify-between w-full px-5 py-3.5 bg-ivory border border-stone/50 rounded-sm cursor-pointer shadow-sm hover:border-terracotta/50 transition-colors"
+        className="flex items-center justify-between w-full px-5 py-3.5 bg-ivory border border-stone/50 rounded-sm cursor-pointer shadow-sm hover:border-gold/50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className={`text-sm ${value ? "text-navy" : "text-navy/50"}`}>
+        <span className={`text-sm ${value ? "text-brand" : "text-brand/50"}`}>
           {value || placeholder}
         </span>
         <svg 
@@ -45,7 +45,7 @@ export default function SearchableDropdown({ options, value, onChange, placehold
           fill="none" 
           stroke="currentColor" 
           strokeWidth="2"
-          className={`text-navy/70 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          className={`text-brand/70 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
         >
           <polyline points="6 9 12 15 18 9" />
         </svg>
@@ -62,13 +62,13 @@ export default function SearchableDropdown({ options, value, onChange, placehold
           >
             <div className="p-2 border-b border-stone/30">
               <div className="relative">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="absolute left-3 top-1/2 -translate-y-1/2 text-navy/40">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="absolute left-3 top-1/2 -translate-y-1/2 text-brand/40">
                   <circle cx="11" cy="11" r="8" />
                   <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
                 <input 
                   type="text"
-                  className="w-full pl-9 pr-3 py-2 bg-warm-white text-sm text-navy border-none outline-none focus:ring-1 focus:ring-terracotta rounded-sm placeholder:text-navy/40"
+                  className="w-full pl-9 pr-3 py-2 bg-warm-white text-sm text-brand border-none outline-none focus:ring-1 focus:ring-terracotta rounded-sm placeholder:text-brand/40"
                   placeholder="Search categories..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -83,8 +83,8 @@ export default function SearchableDropdown({ options, value, onChange, placehold
                     key={option}
                     className={`px-5 py-3 text-sm cursor-pointer transition-colors ${
                       value === option 
-                        ? "bg-terracotta/10 text-terracotta font-medium" 
-                        : "text-navy hover:bg-stone/20"
+                        ? "bg-gold/10 text-gold font-medium" 
+                        : "text-brand hover:bg-stone/20"
                     }`}
                     onClick={() => {
                       onChange(option);
@@ -96,7 +96,7 @@ export default function SearchableDropdown({ options, value, onChange, placehold
                   </div>
                 ))
               ) : (
-                <div className="px-5 py-4 text-sm text-navy/50 text-center">
+                <div className="px-5 py-4 text-sm text-brand/50 text-center">
                   No results found
                 </div>
               )}

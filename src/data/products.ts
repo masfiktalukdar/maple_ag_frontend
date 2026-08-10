@@ -13,16 +13,18 @@ export type ProductCategory =
 export type ProductType = "Import" | "Export" | "Supply";
 
 export interface Product {
-  id: string;
+  id?: string;
+  _id?: string;
   name: string;
-  category: ProductCategory;
-  type: ProductType;
-  image: string;
-  shortSpec: string;
+  category: ProductCategory | string;
+  type: ProductType | string;
+  image?: string;
+  imageUrl?: string;
+  shortSpec?: string;
   description: string;
-  origin: string;
-  applications: string[];
-  specs: { label: string; value: string }[];
+  origin?: string;
+  applications?: string[];
+  specs?: { label: string; value: string }[];
 }
 
 export const productCategories: ProductCategory[] = [

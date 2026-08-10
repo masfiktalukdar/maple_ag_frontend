@@ -6,13 +6,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/data/siteData";
-
+import { useGlobalSettings } from "@/context/GlobalSettingsContext";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const { companyName } = useGlobalSettings();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -41,8 +42,11 @@ export default function Navbar() {
               >
                 <Image
                   src="/images/maple-logo.png"
-                  alt="Maple AG Global LTD Logo"
+                  alt={`${companyName} Logo`}
                   fill
+                  sizes="192px"
+                  quality={100}
+                  unoptimized
                   className="object-contain"
                 />
               </div>
@@ -56,8 +60,8 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   className={`text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-colors duration-200 flex items-center gap-1 ${pathname.startsWith(link.href) && link.href !== "/" || (link.href === "/" && pathname === "/")
-                    ? "text-terracotta"
-                    : "text-navy/80 hover:text-navy"
+                    ? "text-gold"
+                    : "text-brand/80 cursor-pointer hover:text-brand"
                     }`}
                 >
                   {link.label}
@@ -87,8 +91,8 @@ export default function Navbar() {
                           key={child.href}
                           href={child.href}
                           className={`block px-5 py-2.5 text-sm transition-colors ${pathname === child.href
-                            ? "text-terracotta bg-stone/20"
-                            : "text-navy hover:bg-stone/30 hover:text-terracotta"
+                            ? "text-gold bg-stone/20"
+                            : "text-brand hover:bg-stone/30 hover:text-gold"
                             }`}
                         >
                           {child.label}
@@ -105,7 +109,7 @@ export default function Navbar() {
           <div className="flex-shrink-0 flex justify-end items-center gap-4">
             <Link
               href="/contact"
-              className="hidden lg:inline-flex items-center gap-2 px-6 py-2.5 bg-terracotta text-white text-[12px] font-semibold uppercase tracking-wider rounded-sm hover:bg-terracotta-dark shadow-xs hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group whitespace-nowrap"
+              className="hidden lg:inline-flex items-center gap-2 px-6 py-2.5 bg-brand text-white border border-gold/60 text-[12px] font-bold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-[#044014] hover:border-gold shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group whitespace-nowrap"
             >
               <span>Get in Touch</span>
               <svg
@@ -133,20 +137,20 @@ export default function Navbar() {
               >
                 <span
                   className={`block w-6 h-[2px] transition-all duration-300 ${mobileOpen
-                    ? `rotate-45 translate-y-[5px] bg-navy`
-                    : "bg-navy"
+                    ? `rotate-45 translate-y-[5px] bg-brand`
+                    : "bg-brand"
                     }`}
                 />
                 <span
                   className={`block w-6 h-[2px] transition-all duration-300 ${mobileOpen
                     ? "opacity-0"
-                    : "bg-navy"
+                    : "bg-brand"
                     }`}
                 />
                 <span
                   className={`block w-6 h-[2px] transition-all duration-300 ${mobileOpen
-                    ? `-rotate-45 -translate-y-[5px] bg-navy`
-                    : "bg-navy"
+                    ? `-rotate-45 -translate-y-[5px] bg-brand`
+                    : "bg-brand"
                     }`}
                 />
               </button>
@@ -177,7 +181,7 @@ export default function Navbar() {
                   <div className="flex items-center justify-between">
                     <Link
                       href={link.href}
-                      className={`block py-4 text-lg font-serif font-medium flex-grow ${pathname === link.href ? "text-terracotta" : "text-navy"
+                      className={`block py-4 text-lg font-serif font-medium flex-grow ${pathname === link.href ? "text-gold" : "text-brand"
                         }`}
                     >
                       {link.label}
@@ -187,7 +191,7 @@ export default function Navbar() {
                         onClick={() =>
                           setOpenSubmenu(openSubmenu === link.label ? null : link.label)
                         }
-                        className="p-4 text-navy"
+                        className="p-4 text-brand"
                       >
                         <svg
                           width="16"
@@ -198,7 +202,7 @@ export default function Navbar() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className={`transition-transform duration-300 ${openSubmenu === link.label ? "rotate-180 text-terracotta" : ""
+                          className={`transition-transform duration-300 ${openSubmenu === link.label ? "rotate-180 text-gold" : ""
                             }`}
                         >
                           <polyline points="6 9 12 15 18 9" />
@@ -221,7 +225,7 @@ export default function Navbar() {
                             <Link
                               key={child.href}
                               href={child.href}
-                              className={`text-sm ${pathname === child.href ? "text-terracotta font-medium" : "text-navy/80"
+                              className={`text-sm ${pathname === child.href ? "text-gold font-medium" : "text-brand/80"
                                 }`}
                             >
                               {child.label}
@@ -235,7 +239,7 @@ export default function Navbar() {
               ))}
               <Link
                 href="/contact"
-                className="mt-8 inline-flex justify-center px-6 py-3.5 bg-terracotta text-white text-sm font-semibold uppercase tracking-wider rounded-sm shadow-md"
+                className="mt-8 inline-flex justify-center px-6 py-3.5 bg-brand text-white border border-gold/60 text-sm font-bold uppercase tracking-wider rounded-sm shadow-md hover:bg-[#044014] cursor-pointer transition-all"
               >
                 Get in Touch
               </Link>

@@ -17,7 +17,7 @@ export default function CTABanner({
   buttonHref = "/contact",
 }: CTABannerProps) {
   return (
-    <section className="bg-navy">
+    <section className="bg-brand">
       <div className="container-wide py-20 md:py-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -33,7 +33,7 @@ export default function CTABanner({
           </p>
           <Link
             href={buttonHref}
-            className="inline-block mt-8 px-8 py-3.5 bg-terracotta text-white text-sm font-semibold uppercase tracking-wider rounded-sm hover:bg-terracotta-dark transition-colors duration-200"
+            className="inline-block mt-8 px-8 py-3.5 bg-gold text-white text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-gold-dark transition-colors duration-200"
           >
             {buttonText}
           </Link>

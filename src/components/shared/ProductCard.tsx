@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
+import SafeImage from "@/components/shared/SafeImage";
 import type { Product } from "@/data/products";
 
 interface ProductCardProps {
@@ -9,16 +10,24 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, onRequestQuote }: ProductCardProps) {
+  const imgSrc = product?.imageUrl || product?.image || "/images/placeholder.svg";
+
+  const productUrl = product._id ? `/products/${product._id}` : "#";
+
   const CardContent = (
     <div className="group flex flex-col bg-[#fdfaf6] border border-stone/20 overflow-hidden h-full">
       {/* Image Container */}
       <div className="relative aspect-[4/3] w-full bg-stone/20 overflow-hidden">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+        {imgSrc && (
+          <SafeImage
+            src={imgSrc}
+            alt={product.name || "Product Image"}
+            useNextImage={true}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        )}
       </div>
 
       {/* Content Container */}
@@ -31,7 +40,7 @@ export default function ProductCard({ product, onRequestQuote }: ProductCardProp
         </div>
 
         {/* Title & Description */}
-        <h3 className="font-serif text-xl text-navy font-semibold mb-2 line-clamp-2">
+        <h3 className="font-serif text-xl text-brand font-semibold mb-2 line-clamp-2">
           {product.name}
         </h3>
         <p className="text-text-muted text-sm leading-relaxed line-clamp-3 mb-4 flex-grow">
@@ -40,8 +49,8 @@ export default function ProductCard({ product, onRequestQuote }: ProductCardProp
 
         {/* CTA */}
         <div className="mt-auto">
-          <span className="inline-flex items-center gap-2 text-[14px] font-medium text-terracotta hover:text-terracotta-dark transition-colors">
-            Request a Quote
+          <span className="inline-flex items-center gap-2 text-[14px] font-medium text-gold hover:text-gold-dark transition-colors">
+            View Details
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
@@ -53,18 +62,8 @@ export default function ProductCard({ product, onRequestQuote }: ProductCardProp
   );
 
   return (
-    <div 
-      className="block h-full cursor-pointer" 
-      onClick={() => onRequestQuote && onRequestQuote(product)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          onRequestQuote && onRequestQuote(product);
-        }
-      }}
-    >
+    <Link href={productUrl} className="block h-full cursor-pointer outline-none focus:ring-2 focus:ring-gold/50 rounded-sm">
       {CardContent}
-    </div>
+    </Link>
   );
 }

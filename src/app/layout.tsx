@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -18,20 +16,30 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "Maple AG Global LTD — Import, Export & Supply Chain",
-  description:
-    "A premier import–export and supply chain company headquartered in Dhaka, Bangladesh. Facilitating trade across 40+ countries with a commitment to quality, compliance, and reliability.",
-  keywords: [
-    "Bangladesh export",
-    "import export company",
-    "Dhaka trading company",
-    "textile export",
-    "jute export",
-    "frozen food export",
-    "supply chain Bangladesh",
-  ],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  let companyName = "Maple AG Global LTD";
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/settings/companyName`, { next: { revalidate: 60 } });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.data) {
+        companyName = data.data.companyName || data.data;
+      }
+    }
+  } catch {
+    // Fallback to default companyName if backend is offline during build
+  }
+
+  return {
+    title: `${companyName} — Import, Export & Supply Chain`,
+    description: "A premier import–export and supply chain company headquartered in Dhaka, Bangladesh. Facilitating trade across 40+ countries with a commitment to quality, compliance, and reliability.",
+    icons: {
+      icon: "/images/favicon.png",
+      shortcut: "/images/favicon.png",
+      apple: "/images/favicon.png",
+    },
+  };
+}
 
 export default function RootLayout({
   children,
@@ -41,12 +49,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${fraunces.variable} ${inter.variable} h-full antialiased selection:bg-gold/30 selection:text-navy scroll-smooth`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        {children}
       </body>
     </html>
   );

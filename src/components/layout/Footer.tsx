@@ -1,120 +1,116 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
-import { navLinks, companyInfo, certifications } from "@/data/siteData";
+import { navLinks, companyInfo as fallbackCompanyInfo } from "@/data/siteData";
+import { fetchApi, formatExternalUrl } from "@/lib/api";
+import { useGlobalSettings } from "@/context/GlobalSettingsContext";
 
 export default function Footer() {
-  return (
-    <footer className="bg-navy text-white/80">
-      {/* Newsletter Row */}
-      <div className="border-b border-white/10">
-        <div className="container-wide py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h4 className="font-serif text-xl text-white font-medium mb-1">
-              Stay Updated on Global Trade
-            </h4>
-            <p className="text-sm text-white/50">
-              Receive market insights, new product listings, and trade updates.
-            </p>
-          </div>
-          <form
-            className="flex w-full md:w-auto"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 md:w-72 px-4 py-3 bg-white/5 border border-white/15 rounded-l-sm text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-gold"
-            />
-            <button
-              type="submit"
-              className="px-6 py-3 bg-terracotta text-white text-sm font-semibold uppercase tracking-wider rounded-r-sm hover:bg-terracotta-dark transition-colors whitespace-nowrap"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </div>
+  const [contactData, setContactData] = useState<any>(null);
+  const { companyName } = useGlobalSettings();
 
+  const loadContactData = async () => {
+    try {
+      const res = await fetchApi("/contact");
+      if (res.data) {
+        setContactData(res.data);
+      }
+    } catch (error) {
+      console.error("Failed to load contact data:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadContactData();
+  }, []);
+
+  const address = contactData?.offices?.headOffice?.address || fallbackCompanyInfo.address;
+  const phone = contactData?.contactDetails?.phones?.[0] || fallbackCompanyInfo.phone;
+  const email = contactData?.contactDetails?.emails?.[0] || fallbackCompanyInfo.email;
+  const facebookUrl = formatExternalUrl(contactData?.socialMedia?.facebook || "https://facebook.com");
+  const youtubeUrl = formatExternalUrl(contactData?.socialMedia?.youtube || "https://youtube.com");
+  const linkedinUrl = formatExternalUrl(contactData?.socialMedia?.linkedin || "https://linkedin.com");
+  const whatsappUrl = formatExternalUrl(contactData?.socialMedia?.whatsapp || "https://wa.me/");
+
+  return (
+    <footer className="bg-ivory border-t border-stone-200 text-charcoal">
       {/* Main Footer Grid */}
-      <div className="container-wide py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      <div className="container-wide py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
+
           {/* Column 1: Company Info */}
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 relative flex items-center justify-center">
+          <div className="lg:col-span-4 pr-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-12 h-12 relative flex items-center justify-center">
                 <Image
                   src="/images/maple-logo.png"
-                  alt="Maple AG Global LTD Logo"
+                  alt={`${companyName} Logo`}
                   fill
+                  sizes="160px"
+                  quality={100}
+                  unoptimized
                   className="object-contain"
                 />
               </div>
-              <span className="font-serif text-lg text-white font-semibold tracking-tight">
-                {companyInfo.name}
+              <span className="font-serif text-lg text-brand font-semibold tracking-tight">
+                {companyName}
               </span>
             </div>
-            <p className="text-sm leading-relaxed text-white/50 mb-6">
-              {companyInfo.description}
+            <p className="text-sm leading-relaxed text-text-muted mb-6 pr-4">
+              {fallbackCompanyInfo.description}
             </p>
             {/* Get in Touch & Minimalist Brand Icons */}
             <div className="mt-6">
-              <h5 className="text-xs font-semibold uppercase tracking-[0.15em] text-white/40 mb-3">
+              <h5 className="text-xs font-semibold uppercase tracking-widest text-stone-500 mb-3">
                 Get in Touch
               </h5>
-              <div className="flex gap-2.5 items-center">
-                {/* Facebook */}
+              <div className="flex gap-2 items-center">
                 <a
-                  href="https://facebook.com"
+                  href={facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
-                  className="w-9 h-9 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-[#1877F2] hover:bg-white/10 hover:border-white/20 transition-colors duration-200"
+                  className="w-6 h-6 rounded-full aspect-square shrink-0 bg-white border border-stone-200/80 shadow-xs flex items-center justify-center text-stone-600 hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
                 >
-                  <FaFacebookF className="w-4 h-4" />
+                  <FaFacebookF className="w-4.5 h-4.5" />
                 </a>
-
-                {/* YouTube */}
                 <a
-                  href="https://youtube.com"
+                  href={youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
-                  className="w-9 h-9 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-[#FF0000] hover:bg-white/10 hover:border-white/20 transition-colors duration-200"
+                  className="w-6 h-6 rounded-full aspect-square shrink-0 bg-white border border-stone-200/80 shadow-xs flex items-center justify-center text-stone-600 hover:text-white hover:bg-[#FF0000] hover:border-[#FF0000] hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
                 >
-                  <FaYoutube className="w-4 h-4" />
+                  <FaYoutube className="w-4.5 h-4.5" />
                 </a>
-
-                {/* LinkedIn */}
                 <a
-                  href="https://linkedin.com"
+                  href={linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-[#0A66C2] hover:bg-white/10 hover:border-white/20 transition-colors duration-200"
+                  className="w-6 h-6 rounded-full aspect-square shrink-0 bg-white border border-stone-200/80 shadow-xs flex items-center justify-center text-stone-600 hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
                 >
-                  <FaLinkedinIn className="w-4 h-4" />
+                  <FaLinkedinIn className="w-4.5 h-4.5" />
                 </a>
-
-                {/* WhatsApp */}
                 <a
-                  href="https://wa.me/880284321100"
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
-                  className="w-9 h-9 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-[#25D366] hover:bg-white/10 hover:border-white/20 transition-colors duration-200"
+                  className="w-6 h-6 rounded-full aspect-square shrink-0 bg-white border border-stone-200/80 shadow-xs flex items-center justify-center text-stone-600 hover:text-white hover:bg-[#25D366] hover:border-[#25D366] hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
                 >
-                  <FaWhatsapp className="w-4 h-4" />
+                  <FaWhatsapp className="w-4.5 h-4.5" />
                 </a>
               </div>
             </div>
           </div>
 
           {/* Column 2: Quick Links */}
-          <div>
-            <h5 className="text-xs font-semibold uppercase tracking-[0.15em] text-white/40 mb-5">
+          <div className="lg:col-span-2">
+            <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
               Quick Links
             </h5>
             <ul className="space-y-3">
@@ -122,7 +118,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/60 hover:text-white transition-colors"
+                    className="text-sm text-text-muted hover:text-gold transition-colors font-medium"
                   >
                     {link.label}
                   </Link>
@@ -131,56 +127,66 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Certifications */}
-          <div>
-            <h5 className="text-xs font-semibold uppercase tracking-[0.15em] text-white/40 mb-5">
-              Certifications & Compliance
+          {/* Column 3: Contact Details */}
+          <div className="lg:col-span-3">
+            <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
+              Contact Us
             </h5>
-            <ul className="space-y-3">
-              {certifications.map((cert) => (
-                <li key={cert.name} className="text-sm">
-                  <span className="text-white/80 font-medium">{cert.name}</span>
-                  <br />
-                  <span className="text-white/40 text-xs">{cert.description}</span>
-                </li>
-              ))}
+            <ul className="space-y-5 text-sm">
+              <li>
+                <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">Head Office</span>
+                <p className="text-charcoal font-medium mt-1 leading-relaxed">{address}</p>
+              </li>
+              <li>
+                <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">Phone</span>
+                <p className="text-brand font-medium mt-1">{phone}</p>
+              </li>
+              <li>
+                <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">General Inquiries</span>
+                <p className="text-brand font-medium mt-1">{email}</p>
+              </li>
             </ul>
           </div>
 
-          {/* Column 4: Contact */}
-          <div>
-            <h5 className="text-xs font-semibold uppercase tracking-[0.15em] text-white/40 mb-5">
-              Contact Us
+          {/* Column 4: Location Map */}
+          <div className="lg:col-span-3">
+            <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
+              Location
             </h5>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <span className="text-white/40 text-xs uppercase tracking-wider">Head Office</span>
-                <p className="text-white/70 mt-1">{companyInfo.address}</p>
-              </li>
-              <li>
-                <span className="text-white/40 text-xs uppercase tracking-wider">Phone</span>
-                <p className="text-white/70 mt-1">{companyInfo.phone}</p>
-              </li>
-              <li>
-                <span className="text-white/40 text-xs uppercase tracking-wider">General Inquiries</span>
-                <p className="text-white/70 mt-1">{companyInfo.email}</p>
-              </li>
-              <li>
-                <span className="text-white/40 text-xs uppercase tracking-wider">Export Inquiries</span>
-                <p className="text-white/70 mt-1">{companyInfo.exportEmail}</p>
-              </li>
-            </ul>
+            <div className="w-full bg-white rounded-md overflow-hidden border border-stone-200 shadow-sm p-1">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.8123287310574!2d90.41014167605963!3d23.789693988636737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7a0f70deb73%3A0x30c36498f90fe23!2sGulshan%202%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1707038166548!5m2!1sen!2sbd"
+                width="100%"
+                height="150"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-[150px] rounded"
+              ></iframe>
+              <div className="pt-2 pb-1 text-center">
+                <a
+                  href="https://maps.app.goo.gl/4PRsxmMm9vAGVodQ6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-brand hover:text-gold font-semibold tracking-wide inline-flex items-center gap-1 transition-colors"
+                >
+                  Open in Google Maps →
+                </a>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-white/10">
-        <div className="container-wide py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/30">
-            © {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
+      <div className="border-t border-stone-200 bg-stone-50">
+        <div className="container-wide py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-stone-500 font-medium">
+            © {new Date().getFullYear()} {companyName}. All rights reserved.
           </p>
-          <p className="text-xs text-white/30">
+          <p className="text-xs text-stone-500 font-medium tracking-wide">
             Dhaka · Chattogram · Global
           </p>
         </div>

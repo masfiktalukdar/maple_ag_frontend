@@ -41,7 +41,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-navy/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-brand/80 backdrop-blur-sm"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -51,10 +51,10 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             className="relative w-full max-w-2xl bg-ivory rounded-sm shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
           >
             <div className="flex items-center justify-between px-6 py-3.5 border-b border-stone/30 bg-warm-white">
-              <h3 className="font-serif text-2xl text-navy font-semibold">{title}</h3>
+              <h3 className="font-serif text-2xl text-brand font-semibold">{title}</h3>
               <button
                 onClick={onClose}
-                className="p-2 text-navy/60 hover:text-terracotta transition-colors rounded-full hover:bg-stone/20 cursor-pointer"
+                className="p-2 text-brand/60 hover:text-gold transition-colors rounded-full hover:bg-stone/20 cursor-pointer"
                 aria-label="Close modal"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
