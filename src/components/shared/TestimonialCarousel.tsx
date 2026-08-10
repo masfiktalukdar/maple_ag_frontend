@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaSpinner } from "react-icons/fa";
+import { API_URL } from "@/lib/api";
 
 interface Testimonial {
   _id: string;
@@ -20,7 +21,7 @@ export default function TestimonialCarousel() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/testimonials");
+        const res = await fetch(`${API_URL}/testimonials`);
         const data = await res.json();
         setTestimonials(data.data || []);
       } catch (error) {

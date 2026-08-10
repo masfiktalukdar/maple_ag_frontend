@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://maple-ag-backend.vercel.app/api';
 
 export const getAuthToken = () => {
   if (typeof window !== 'undefined') {

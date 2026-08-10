@@ -7,7 +7,7 @@ import Image from "next/image";
 import { companyInfo as fallbackCompanyInfo } from "@/data/siteData";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
-import { fetchApi, formatExternalUrl } from "@/lib/api";
+import { fetchApi, formatExternalUrl, API_URL } from "@/lib/api";
 import { z } from "zod";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -93,7 +93,7 @@ function ContactContent() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost:5000/api/inquiries", {
+      const response = await fetch(`${API_URL}/inquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

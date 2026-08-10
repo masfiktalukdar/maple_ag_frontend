@@ -19,7 +19,7 @@ const inter = Inter({
 export async function generateMetadata(): Promise<Metadata> {
   let companyName = "Maple AG Global LTD";
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/settings/companyName`, { next: { revalidate: 60 } });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://maple-ag-backend.vercel.app/api'}/settings/companyName`, { next: { revalidate: 60 } });
     if (res.ok) {
       const data = await res.json();
       if (data.data) {

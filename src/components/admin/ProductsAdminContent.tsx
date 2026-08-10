@@ -21,7 +21,7 @@ import {
   FaChevronLeft,
   FaChevronRight
 } from "react-icons/fa";
-import { getAuthToken } from "@/lib/api";
+import { getAuthToken, API_URL } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
 
@@ -85,7 +85,7 @@ export default function ProductsAdminContent() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/products");
+      const res = await fetch(`${API_URL}/products`);
       const data = await res.json();
       setProducts(data.data || []);
     } catch (error) {
@@ -98,7 +98,7 @@ export default function ProductsAdminContent() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/categories");
+      const res = await fetch(`${API_URL}/categories`);
       const data = await res.json();
       setCategories(data.data || []);
     } catch (error) {
@@ -125,7 +125,7 @@ export default function ProductsAdminContent() {
 
     setCreatingCategory(true);
     try {
-      const res = await fetch("http://localhost:5000/api/categories", {
+      const res = await fetch(`${API_URL}/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -258,8 +258,8 @@ export default function ProductsAdminContent() {
     setSubmitting(true);
 
     const url = editingId
-      ? `http://localhost:5000/api/products/${editingId}`
-      : `http://localhost:5000/api/products`;
+      ? `${API_URL}/products/${editingId}`
+      : `${API_URL}/products`;
 
     const method = editingId ? "PUT" : "POST";
 
@@ -317,7 +317,7 @@ export default function ProductsAdminContent() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const res = await fetch(`${API_URL}/products/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
