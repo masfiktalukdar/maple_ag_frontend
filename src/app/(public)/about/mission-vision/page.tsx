@@ -1,8 +1,7 @@
 import MissionVisionContent from "@/components/about/MissionVisionContent";
+import { API_BASE } from "@/lib/api";
 
 export const dynamic = 'force-dynamic';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://maple-ag-backend.vercel.app/api';
 
 async function getGoals() {
   try {

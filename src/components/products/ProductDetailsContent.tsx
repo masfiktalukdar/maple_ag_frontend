@@ -45,7 +45,7 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
   const displayDetails = specificDetails
     ? Object.entries(specificDetails).filter(([key, val]) => {
       if (!val || key === '_id') return false;
-      if (product.type === "import" && key === "specifications") return false;
+      if (key === "specifications" || key === "monthlySupplyCapacity") return false;
       return true;
     })
     : [];
@@ -56,10 +56,10 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
         <div className="container-wide">
           {/* Breadcrumb */}
           <Link
-            href="/services"
+            href={product?.type ? `/services/${product.type}` : "/services"}
             className="inline-flex items-center gap-2 text-stone-500 hover:text-brand mb-3 transition-colors text-xs font-semibold"
           >
-            <FaArrowLeft /> Back to Products
+            <FaArrowLeft /> Back to {product?.type ? product.type.charAt(0).toUpperCase() + product.type.slice(1) + " Products" : "Products"}
           </Link>
 
           <div className="bg-white rounded-lg border border-stone-200 shadow-sm overflow-hidden flex flex-col md:flex-row">
@@ -89,19 +89,34 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
                     <strong className="font-bold text-brand">Specifications:</strong> {product.importDetails.specifications}
                   </div>
                 )}
+                {product.type === "export" && product.exportDetails?.specifications && (
+                  <div className="mt-2 text-stone-600 text-xs sm:text-sm">
+                    <strong className="font-bold text-brand">Specifications:</strong> {product.exportDetails.specifications}
+                  </div>
+                )}
+                {product.type === "supply" && product.supplyDetails?.specifications && (
+                  <div className="mt-2 text-stone-600 text-xs sm:text-sm">
+                    <strong className="font-bold text-brand">Specifications:</strong> {product.supplyDetails.specifications}
+                  </div>
+                )}
               </div>
 
               {/* Dynamic Specifications Table */}
               {displayDetails.length > 0 && (
                 <div className="mb-4 mt-1">
                   <h3 className="font-serif text-base text-brand font-semibold mb-2 border-b border-stone-200 pb-1">
-                    {product.type === "import" ? "What We Source" : "Specifications"}
+                    {product.type === "import" ? "What We Source" : (product.type === "export" || product.type === "supply") ? "What We Provide" : "Specifications"}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4">
                     {displayDetails.map(([key, val]) => {
-                      const formattedKey = key
+                      let formattedKey = key
                         .replace(/([A-Z])/g, " $1")
                         .replace(/^./, (str) => str.toUpperCase());
+                        
+                      if ((product.type === "export" || product.type === "supply") && key === "minOrderQuantity") {
+                        formattedKey = "MOQ";
+                      }
+
                       return (
                         <div key={key} className="flex flex-col">
                           <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
@@ -135,7 +150,7 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
                   onClick={() => setIsQuoteModalOpen(true)}
                   className="bg-brand hover:bg-gold text-white px-6 py-2.5 rounded text-xs font-bold uppercase tracking-wider transition-colors shadow-sm hover:shadow flex items-center gap-2 cursor-pointer"
                 >
-                  {product.type === "import" ? "Submit an Enquiry" : "Submit a Quote"}
+                  {product.type === "import" ? "Submit an Enquiry" : "Get a Quote"}
                 </button>
               </div>
             </div>

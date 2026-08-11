@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { FaTimes, FaCheckCircle, FaPaperPlane, FaPaperclip, FaFileAlt } from "react-icons/fa";
-import { API_URL } from "@/lib/api";
+import { API_BASE } from "@/lib/api";
 
 interface QuoteModalProps {
   isOpen?: boolean;
@@ -95,11 +95,18 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
         if (formData.companyAddress) categoryDetails.companyAddress = formData.companyAddress;
         if (formData.wechat) categoryDetails.wechat = formData.wechat;
         if (formData.averageDeliveryTime) categoryDetails.averageDeliveryTime = formData.averageDeliveryTime;
+      } else if (isExport) {
+        if (formData.designation) categoryDetails.designation = formData.designation;
+        if (formData.country) categoryDetails.country = formData.country;
+        if (formData.companyWebsite) categoryDetails.companyWebsite = formData.companyWebsite;
+        if (formData.companyAddress) categoryDetails.companyAddress = formData.companyAddress;
+        if (formData.deliveryAddress) categoryDetails.deliveryAddress = formData.deliveryAddress;
       } else {
         if (formData.designation) categoryDetails.designation = formData.designation;
-        if (formData.destinationCountry) categoryDetails.destinationCountry = formData.destinationCountry;
+        if (formData.country) categoryDetails.country = formData.country;
+        if (formData.companyWebsite) categoryDetails.companyWebsite = formData.companyWebsite;
+        if (formData.companyAddress) categoryDetails.companyAddress = formData.companyAddress;
         if (formData.deliveryAddress) categoryDetails.deliveryAddress = formData.deliveryAddress;
-        if (formData.requiredDeliveryDate) categoryDetails.requiredDeliveryDate = formData.requiredDeliveryDate;
       }
 
       let res;
@@ -118,12 +125,12 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
         payload.append("details", JSON.stringify(categoryDetails));
         payload.append("brochure", brochureFile);
 
-        res = await fetch(`${API_URL}/inquiries`, {
+        res = await fetch(`${API_BASE}/inquiries`, {
           method: "POST",
           body: payload,
         });
       } else {
-        res = await fetch(`${API_URL}/inquiries`, {
+        res = await fetch(`${API_BASE}/inquiries`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -159,7 +166,7 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
     <div className="fixed inset-0 bg-brand/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-auto overflow-hidden max-h-[90vh] flex flex-col border border-stone-200">
         {/* Header */}
-        <div className="flex justify-between items-center px-5 py-3 md:px-6 md:py-3.5 border-b border-stone-100 bg-stone-50/80 shrink-0">
+        <div className="flex justify-between items-center px-5 py-2.5 md:px-6 md:py-3 border-b border-stone-100 bg-stone-50/80 shrink-0">
           <h3 className="text-lg font-bold font-serif text-brand line-clamp-1">
             {isImport ? `Submit an Enquiry: ${product.name}` : isExport ? `Submit a Quote: ${product.name}` : `Request Quote: ${product.name}`}
           </h3>
@@ -173,7 +180,7 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
         </div>
 
         {/* Content */}
-        <div className="overflow-y-auto p-5 md:p-6 flex-1">
+        <div className="overflow-y-auto px-5 py-3 md:px-6 md:py-4 flex-1">
           {submitted ? (
             <div className="text-center py-10 px-4">
               <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -193,7 +200,7 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
               </button>
             </div>
           ) : (
-            <form id="quote-form" onSubmit={handleSubmit} className="space-y-5">
+            <form id="quote-form" onSubmit={handleSubmit} className="space-y-3.5">
               {error && (
                 <div className="p-3 bg-red-50 text-red-600 border border-red-200 rounded text-xs">
                   {error}
@@ -424,149 +431,276 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
                     </div>
                   </div>
                 </>
-              ) : (
-                /* Export & Supply Quote Form Layout */
+              ) : isExport ? (
+                /* Export Quote Form Layout */
                 <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Your Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="e.g. John Smith"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Company Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        placeholder="e.g. Global Buyers Co."
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Designation
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.designation}
-                        onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                        placeholder="e.g. Sourcing Director"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="e.g. john@company.com"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                      />
+                  {/* Company Information */}
+                  <div className="mb-4 pb-2 border-b border-stone-100">
+                    <h4 className="text-sm font-bold text-brand mb-3">Company Information</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Country *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.country}
+                          onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                          placeholder="e.g. United States"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Company Name</label>
+                        <input
+                          type="text"
+                          value={formData.company}
+                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                          placeholder="e.g. Global Buyers Co."
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Company Website</label>
+                        <input
+                          type="url"
+                          value={formData.companyWebsite}
+                          onChange={(e) => setFormData({ ...formData, companyWebsite: e.target.value })}
+                          placeholder="https://www.example.com"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Company Address</label>
+                        <input
+                          type="text"
+                          value={formData.companyAddress}
+                          onChange={(e) => setFormData({ ...formData, companyAddress: e.target.value })}
+                          placeholder="Full Company Address"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="e.g. +1 234 567 8900"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Destination Country *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.destinationCountry}
-                        onChange={(e) => setFormData({ ...formData, destinationCountry: e.target.value })}
-                        placeholder="e.g. United States, Germany, UAE"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Required Delivery Date
-                      </label>
-                      <input
-                        type="date"
-                        value={formData.requiredDeliveryDate}
-                        onChange={(e) => setFormData({ ...formData, requiredDeliveryDate: e.target.value })}
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none bg-white"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Estimated Quantity / Volume
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.quantity}
-                        onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                        placeholder="e.g. 10,000 Pcs / 5 Containers"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                      />
+                  {/* Representative Information */}
+                  <div className="mb-4 pb-2 border-b border-stone-100">
+                    <h4 className="text-sm font-bold text-brand mb-3">Representative Information</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Your Name *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="e.g. John Smith"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Designation</label>
+                        <input
+                          type="text"
+                          value={formData.designation}
+                          onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
+                          placeholder="e.g. Sourcing Director"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Email Address *</label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="e.g. john@company.com"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Phone Number</label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="e.g. +1 234 567 8900"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
                     </div>
                   </div>
 
+                  {/* Export Requirements */}
                   <div>
-                    <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                      Delivery Address (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.deliveryAddress}
-                      onChange={(e) => setFormData({ ...formData, deliveryAddress: e.target.value })}
-                      placeholder="e.g. Port of Hamburg / Warehouse 4B, Dubai Industrial City"
-                      className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
-                    />
+                    <h4 className="text-sm font-bold text-brand mb-3">Export Requirements</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Delivery Address *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.deliveryAddress}
+                          onChange={(e) => setFormData({ ...formData, deliveryAddress: e.target.value })}
+                          placeholder="e.g. Port of Hamburg / Warehouse 4B"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Estimated Quantity / Volume</label>
+                        <input
+                          type="text"
+                          value={formData.quantity}
+                          onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                          placeholder="e.g. 10,000 Pcs / 5 Containers"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Enquiry *</label>
+                      <textarea
+                        required
+                        rows={6}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Please enter your detailed quote requirements here..."
+                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none resize-none"
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                /* Supply Quote Form Layout */
+                <>
+                  {/* Company Information */}
+                  <div className="mb-3 pb-2 border-b border-stone-100">
+                    <h4 className="text-sm font-bold text-brand mb-2">Company Information</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Company Name *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.company}
+                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                          placeholder="e.g. Global Buyers Co."
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Company Website *</label>
+                        <input
+                          type="url"
+                          required
+                          value={formData.companyWebsite}
+                          onChange={(e) => setFormData({ ...formData, companyWebsite: e.target.value })}
+                          placeholder="https://www.example.com"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Company Address *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.companyAddress}
+                          onChange={(e) => setFormData({ ...formData, companyAddress: e.target.value })}
+                          placeholder="Full Company Address"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                    </div>
                   </div>
 
+                  {/* Representative Information */}
+                  <div className="mb-4 pb-2 border-b border-stone-100">
+                    <h4 className="text-sm font-bold text-brand mb-3">Representative Information</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Your Name *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="e.g. John Smith"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Designation</label>
+                        <input
+                          type="text"
+                          value={formData.designation}
+                          onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
+                          placeholder="e.g. Sourcing Director"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Email Address *</label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="e.g. john@company.com"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Phone Number</label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="e.g. +1 234 567 8900"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Supply Requirements */}
                   <div>
-                    <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                      Quote *
-                    </label>
-                    <textarea
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Please enter your detailed quote requirements here..."
-                      className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none resize-none"
-                    />
+                    <h4 className="text-sm font-bold text-brand mb-3">Supply Requirements</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Delivery Address *</label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.deliveryAddress}
+                          onChange={(e) => setFormData({ ...formData, deliveryAddress: e.target.value })}
+                          placeholder="e.g. Warehouse 4B"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Estimated Quantity / Volume</label>
+                        <input
+                          type="text"
+                          value={formData.quantity}
+                          onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                          placeholder="e.g. 10,000 Pcs"
+                          className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Enquiry *</label>
+                      <textarea
+                        required
+                        rows={6}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Please enter your detailed quote requirements here..."
+                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none resize-none"
+                      />
+                    </div>
                   </div>
                 </>
               )}
@@ -576,7 +710,7 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
 
         {/* Footer */}
         {!submitted && (
-          <div className="p-4 md:p-5 border-t border-stone-100 bg-stone-50/80 flex justify-end gap-3 shrink-0">
+          <div className="px-5 py-2.5 md:px-6 md:py-3 border-t border-stone-100 bg-stone-50/80 flex justify-end gap-3 shrink-0">
             <button
               type="button"
               onClick={onClose}
@@ -591,7 +725,7 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
               className="bg-brand hover:bg-brand-light text-white px-6 py-2 rounded text-sm font-semibold transition-colors disabled:opacity-50 shadow-sm flex items-center gap-2 cursor-pointer"
             >
               <FaPaperPlane className="text-xs" />
-              {submitting ? "Submitting..." : isImport ? "Submit Enquiry" : "Submit a Quote"}
+              {submitting ? "Submitting..." : isImport ? "Submit Enquiry" : "Get a Quote"}
             </button>
           </div>
         )}

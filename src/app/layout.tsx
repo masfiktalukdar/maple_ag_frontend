@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
+import { API_BASE } from "@/lib/api";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -19,7 +20,7 @@ const inter = Inter({
 export async function generateMetadata(): Promise<Metadata> {
   let companyName = "Maple AG Global LTD";
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://maple-ag-backend.vercel.app/api'}/settings/companyName`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_BASE}/settings/companyName`, { next: { revalidate: 60 } });
     if (res.ok) {
       const data = await res.json();
       if (data.data) {

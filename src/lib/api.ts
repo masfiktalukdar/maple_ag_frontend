@@ -1,4 +1,5 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://maple-ag-backend.vercel.app/api';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+export const API_BASE = API_URL;
 
 export const getAuthToken = () => {
   if (typeof window !== 'undefined') {
@@ -23,7 +24,7 @@ export const fetchApi = async (endpoint: string, options: RequestInit = {}) => {
     headers['Content-Type'] = 'application/json';
   }
 
-  const res = await fetch(`${API_URL}${endpoint}`, {
+  const res = await fetch(`${API_BASE}${endpoint}`, {
     ...options,
     headers,
   });

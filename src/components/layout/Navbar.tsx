@@ -1,18 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/data/siteData";
 import { useGlobalSettings } from "@/context/GlobalSettingsContext";
-export default function Navbar() {
+
+function NavbarContent() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const searchParams = useSearchParams();
+  const typeParam = searchParams.get("type") || searchParams.get("category");
   const { companyName } = useGlobalSettings();
 
   useEffect(() => {
@@ -25,8 +27,6 @@ export default function Navbar() {
     setMobileOpen(false);
     setOpenSubmenu(null);
   }, [pathname]);
-
-  const showSolid = true;
 
   return (
     <>
@@ -55,54 +55,72 @@ export default function Navbar() {
 
           {/* Center: Desktop Links */}
           <div className="hidden lg:flex justify-center items-center gap-6 xl:gap-8 flex-grow">
-            {navLinks.map((link) => (
-              <div key={link.href} className="relative group h-[80px] flex items-center">
-                <Link
-                  href={link.href}
-                  className={`text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-colors duration-200 flex items-center gap-1 ${pathname.startsWith(link.href) && link.href !== "/" || (link.href === "/" && pathname === "/")
-                    ? "text-gold"
-                    : "text-brand/80 cursor-pointer hover:text-brand"
-                    }`}
-                >
-                  {link.label}
-                  {link.children && (
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mt-0.5 opacity-70 group-hover:rotate-180 transition-transform duration-300"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  )}
-                </Link>
+            {navLinks.map((link) => {
+              const isServices = link.href === "/services";
+              const isMainActive =
+                (link.href === "/" && pathname === "/") ||
+                (isServices && (pathname.startsWith("/services") || pathname.startsWith("/products"))) ||
+                (!isServices && link.href !== "/" && pathname.startsWith(link.href));
 
-                {/* Desktop Dropdown */}
-                {link.children && (
-                  <div className="absolute top-[80px] left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:-translate-y-2">
-                    <div className="bg-ivory border border-stone/30 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-sm py-2 min-w-[200px]">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className={`block px-5 py-2.5 text-sm transition-colors ${pathname === child.href
-                            ? "text-gold bg-stone/20"
-                            : "text-brand hover:bg-stone/30 hover:text-gold"
-                            }`}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+              return (
+                <div key={link.href} className="relative group h-[80px] flex items-center">
+                  <Link
+                    href={link.href}
+                    className={`text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-colors duration-200 flex items-center gap-1 ${isMainActive
+                        ? "text-gold font-semibold"
+                        : "text-brand/80 cursor-pointer hover:text-brand"
+                      }`}
+                  >
+                    {link.label}
+                    {link.children && (
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mt-0.5 opacity-70 group-hover:rotate-180 transition-transform duration-300"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    )}
+                  </Link>
+
+                  {/* Desktop Dropdown */}
+                  {link.children && (
+                    <div className="absolute top-[80px] left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:-translate-y-2">
+                      <div className="bg-ivory border border-stone/30 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-sm py-2 min-w-[200px]">
+                        {link.children.map((child) => {
+                          const isChildActive =
+                            pathname === child.href ||
+                            (pathname.startsWith("/products") && (
+                              (child.href === "/services/import" && typeParam === "import") ||
+                              (child.href === "/services/export" && typeParam === "export") ||
+                              (child.href === "/services/supply" && typeParam === "supply")
+                            ));
+
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className={`block px-5 py-2.5 text-sm transition-colors ${isChildActive
+                                  ? "text-gold bg-stone/20 font-semibold"
+                                  : "text-brand hover:bg-stone/30 hover:text-gold"
+                                }`}
+                            >
+                              {child.label}
+                            </Link>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Right: CTA + Mobile Toggle */}
@@ -170,73 +188,91 @@ export default function Navbar() {
             className="fixed inset-0 top-[80px] z-40 bg-ivory lg:hidden overflow-y-auto"
           >
             <div className="container-wide py-8 flex flex-col gap-1 pb-24">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="border-b border-stone/30"
-                >
-                  <div className="flex items-center justify-between">
-                    <Link
-                      href={link.href}
-                      className={`block py-4 text-lg font-serif font-medium flex-grow ${pathname === link.href ? "text-gold" : "text-brand"
-                        }`}
-                    >
-                      {link.label}
-                    </Link>
-                    {link.children && (
-                      <button
-                        onClick={() =>
-                          setOpenSubmenu(openSubmenu === link.label ? null : link.label)
-                        }
-                        className="p-4 text-brand"
-                      >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className={`transition-transform duration-300 ${openSubmenu === link.label ? "rotate-180 text-gold" : ""
-                            }`}
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
+              {navLinks.map((link, i) => {
+                const isServices = link.href === "/services";
+                const isMainActive =
+                  (link.href === "/" && pathname === "/") ||
+                  (isServices && (pathname.startsWith("/services") || pathname.startsWith("/products"))) ||
+                  (!isServices && link.href !== "/" && pathname.startsWith(link.href));
 
-                  {/* Mobile Submenu */}
-                  <AnimatePresence>
-                    {link.children && openSubmenu === link.label && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden"
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="border-b border-stone/30"
+                  >
+                    <div className="flex items-center justify-between">
+                      <Link
+                        href={link.href}
+                        className={`block py-4 text-lg font-serif font-medium flex-grow ${isMainActive ? "text-gold font-semibold" : "text-brand"
+                          }`}
                       >
-                        <div className="pb-4 pl-4 flex flex-col gap-3">
-                          {link.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              className={`text-sm ${pathname === child.href ? "text-gold font-medium" : "text-brand/80"
-                                }`}
-                            >
-                              {child.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
+                        {link.label}
+                      </Link>
+                      {link.children && (
+                        <button
+                          onClick={() =>
+                            setOpenSubmenu(openSubmenu === link.label ? null : link.label)
+                          }
+                          className="p-4 text-brand"
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className={`transition-transform duration-300 ${openSubmenu === link.label ? "rotate-180 text-gold" : ""
+                              }`}
+                          >
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Mobile Submenu */}
+                    <AnimatePresence>
+                      {link.children && openSubmenu === link.label && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pb-4 pl-4 flex flex-col gap-3">
+                            {link.children.map((child) => {
+                              const isChildActive =
+                                pathname === child.href ||
+                                (pathname.startsWith("/products") && (
+                                  (child.href === "/services/import" && typeParam === "import") ||
+                                  (child.href === "/services/export" && typeParam === "export") ||
+                                  (child.href === "/services/supply" && typeParam === "supply")
+                                ));
+
+                              return (
+                                <Link
+                                  key={child.href}
+                                  href={child.href}
+                                  className={`text-sm ${isChildActive ? "text-gold font-semibold" : "text-brand/80"
+                                    }`}
+                                >
+                                  {child.label}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
               <Link
                 href="/contact"
                 className="mt-8 inline-flex justify-center px-6 py-3.5 bg-brand text-white border border-gold/60 text-sm font-bold uppercase tracking-wider rounded-sm shadow-md hover:bg-[#044014] cursor-pointer transition-all"
@@ -248,5 +284,15 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+export default function Navbar() {
+  return (
+    <Suspense fallback={
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-ivory shadow-[0_1px_0_0_rgba(218,211,196,0.6)] h-[90px]" />
+    }>
+      <NavbarContent />
+    </Suspense>
   );
 }

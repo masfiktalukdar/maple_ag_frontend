@@ -21,7 +21,7 @@ import {
   FaChevronLeft,
   FaChevronRight
 } from "react-icons/fa";
-import { getAuthToken, API_URL } from "@/lib/api";
+import { getAuthToken, API_BASE } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
 
@@ -62,8 +62,8 @@ export default function ProductsAdminContent() {
 
   const toast = useToast();
 
-  const emptyImport = { countryOfOrigin: "", brand: "", specifications: "", availableSizes: "", packaging: "", minOrderQuantity: "", supplyCapacity: "", monthlySupplyCapacity: "", leadTime: "", certifications: "", applications: "", hsCode: "", gradeQuality: "", sampleRequired: "No", paymentTerms: "", lastDestination: "", shipping: "" };
-  const emptyExport = { countryOfOrigin: "Bangladesh", brand: "", gradeQuality: "", specifications: "", availableSizes: "", packaging: "", minOrderQuantity: "", monthlySupplyCapacity: "", exportMarkets: "", certifications: "", applications: "", hsCode: "", sampleGiven: "No", paymentTerms: "", shipping: "", sku: "", leadTime: "", stockStatus: "Available" };
+  const emptyImport = { countryOfOrigin: "", brand: "", specifications: "", availableSizes: "", packaging: "", minOrderQuantity: "", supplyCapacity: "", leadTime: "", certifications: "", applications: "", hsCode: "", gradeQuality: "", sampleRequired: "No", paymentTerms: "", lastDestination: "", shipping: "" };
+  const emptyExport = { countryOfOrigin: "Bangladesh", brand: "", gradeQuality: "", specifications: "", availableSizes: "", packaging: "", minOrderQuantity: "", exportMarkets: "", certifications: "", applications: "", hsCode: "", sampleGiven: "No", paymentTerms: "", shipping: "", sku: "", leadTime: "", stockStatus: "Available" };
   const emptySupply = { brand: "", specifications: "", availableSizesVariants: "", packaging: "", stockStatus: "Available", minOrderQuantity: "", monthlySupplyCapacity: "", supplyCoverage: "", deliveryTime: "", applications: "", hsCode: "", gradeQuality: "", sampleGiven: "No", paymentTerms: "", certifications: "", shipping: "", sku: "", leadTime: "" };
 
   const [formData, setFormData] = useState({
@@ -85,7 +85,7 @@ export default function ProductsAdminContent() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`${API_URL}/products`);
+      const res = await fetch(`${API_BASE}/products`);
       const data = await res.json();
       setProducts(data.data || []);
     } catch (error) {
@@ -98,7 +98,7 @@ export default function ProductsAdminContent() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch(`${API_URL}/categories`);
+      const res = await fetch(`${API_BASE}/categories`);
       const data = await res.json();
       setCategories(data.data || []);
     } catch (error) {
@@ -125,7 +125,7 @@ export default function ProductsAdminContent() {
 
     setCreatingCategory(true);
     try {
-      const res = await fetch(`${API_URL}/categories`, {
+      const res = await fetch(`${API_BASE}/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -258,8 +258,8 @@ export default function ProductsAdminContent() {
     setSubmitting(true);
 
     const url = editingId
-      ? `${API_URL}/products/${editingId}`
-      : `${API_URL}/products`;
+      ? `${API_BASE}/products/${editingId}`
+      : `${API_BASE}/products`;
 
     const method = editingId ? "PUT" : "POST";
 
@@ -317,7 +317,7 @@ export default function ProductsAdminContent() {
     }
 
     try {
-      const res = await fetch(`${API_URL}/products/${id}`, {
+      const res = await fetch(`${API_BASE}/products/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -1201,34 +1201,18 @@ export default function ProductsAdminContent() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Minimum Order Quantity (MOQ)
-                      </label>
-                      <input
-                        type="text"
-                        name="exportDetails.minOrderQuantity"
-                        value={formData.exportDetails.minOrderQuantity}
-                        onChange={handleChange}
-                        placeholder="e.g. 1,000 Pcs / 5 Metric Tons"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                        Monthly Supply Capacity
-                      </label>
-                      <input
-                        type="text"
-                        name="exportDetails.monthlySupplyCapacity"
-                        value={formData.exportDetails.monthlySupplyCapacity}
-                        onChange={handleChange}
-                        placeholder="e.g. 50,000 Pcs / Month"
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
+                      Minimum Order Quantity (MOQ)
+                    </label>
+                    <input
+                      type="text"
+                      name="exportDetails.minOrderQuantity"
+                      value={formData.exportDetails.minOrderQuantity}
+                      onChange={handleChange}
+                      placeholder="e.g. 1,000 Pcs / 5 Metric Tons"
+                      className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none"
+                    />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

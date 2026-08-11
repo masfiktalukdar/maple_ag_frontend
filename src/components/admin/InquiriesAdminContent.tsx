@@ -709,11 +709,11 @@ export default function InquiriesAdminContent() {
                   <FaPaperPlane className="text-gold" /> Send Email Response to Customer
                 </h4>
                 <textarea
-                  rows={3}
+                  rows={6}
                   value={replyMessage}
                   onChange={(e) => setReplyMessage(e.target.value)}
                   placeholder={`Write email response to ${selectedInquiry.name} (${selectedInquiry.email})...`}
-                  className="admin-input resize-none !bg-white"
+                  className="admin-input resize-y !bg-white !px-3 !py-2 text-sm"
                 />
                 <div className="flex justify-end">
                   <button

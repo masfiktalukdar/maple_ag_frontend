@@ -12,7 +12,13 @@ interface ProductCardProps {
 export default function ProductCard({ product, onRequestQuote }: ProductCardProps) {
   const imgSrc = product?.imageUrl || product?.image || "/images/placeholder.svg";
 
-  const productUrl = product._id ? `/products/${product._id}` : "#";
+  const productType = (product.type || product.category || "").toLowerCase();
+  let typeQuery = "";
+  if (productType.includes("import")) typeQuery = "?type=import";
+  else if (productType.includes("export")) typeQuery = "?type=export";
+  else if (productType.includes("supply")) typeQuery = "?type=supply";
+
+  const productUrl = product._id ? `/products/${product._id}${typeQuery}` : "#";
 
   const CardContent = (
     <div className="group flex flex-col bg-[#fdfaf6] border border-stone/20 overflow-hidden h-full">

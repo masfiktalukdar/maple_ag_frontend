@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaSpinner, FaTags } from "react-icons/fa";
-import { getAuthToken, API_URL } from "@/lib/api";
+import { getAuthToken, API_BASE } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 
 interface Category {
@@ -22,7 +22,7 @@ export default function CategoriesAdminContent() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch(`${API_URL}/categories`);
+      const res = await fetch(`${API_BASE}/categories`);
       const data = await res.json();
       setCategories(data.data || []);
     } catch (error) {
@@ -73,8 +73,8 @@ export default function CategoriesAdminContent() {
 
     setSubmitting(true);
     const url = editingId
-      ? `${API_URL}/categories/${editingId}`
-      : `${API_URL}/categories`;
+      ? `${API_BASE}/categories/${editingId}`
+      : `${API_BASE}/categories`;
     const method = editingId ? "PUT" : "POST";
 
     try {
@@ -109,7 +109,7 @@ export default function CategoriesAdminContent() {
     if (!token) return toast.error("Unauthorized");
 
     try {
-      const res = await fetch(`${API_URL}/categories/${id}`, {
+      const res = await fetch(`${API_BASE}/categories/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -8,7 +8,7 @@ import { services } from "@/data/services";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTABanner from "@/components/shared/CTABanner";
 import SafeImage from "@/components/shared/SafeImage";
-import { API_URL, fetchApi } from "@/lib/api";
+import { API_BASE, fetchApi } from "@/lib/api";
 import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -62,7 +62,7 @@ export default function ServicesPageContent() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch(`${API_URL}/services`)
+    fetch(`${API_BASE}/services`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data && data.data && Array.isArray(data.data)) {
@@ -71,7 +71,7 @@ export default function ServicesPageContent() {
       })
       .catch((err) => console.error("Failed to fetch service stats:", err));
 
-    fetch(`${API_URL}/services/headers`)
+    fetch(`${API_BASE}/services/headers`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data && data.data && Array.isArray(data.data)) {

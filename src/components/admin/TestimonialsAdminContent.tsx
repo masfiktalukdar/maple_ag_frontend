@@ -9,7 +9,7 @@ import {
   FaSpinner,
   FaQuoteLeft
 } from "react-icons/fa";
-import { getAuthToken, API_URL } from "@/lib/api";
+import { getAuthToken, API_BASE } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 
 interface Testimonial {
@@ -36,7 +36,7 @@ export default function TestimonialsAdminContent() {
 
   const fetchTestimonials = async () => {
     try {
-      const res = await fetch(`${API_URL}/testimonials`);
+      const res = await fetch(`${API_BASE}/testimonials`);
       const data = await res.json();
       setTestimonials(data.data || []);
     } catch (error) {
@@ -87,8 +87,8 @@ export default function TestimonialsAdminContent() {
     }
 
     const url = editingId
-      ? `${API_URL}/testimonials/${editingId}`
-      : `${API_URL}/testimonials`;
+      ? `${API_BASE}/testimonials/${editingId}`
+      : `${API_BASE}/testimonials`;
 
     const method = editingId ? "PUT" : "POST";
 
@@ -128,7 +128,7 @@ export default function TestimonialsAdminContent() {
     }
 
     try {
-      const res = await fetch(`${API_URL}/testimonials/${id}`, {
+      const res = await fetch(`${API_BASE}/testimonials/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
