@@ -41,7 +41,14 @@ const navItems: NavItem[] = [
     ]
   },
   { label: "Services", href: "/admin/services", icon: FaConciergeBell },
-  { label: "Products", href: "/admin/products", icon: FaBoxOpen },
+  {
+    label: "Products",
+    icon: FaBoxOpen,
+    subItems: [
+      { label: "Manage Products", href: "/admin/products" },
+      { label: "Categories", href: "/admin/products/categories" },
+    ]
+  },
   { label: "Global Network", href: "/admin/network", icon: FaGlobeAmericas },
   { label: "Testimonials", href: "/admin/testimonials", icon: FaComments },
   { label: "Inquiries", href: "/admin/inquiries", icon: FaEnvelope },

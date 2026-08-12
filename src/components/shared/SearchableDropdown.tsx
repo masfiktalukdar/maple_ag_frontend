@@ -30,7 +30,7 @@ export default function SearchableDropdown({ options, value, onChange, placehold
   }, []);
 
   return (
-    <div className="relative w-full max-w-sm" ref={dropdownRef}>
+    <div className={`relative w-full max-w-sm ${isOpen ? 'z-50' : 'z-10'}`} ref={dropdownRef}>
       <div 
         className="flex items-center justify-between w-full px-5 py-3.5 bg-ivory border border-stone/50 rounded-sm cursor-pointer shadow-sm hover:border-gold/50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function CategoriesAdminPage() {
+export default function MisspelledCategoriesAdminPage() {
   redirect("/admin/products/categories");
 }

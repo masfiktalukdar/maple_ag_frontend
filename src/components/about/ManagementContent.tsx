@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTABanner from "@/components/shared/CTABanner";
+import RichTextRenderer from "@/components/shared/RichTextRenderer";
 import { teamMembers } from "@/data/content";
 import { IMAGES } from "@/constants/images";
 
@@ -59,9 +60,10 @@ export default function ManagementContent({ team = [] }: { team?: any[] }) {
                     <p className="text-sm uppercase tracking-widest text-gold font-bold mb-6">
                       {member.position || member.title}
                     </p>
-                    <p className="text-text-muted leading-relaxed text-lg mb-8 max-w-3xl">
-                      {member.description || member.bio}
-                    </p>
+                    <RichTextRenderer 
+                      content={member.description || member.bio} 
+                      className="text-text-muted leading-relaxed text-lg mb-8 max-w-3xl" 
+                    />
 
                     <div className="flex gap-3 mt-auto">
                       {member.email && (

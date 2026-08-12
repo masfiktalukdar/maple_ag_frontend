@@ -5,6 +5,7 @@ import { fetchApi } from "@/lib/api";
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaUsers } from "react-icons/fa";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 interface TeamMember {
   _id: string;
@@ -224,11 +225,10 @@ export default function ManagementAdminContent() {
 
                 <div>
                   <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-1.5">Description (Bio)</label>
-                  <textarea
-                    required
+                  <RichTextEditor
                     value={formData.description}
-                    onChange={e => setFormData({ ...formData, description: e.target.value })}
-                    className="admin-input h-24 resize-none"
+                    onChange={val => setFormData({ ...formData, description: val })}
+                    placeholder="Enter management bio..."
                   />
                 </div>
 

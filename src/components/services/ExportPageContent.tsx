@@ -55,9 +55,13 @@ export default function ExportPageContent({ products: exportProducts, networkCat
   // Category Filtering State
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const categories = useMemo(() => {
+    if (categoryItems && categoryItems.length > 0) {
+      const cats = new Set(categoryItems.map((c: any) => c.name || c.title));
+      return ["All Categories", ...Array.from(cats)].sort() as string[];
+    }
     const cats = new Set(exportProducts.map(p => p.category));
-    return ["All Categories", ...Array.from(cats)].sort();
-  }, [exportProducts]);
+    return ["All Categories", ...Array.from(cats)].sort() as string[];
+  }, [exportProducts, categoryItems]);
 
   const filteredProducts = useMemo(() => {
     if (selectedCategory === "All Categories") return exportProducts;
@@ -182,6 +186,7 @@ export default function ExportPageContent({ products: exportProducts, networkCat
       )}
 
       {/* What We Handle (Categories) */}
+      {categoryItems.length > 0 && (
       <section className="section-padding bg-ivory">
         <div className="container-wide">
           <FadeIn>
@@ -189,22 +194,27 @@ export default function ExportPageContent({ products: exportProducts, networkCat
               eyebrow="WHAT WE HANDLE"
               title="Export Categories"
             />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mt-10 max-w-5xl mx-auto">
-              {(categoryItems.length > 0 ? categoryItems : service.items.map(title => ({ title, imageUrl: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=600&q=80' }))).map((item: any, i: number) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-10 max-w-5xl mx-auto">
+              {categoryItems.map((item: any, i: number) => (
                 <div
-                  key={item._id || item.id || i}
-                  className="bg-white border border-stone-200/80 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-gold/60 transition-all duration-300 group flex flex-col cursor-pointer"
+                  key={item._id || i}
+                  onClick={() => {
+                    setSelectedCategory(item.name || item.title);
+                    setCurrentPage(1);
+                    document.getElementById('product-catalog')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="bg-[#fdfaf6] border border-stone-300/80 overflow-hidden shadow-xs hover:shadow-lg hover:-translate-y-1 hover:border-gold transition-all duration-300 group flex flex-col cursor-pointer"
                 >
-                  <div className="relative h-44 sm:h-48 w-full bg-stone-100 overflow-hidden">
+                  <div className="relative aspect-[4/3] w-full bg-stone-100 overflow-hidden">
                     <SafeImage
-                      src={item.imageUrl || item.image || "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=600&q=80"}
-                      alt={item.title || item.name || item}
+                      src={item.imageUrl}
+                      alt={item.name || item.title || "Category"}
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="py-3 px-3.5 text-center bg-white border-t border-stone-100 flex-1 flex items-center justify-center">
-                    <h4 className="font-serif text-base sm:text-lg font-semibold text-brand group-hover:text-gold transition-colors duration-200 leading-snug">
-                      {item.title || item.name || item}
+                  <div className="py-3 px-3 text-center bg-white border-t border-stone-200/60 flex-1 flex items-center justify-center">
+                    <h4 className="font-serif text-sm sm:text-base font-semibold text-brand group-hover:text-gold transition-colors duration-200 leading-snug">
+                      {item.name || item.title}
                     </h4>
                   </div>
                 </div>
@@ -213,6 +223,7 @@ export default function ExportPageContent({ products: exportProducts, networkCat
           </FadeIn>
         </div>
       </section>
+      )}
 
       {/* Partners / Who do we export to */}
       {partners && partners.length > 0 && (
@@ -228,7 +239,7 @@ export default function ExportPageContent({ products: exportProducts, networkCat
       )}
 
       {/* Products Display with Pagination */}
-      <section className="section-padding bg-warm-white">
+      <section id="product-catalog" className="section-padding bg-warm-white">
         <div className="container-wide">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>

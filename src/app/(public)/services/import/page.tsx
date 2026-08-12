@@ -36,9 +36,9 @@ async function getPartners() {
   }
 }
 
-async function getCategoryItems() {
+async function getCategories() {
   try {
-    const res = await fetch(`${API_BASE}/services/category-items`, { cache: 'no-store' });
+    const res = await fetch(`${API_BASE}/categories?type=import`, { cache: 'no-store' });
     if (!res.ok) return [];
     const data = await res.json();
     return data.data || [];
@@ -53,15 +53,13 @@ export default async function Page() {
   const networkCategory = await getNetworkCategory('Import');
   const partners = await getPartners();
   const importPartners = partners.filter((p: any) => p.category === 'import');
-  const categoryItems = await getCategoryItems();
-  const importCategoryItems = categoryItems.filter((c: any) => c.category === 'import');
+  const categoryItems = await getCategories();
   return (
     <ImportPageContent
       products={importItems}
       networkCategory={networkCategory}
       partners={importPartners}
-      categoryItems={importCategoryItems}
+      categoryItems={categoryItems}
     />
   );
 }
-

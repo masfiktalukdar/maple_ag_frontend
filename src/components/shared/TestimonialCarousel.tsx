@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaSpinner } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaSpinner } from "react-icons/fa";
 import { API_BASE } from "@/lib/api";
+import RichTextRenderer from "@/components/shared/RichTextRenderer";
 
 interface Testimonial {
   _id: string;
@@ -115,9 +116,10 @@ export default function TestimonialCarousel() {
               key={t._id}
               className="flex flex-col justify-between bg-white/40 backdrop-blur-sm p-3 md:p-5 rounded-sm border border-brand/10 shadow-xs hover:border-gold/30 hover:bg-white/60 transition-all duration-300"
             >
-              <blockquote className="font-serif text-lg md:text-xl text-brand italic leading-relaxed font-light">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
+              <RichTextRenderer 
+                content={t.quote} 
+                className="font-serif text-lg md:text-xl text-brand italic leading-relaxed font-light" 
+              />
 
               <div className="mt-6">
                 <p className="text-base font-semibold text-brand">{t.authorName}</p>

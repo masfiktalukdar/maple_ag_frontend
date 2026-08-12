@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { getAuthToken, API_BASE } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 interface Testimonial {
   _id: string;
@@ -281,12 +282,9 @@ export default function TestimonialsAdminContent() {
                   <label className="block text-sm font-semibold text-stone-700 mb-1.5">
                     Message (Quote) <span className="text-red-500">*</span>
                   </label>
-                  <textarea
-                    required
-                    rows={4}
+                  <RichTextEditor
                     value={formData.quote}
-                    onChange={(e) => setFormData({ ...formData, quote: e.target.value })}
-                    className="admin-input resize-none"
+                    onChange={val => setFormData({ ...formData, quote: val })}
                     placeholder="Enter the testimonial message..."
                   />
                 </div>

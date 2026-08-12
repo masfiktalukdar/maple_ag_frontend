@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { fetchApi } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 import {
   FaSearch,
   FaFilter,
@@ -708,12 +709,11 @@ export default function InquiriesAdminContent() {
                 <h4 className="text-xs font-bold uppercase tracking-wider text-brand flex items-center gap-2">
                   <FaPaperPlane className="text-gold" /> Send Email Response to Customer
                 </h4>
-                <textarea
-                  rows={6}
+                <RichTextEditor
                   value={replyMessage}
-                  onChange={(e) => setReplyMessage(e.target.value)}
+                  onChange={(val) => setReplyMessage(val)}
                   placeholder={`Write email response to ${selectedInquiry.name} (${selectedInquiry.email})...`}
-                  className="admin-input resize-y !bg-white !px-3 !py-2 text-sm"
+                  className="bg-white"
                 />
                 <div className="flex justify-end">
                   <button

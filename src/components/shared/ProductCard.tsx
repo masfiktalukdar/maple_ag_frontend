@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SafeImage from "@/components/shared/SafeImage";
+import RichTextRenderer from "@/components/shared/RichTextRenderer";
 import type { Product } from "@/data/products";
 import { IMAGES } from "@/constants/images";
 
@@ -50,9 +51,11 @@ export default function ProductCard({ product, onRequestQuote }: ProductCardProp
         <h3 className="font-serif text-xl text-brand font-semibold mb-2 line-clamp-2">
           {product.name}
         </h3>
-        <p className="text-text-muted text-sm leading-relaxed line-clamp-3 mb-4 flex-grow">
-          {product.description}
-        </p>
+        <RichTextRenderer 
+          content={product.description} 
+          className="text-text-muted text-sm leading-relaxed mb-4 flex-grow"
+          clampLines={3}
+        />
 
         {/* CTA */}
         <div className="mt-auto">

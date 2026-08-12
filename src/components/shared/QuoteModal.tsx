@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { FaTimes, FaCheckCircle, FaPaperPlane, FaPaperclip, FaFileAlt } from "react-icons/fa";
 import { API_BASE } from "@/lib/api";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 interface QuoteModalProps {
   isOpen?: boolean;
@@ -164,9 +165,9 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
 
   return (
     <div className="fixed inset-0 bg-brand/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-auto overflow-hidden max-h-[90vh] flex flex-col border border-stone-200">
+      <div className="bg-white w-full max-w-2xl max-h-[90vh] sm:max-h-[85vh] rounded-xl shadow-2xl overflow-hidden flex flex-col relative animate-slideUp">
         {/* Header */}
-        <div className="flex justify-between items-center px-5 py-2.5 md:px-6 md:py-3 border-b border-stone-100 bg-stone-50/80 shrink-0">
+        <div className="px-4 py-3 md:px-6 md:py-4 border-b border-stone-100 flex justify-between items-center bg-white shrink-0">
           <h3 className="text-lg font-bold font-serif text-brand line-clamp-1">
             {isImport ? `Submit an Enquiry: ${product.name}` : isExport ? `Submit a Quote: ${product.name}` : `Request Quote: ${product.name}`}
           </h3>
@@ -180,13 +181,13 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
         </div>
 
         {/* Content */}
-        <div className="overflow-y-auto px-5 py-3 md:px-6 md:py-4 flex-1">
+        <div className="overflow-y-auto px-4 py-4 md:px-6 md:py-6 flex-1">
           {submitted ? (
             <div className="text-center py-10 px-4">
               <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 <FaCheckCircle />
               </div>
-              <h4 className="font-serif text-2xl font-bold text-brand mb-2">
+              <h4 className="font-serif text-2xl font-bold text-brand mb-2 text-center">
                 {isImport ? "Enquiry Sent!" : isExport ? "Quote Sent!" : "Quote Request Sent!"}
               </h4>
               <p className="text-stone-600 max-w-md mx-auto text-sm leading-relaxed mb-6">
@@ -420,13 +421,10 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Enquiry *</label>
-                      <textarea
-                        required
-                        rows={6}
+                      <RichTextEditor
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        onChange={(val) => setFormData({ ...formData, message: val })}
                         placeholder="Please enter your detailed import enquiry and requirements here..."
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none resize-none"
                       />
                     </div>
                   </div>
@@ -560,13 +558,10 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
 
                     <div>
                       <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Enquiry *</label>
-                      <textarea
-                        required
-                        rows={6}
+                      <RichTextEditor
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Please enter your detailed quote requirements here..."
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none resize-none"
+                        onChange={(val) => setFormData({ ...formData, message: val })}
+                        placeholder="Please enter your detailed export requirements here..."
                       />
                     </div>
                   </div>
@@ -692,13 +687,10 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
 
                     <div>
                       <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">Enquiry *</label>
-                      <textarea
-                        required
-                        rows={6}
+                      <RichTextEditor
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        onChange={(val) => setFormData({ ...formData, message: val })}
                         placeholder="Please enter your detailed quote requirements here..."
-                        className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 focus:border-gold outline-none resize-none"
                       />
                     </div>
                   </div>
@@ -710,7 +702,7 @@ export default function QuoteModal({ isOpen = true, product, defaultInquiryType,
 
         {/* Footer */}
         {!submitted && (
-          <div className="px-5 py-2.5 md:px-6 md:py-3 border-t border-stone-100 bg-stone-50/80 flex justify-end gap-3 shrink-0">
+          <div className="px-4 py-2.5 md:px-6 md:py-3 border-t border-stone-100 bg-stone-50/80 flex justify-end gap-3 shrink-0">
             <button
               type="button"
               onClick={onClose}

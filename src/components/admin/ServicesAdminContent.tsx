@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { fetchApi } from "@/lib/api";
-import { FaPlus, FaEdit, FaTrash, FaTimes, FaHeading, FaImage, FaThLarge } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash, FaTimes, FaHeading, FaImage } from "react-icons/fa";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
 
@@ -27,17 +27,10 @@ interface ServicePartnerData {
   imageUrl: string;
 }
 
-interface ServiceCategoryItemData {
-  _id: string;
-  category: "import" | "export" | "supply";
-  title: string;
-  imageUrl: string;
-}
-
-const CATEGORIES: Record<"import" | "export" | "supply", { title: string; desc: string; categorySectionTitle: string }> = {
-  import: { title: "Import Services Section", desc: "Heading, subheading, stats, category cards & partners for Import", categorySectionTitle: "Import Categories" },
-  export: { title: "Export Services Section", desc: "Heading, subheading, stats, category cards & partners for Export", categorySectionTitle: "Export Categories" },
-  supply: { title: "Supply Services Section", desc: "Heading, subheading, stats, category cards & partners for Supply", categorySectionTitle: "Supply Chain Services" },
+const CATEGORIES: Record<"import" | "export" | "supply", { title: string; desc: string }> = {
+  import: { title: "Import Services Section", desc: "Heading, subheading, stats & partners for Import" },
+  export: { title: "Export Services Section", desc: "Heading, subheading, stats & partners for Export" },
+  supply: { title: "Supply Services Section", desc: "Heading, subheading, stats & partners for Supply" },
 };
 
 export default function ServicesAdminContent() {
@@ -46,7 +39,7 @@ export default function ServicesAdminContent() {
   const [stats, setStats] = useState<ServiceStat[]>([]);
   const [headers, setHeaders] = useState<ServiceHeaderData[]>([]);
   const [partners, setPartners] = useState<ServicePartnerData[]>([]);
-  const [categoryItems, setCategoryItems] = useState<ServiceCategoryItemData[]>([]);
+
   const [loading, setLoading] = useState(true);
   const toast = useToast();
 
@@ -68,25 +61,18 @@ export default function ServicesAdminContent() {
   const [partnerFormData, setPartnerFormData] = useState({ name: "" });
   const [partnerImageFile, setPartnerImageFile] = useState<File | null>(null);
 
-  // Category Item Modal State
-  const [isCategoryItemModalOpen, setIsCategoryItemModalOpen] = useState(false);
-  const [editingCategoryItemId, setEditingCategoryItemId] = useState<string | null>(null);
-  const [submittingCategoryItem, setSubmittingCategoryItem] = useState(false);
-  const [categoryItemFormData, setCategoryItemFormData] = useState({ title: "" });
-  const [categoryItemImageFile, setCategoryItemImageFile] = useState<File | null>(null);
+
 
   const loadData = async () => {
     try {
-      const [statsRes, headersRes, partnersRes, categoryItemsRes] = await Promise.all([
+      const [statsRes, headersRes, partnersRes] = await Promise.all([
         fetchApi("/services"),
         fetchApi("/services/headers"),
         fetchApi("/services/partners"),
-        fetchApi("/services/category-items"),
       ]);
       setStats(statsRes.data || []);
       setHeaders(headersRes.data || []);
       setPartners(partnersRes.data || []);
-      setCategoryItems(categoryItemsRes.data || []);
     } catch (error) {
       console.error(error);
       toast.error("Failed to load services data.");
@@ -106,7 +92,7 @@ export default function ServicesAdminContent() {
     description: "",
   };
   const activePartners = partners.filter((p) => p.category === activeTab);
-  const activeCategoryItems = categoryItems.filter((c) => c.category === activeTab);
+
   const activeCategoryDetails = CATEGORIES[activeTab];
 
   // Stat Handlers
@@ -263,68 +249,7 @@ export default function ServicesAdminContent() {
     }
   };
 
-  // Category Item Handlers
-  const openCategoryItemModal = (item?: ServiceCategoryItemData) => {
-    if (!item && activeCategoryItems.length >= 6) {
-      toast.error(`Maximum 6 category cards allowed for ${activeTab} category.`);
-      return;
-    }
-    if (item) {
-      setEditingCategoryItemId(item._id);
-      setCategoryItemFormData({ title: item.title });
-    } else {
-      setEditingCategoryItemId(null);
-      setCategoryItemFormData({ title: "" });
-    }
-    setCategoryItemImageFile(null);
-    setIsCategoryItemModalOpen(true);
-  };
 
-  const closeCategoryItemModal = () => {
-    setIsCategoryItemModalOpen(false);
-    setEditingCategoryItemId(null);
-  };
-
-  const handleCategoryItemSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmittingCategoryItem(true);
-
-    try {
-      const fd = new FormData();
-      fd.append("title", categoryItemFormData.title);
-      fd.append("category", activeTab);
-      if (categoryItemImageFile) fd.append("image", categoryItemImageFile);
-
-      if (editingCategoryItemId) {
-        await fetchApi(`/services/category-items/${editingCategoryItemId}`, { method: "PUT", body: fd });
-        toast.success("Category card updated successfully");
-      } else {
-        await fetchApi("/services/category-items", { method: "POST", body: fd });
-        toast.success("Category card added successfully");
-      }
-
-      closeCategoryItemModal();
-      loadData();
-    } catch (error: any) {
-      console.error(error);
-      toast.error(error.message || "Failed to save category card.");
-    } finally {
-      setSubmittingCategoryItem(false);
-    }
-  };
-
-  const handleCategoryItemDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this category card?")) {
-      try {
-        await fetchApi(`/services/category-items/${id}`, { method: "DELETE" });
-        toast.success("Category card deleted successfully");
-        loadData();
-      } catch (error) {
-        console.error(error);
-        toast.error("Failed to delete category card.");
-      }
-    }
-  };
 
   if (loading) return <div className="p-8 text-stone-500">Loading service data...</div>;
 
@@ -339,7 +264,7 @@ export default function ServicesAdminContent() {
       <div>
         <h1 className="text-2xl font-serif text-brand font-bold mb-2">Service Section Settings</h1>
         <p className="text-sm text-stone-500">
-          Manage headings, stats, category cards, and partner logos displayed under Import, Export, and Supply sections on the public /services page.
+          Manage headings, stats, and partner logos displayed under Import, Export, and Supply sections on the public /services page. Category cards are managed from Products → Categories.
         </p>
       </div>
 
@@ -436,54 +361,7 @@ export default function ServicesAdminContent() {
           )}
         </div>
 
-        {/* Dynamic Category Cards Section (Max 6) */}
-        <div>
-          <div className="flex items-center justify-between mb-4 border-b border-stone-100 pb-3">
-            <div>
-              <h2 className="font-serif text-xl font-semibold text-brand">
-                {activeCategoryDetails.categorySectionTitle} Cards ({activeCategoryItems.length}/6 Max)
-              </h2>
-              <p className="text-xs text-text-muted mt-0.5">
-                Upload image & title for each category card displayed under "WHAT WE HANDLE".
-              </p>
-            </div>
-            <button
-              onClick={() => openCategoryItemModal()}
-              disabled={activeCategoryItems.length >= 6}
-              className="admin-btn-primary"
-            >
-              <FaPlus />
-              Add Category Card
-            </button>
-          </div>
 
-          {activeCategoryItems.length === 0 ? (
-            <div className="text-center py-6 text-stone-400 text-sm italic bg-stone-50 rounded border border-dashed border-stone-200">
-              No category cards added yet. Click "Add Category Card" to add one.
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {activeCategoryItems.map((item) => (
-                <div key={item._id} className="bg-white border border-stone-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all group flex flex-col justify-between">
-                  <div className="relative h-36 w-full bg-stone-100 overflow-hidden">
-                    <SafeImage src={item.imageUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                  </div>
-                  <div className="p-3 flex justify-between items-center gap-2 border-t border-stone-100">
-                    <span className="font-serif text-sm font-semibold text-brand line-clamp-2">{item.title}</span>
-                    <div className="flex gap-1.5 shrink-0">
-                      <button onClick={() => openCategoryItemModal(item)} className="p-1.5 text-stone-500 hover:text-brand hover:bg-stone-100 rounded transition-colors">
-                        <FaEdit size={14} />
-                      </button>
-                      <button onClick={() => handleCategoryItemDelete(item._id)} className="p-1.5 text-stone-500 hover:text-red-600 hover:bg-stone-100 rounded transition-colors">
-                        <FaTrash size={14} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
 
         {/* Partners Section */}
         <div>
@@ -672,67 +550,7 @@ export default function ServicesAdminContent() {
         </div>
       )}
 
-      {/* Add / Edit Category Item Modal */}
-      {isCategoryItemModalOpen && (
-        <div className="admin-modal-overlay">
-          <div className="admin-modal-content max-w-md">
-            <div className="admin-modal-header">
-              <h2 className="text-xl font-serif font-bold text-brand">
-                {editingCategoryItemId ? 'Edit Category Card' : 'Add New Category Card'}
-              </h2>
-              <button onClick={closeCategoryItemModal} className="text-stone-400 hover:text-stone-700 transition-colors p-2">
-                <FaTimes size={20} />
-              </button>
-            </div>
-            <div className="admin-modal-body">
-              <form id="categoryItemForm" onSubmit={handleCategoryItemSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold text-stone-700 mb-1.5">Category Title <span className="text-red-500">*</span></label>
-                  <input
-                    type="text"
-                    required
-                    value={categoryItemFormData.title}
-                    onChange={e => setCategoryItemFormData({ ...categoryItemFormData, title: e.target.value })}
-                    className="admin-input"
-                    placeholder="e.g. Industrial Machinery & Equipment"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-stone-700 mb-1.5">
-                    Category Image {editingCategoryItemId ? '(Optional)' : <span className="text-red-500">*</span>}
-                  </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={e => setCategoryItemImageFile(e.target.files?.[0] || null)}
-                    className="admin-input !p-1.5"
-                    required={!editingCategoryItemId}
-                  />
-                  <p className="text-xs text-stone-500 mt-1.5">Upload a clean image representing this category.</p>
-                </div>
-              </form>
-            </div>
-            <div className="admin-modal-footer">
-              <button
-                type="button"
-                onClick={closeCategoryItemModal}
-                className="admin-btn-secondary w-full sm:w-auto"
-                disabled={submittingCategoryItem}
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                form="categoryItemForm"
-                disabled={submittingCategoryItem}
-                className="admin-btn-primary w-full sm:w-auto"
-              >
-                {submittingCategoryItem ? 'Saving...' : 'Save Category Card'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 }

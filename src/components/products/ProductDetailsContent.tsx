@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ProductImageGallery from "@/components/products/ProductImageGallery";
 import QuoteModal from "@/components/shared/QuoteModal";
+import RichTextRenderer from "@/components/shared/RichTextRenderer";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -82,21 +83,25 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
               <h1 className="font-serif text-xl md:text-2xl text-brand font-semibold mb-2">
                 {product.name}
               </h1>
-              <div className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-2 flex-1 whitespace-pre-wrap">
-                {product.description}
+              <div className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-2 flex-1">
+                <RichTextRenderer content={product.description} />
+                
                 {product.type === "import" && product.importDetails?.specifications && (
-                  <div className="mt-2 text-stone-600 text-xs sm:text-sm">
-                    <strong className="font-bold text-brand">Specifications:</strong> {product.importDetails.specifications}
+                  <div className="mt-4">
+                    <strong className="font-bold text-brand block mb-1">Specifications:</strong> 
+                    <RichTextRenderer content={product.importDetails.specifications} />
                   </div>
                 )}
                 {product.type === "export" && product.exportDetails?.specifications && (
-                  <div className="mt-2 text-stone-600 text-xs sm:text-sm">
-                    <strong className="font-bold text-brand">Specifications:</strong> {product.exportDetails.specifications}
+                  <div className="mt-4">
+                    <strong className="font-bold text-brand block mb-1">Specifications:</strong> 
+                    <RichTextRenderer content={product.exportDetails.specifications} />
                   </div>
                 )}
                 {product.type === "supply" && product.supplyDetails?.specifications && (
-                  <div className="mt-2 text-stone-600 text-xs sm:text-sm">
-                    <strong className="font-bold text-brand">Specifications:</strong> {product.supplyDetails.specifications}
+                  <div className="mt-4">
+                    <strong className="font-bold text-brand block mb-1">Specifications:</strong> 
+                    <RichTextRenderer content={product.supplyDetails.specifications} />
                   </div>
                 )}
               </div>

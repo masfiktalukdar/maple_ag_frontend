@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import {
   FaPlus,
   FaEdit,
@@ -19,11 +20,13 @@ import {
   FaCheck,
   FaSpinner,
   FaChevronLeft,
-  FaChevronRight
+  FaChevronRight,
+  FaFilter
 } from "react-icons/fa";
 import { getAuthToken, API_BASE } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 interface Product {
   _id: string;
@@ -45,13 +48,7 @@ export default function ProductsAdminContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [categories, setCategories] = useState<{ _id: string, name: string }[]>([]);
-
-  // Quick Category Modal State
-  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-  const [newCategoryName, setNewCategoryName] = useState("");
-  const [newCategoryDesc, setNewCategoryDesc] = useState("");
-  const [creatingCategory, setCreatingCategory] = useState(false);
+  const [categories, setCategories] = useState<{ _id: string, name: string, type: string }[]>([]);
 
   // Filters, Views & Pagination
   const [searchQuery, setSearchQuery] = useState("");
@@ -110,47 +107,6 @@ export default function ProductsAdminContent() {
     fetchProducts();
     fetchCategories();
   }, []);
-
-  const handleQuickCreateCategory = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newCategoryName.trim()) {
-      toast.error("Category name is required");
-      return;
-    }
-    const token = getAuthToken();
-    if (!token) {
-      toast.error("Unauthorized");
-      return;
-    }
-
-    setCreatingCategory(true);
-    try {
-      const res = await fetch(`${API_BASE}/categories`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ name: newCategoryName.trim(), description: newCategoryDesc.trim() }),
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        toast.success("Category created!");
-        setCategories((prev) => [...prev, data.data]);
-        setFormData((prev) => ({ ...prev, category: data.data.name }));
-        setNewCategoryName("");
-        setNewCategoryDesc("");
-        setIsCategoryModalOpen(false);
-      } else {
-        toast.error(data.message || "Failed to create category");
-      }
-    } catch (err) {
-      toast.error("Network error creating category");
-    } finally {
-      setCreatingCategory(false);
-    }
-  };
 
   const openModal = (product?: Product) => {
     if (product) {
@@ -378,12 +334,6 @@ export default function ProductsAdminContent() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 self-start md:self-auto shrink-0 w-full sm:w-auto mt-4 md:mt-0">
-          <button
-            onClick={() => setIsCategoryModalOpen(true)}
-            className="admin-btn-secondary w-full sm:w-auto"
-          >
-            <FaPlus /> Add Category
-          </button>
           <button
             onClick={() => openModal()}
             className="admin-btn-primary w-full sm:w-auto"
@@ -849,13 +799,6 @@ export default function ProductsAdminContent() {
                     <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider">
                       Category *
                     </label>
-                    <button
-                      type="button"
-                      onClick={() => setIsCategoryModalOpen(true)}
-                      className="text-[11px] font-bold text-gold-dark hover:underline flex items-center gap-1 cursor-pointer"
-                    >
-                      + Create Category
-                    </button>
                   </div>
                   <select
                     name="category"
@@ -865,7 +808,7 @@ export default function ProductsAdminContent() {
                     className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none bg-white transition-shadow"
                   >
                     <option value="" disabled>Select a category</option>
-                    {categories.map((c) => (
+                    {categories.filter(c => c.type?.toLowerCase() === formData.type.toLowerCase()).map((c) => (
                       <option key={c._id} value={c.name}>{c.name}</option>
                     ))}
                   </select>
@@ -974,15 +917,11 @@ export default function ProductsAdminContent() {
                 <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
                   Product Description *
                 </label>
-                <textarea
-                  name="description"
-                  required
-                  rows={4}
+                <RichTextEditor
                   value={formData.description}
-                  onChange={handleChange}
+                  onChange={val => setFormData({ ...formData, description: val })}
                   placeholder="Provide detailed description of the product..."
-                  className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none resize-none transition-shadow"
-                ></textarea>
+                />
               </div>
 
               {/* Product Specifications & Dynamic Fields */}
@@ -1114,14 +1053,11 @@ export default function ProductsAdminContent() {
                     <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
                       Product Specifications
                     </label>
-                    <textarea
-                      name="importDetails.specifications"
-                      rows={3}
+                    <RichTextEditor
                       value={formData.importDetails.specifications}
-                      onChange={handleChange}
+                      onChange={val => setFormData({ ...formData, importDetails: { ...formData.importDetails, specifications: val } })}
                       placeholder="Technical specifications, dimensions, material details..."
-                      className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none resize-none"
-                    ></textarea>
+                    />
                   </div>
                 </div>
               ) : formData.type === "export" ? (
@@ -1310,14 +1246,11 @@ export default function ProductsAdminContent() {
                     <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
                       Product Specifications
                     </label>
-                    <textarea
-                      name="exportDetails.specifications"
-                      rows={3}
+                    <RichTextEditor
                       value={formData.exportDetails.specifications}
-                      onChange={handleChange}
+                      onChange={val => setFormData({ ...formData, exportDetails: { ...formData.exportDetails, specifications: val } })}
                       placeholder="Detailed technical specifications, fabric composition, dimensions..."
-                      className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none resize-none"
-                    ></textarea>
+                    />
                   </div>
                 </div>
               ) : (
@@ -1521,14 +1454,11 @@ export default function ProductsAdminContent() {
                     <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
                       Product Specifications
                     </label>
-                    <textarea
-                      name="supplyDetails.specifications"
-                      rows={3}
+                    <RichTextEditor
                       value={formData.supplyDetails.specifications}
-                      onChange={handleChange}
+                      onChange={val => setFormData({ ...formData, supplyDetails: { ...formData.supplyDetails, specifications: val } })}
                       placeholder="Detailed technical specifications, material composition, dimensions..."
-                      className="w-full border border-stone-300 rounded px-3.5 py-2 text-sm focus:ring-2 focus:ring-gold/50 outline-none resize-none"
-                    ></textarea>
+                    />
                   </div>
                 </div>
               )}
@@ -1612,68 +1542,7 @@ export default function ProductsAdminContent() {
           </div>
         </div>
       )}
-      {/* Quick Create Category Modal */}
-      {isCategoryModalOpen && (
-        <div className="admin-modal-overlay z-[60]">
-          <div className="admin-modal-content max-w-md">
-            <div className="admin-modal-header">
-              <h3 className="font-serif font-semibold text-brand text-base">Create New Category</h3>
-              <button
-                onClick={() => setIsCategoryModalOpen(false)}
-                className="text-stone-400 hover:text-stone-700 p-1.5 rounded-full hover:bg-stone-200 transition-colors"
-              >
-                <FaTimes />
-              </button>
-            </div>
-            <form onSubmit={handleQuickCreateCategory} className="flex flex-col flex-1 overflow-hidden">
-              <div className="admin-modal-body space-y-4">
-                <div>
-                <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Category Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={newCategoryName}
-                  onChange={(e) => setNewCategoryName(e.target.value)}
-                  placeholder="e.g., Agricultural Goods"
-                  className="admin-input"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Description
-                </label>
-                <textarea
-                  rows={2}
-                  value={newCategoryDesc}
-                  onChange={(e) => setNewCategoryDesc(e.target.value)}
-                  placeholder="Optional brief description..."
-                  className="admin-input resize-none"
-                ></textarea>
-              </div>
-              </div>
-              <div className="admin-modal-footer">
-                <button
-                  type="button"
-                  onClick={() => setIsCategoryModalOpen(false)}
-                  className="admin-btn-secondary w-full sm:w-auto"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={creatingCategory}
-                  className="admin-btn-primary w-full sm:w-auto"
-                >
-                  {creatingCategory ? <FaSpinner className="animate-spin" /> : <FaCheck />}
-                  {creatingCategory ? "Creating..." : "Save Category"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 }

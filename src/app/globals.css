@@ -246,13 +246,51 @@ body {
 }
 
 .admin-modal-header {
-  @apply flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-b border-stone-200 bg-stone-50 shrink-0;
+  @apply flex items-center justify-between px-3 sm:px-6 py-2 sm:py-3 border-b border-stone-200 bg-stone-50 shrink-0;
 }
 
 .admin-modal-body {
-  @apply p-4 sm:p-6 overflow-y-auto flex-1;
+  @apply px-3 py-4 sm:p-6 overflow-y-auto flex-1;
 }
 
 .admin-modal-footer {
-  @apply px-4 sm:px-6 py-4 border-t border-stone-200 bg-stone-50 flex flex-col-reverse sm:flex-row justify-end gap-3 shrink-0;
+  @apply px-3 sm:px-6 py-2 sm:py-3 border-t border-stone-200 bg-stone-50 flex flex-col-reverse sm:flex-row justify-end gap-3 shrink-0;
+}
+
+/* Rich Text Editor & Renderer Styles */
+.ProseMirror {
+  @apply outline-none w-full min-h-[150px];
+}
+
+.ProseMirror ul,
+.prose ul {
+  @apply list-disc list-outside pl-5 my-2;
+}
+
+.ProseMirror ol,
+.prose ol {
+  @apply list-decimal list-outside pl-5 my-2;
+}
+
+.ProseMirror li,
+.prose li {
+  @apply my-1;
+}
+
+.ProseMirror li p,
+.prose li p {
+  @apply m-0 inline;
+}
+
+.ProseMirror mark,
+.prose mark {
+  @apply bg-yellow-200 rounded px-1;
+}
+
+/* Reusable renderer prose adjustments */
+.prose p {
+  @apply mb-2;
+}
+.prose p:last-child {
+  @apply mb-0;
 }
