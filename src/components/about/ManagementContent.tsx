@@ -5,6 +5,7 @@ import Image from "next/image";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTABanner from "@/components/shared/CTABanner";
 import { teamMembers } from "@/data/content";
+import { IMAGES } from "@/constants/images";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -28,7 +29,7 @@ export default function ManagementContent({ team = [] }: { team?: any[] }) {
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 min-h-[400px] flex items-center">
         <div className="absolute inset-0">
-          <Image src="/images/warehouse-interior.png" alt="Warehouse interior" fill className="object-cover" priority />
+          <Image src={IMAGES.WAREHOUSE_INTERIOR} alt="Warehouse interior" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/85" />
         </div>
         <div className="container-wide relative z-10 text-center">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { IMAGES } from "@/constants/images";
 import {
   FaChartPie,
   FaBoxOpen,
@@ -196,7 +197,7 @@ export default function AdminSidebar({
             <div className="flex items-center gap-3">
               <div className="w-7 h-7 relative flex items-center justify-center shrink-0">
                 <Image
-                  src="/images/maple-logo.png"
+                  src={IMAGES.MAPLE_LOGO}
                   alt="Logo"
                   fill
                   sizes="28px"
@@ -280,7 +281,7 @@ export default function AdminSidebar({
         {!isCollapsed && (
           <div className="w-8 h-8 relative flex items-center justify-center">
             <Image
-              src="/images/maple-logo.png"
+              src={IMAGES.MAPLE_LOGO}
               alt="Logo"
               fill
               sizes="32px"

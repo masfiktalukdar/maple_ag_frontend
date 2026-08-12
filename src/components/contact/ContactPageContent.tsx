@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { IMAGES } from "@/constants/images";
 import { companyInfo as fallbackCompanyInfo } from "@/data/siteData";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
@@ -126,7 +127,7 @@ function ContactContent() {
     <>
       <section className="relative pt-32 pb-24 min-h-[400px] flex items-center bg-brand text-white">
         <div className="absolute inset-0">
-          <Image src="/images/hero-port.png" alt="Contact Us" fill className="object-cover" priority />
+          <Image src={IMAGES.HERO_PORT} alt="Contact Us" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
         </div>
         <div className="container-wide relative z-10">

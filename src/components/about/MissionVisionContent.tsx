@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTABanner from "@/components/shared/CTABanner";
 import { useGlobalSettings } from "@/context/GlobalSettingsContext";
+import { IMAGES } from "@/constants/images";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -35,7 +36,7 @@ export default function MissionVisionContent({ goals = [] }: { goals?: any[] }) 
     <>
       <section className="relative pt-32 pb-24 min-h-[400px] flex items-center bg-brand text-white">
         <div className="absolute inset-0">
-          <Image src="/images/cargo-ship.png" alt="Mission and Vision" fill className="object-cover" priority />
+          <Image src={IMAGES.CARGO_SHIP} alt="Mission and Vision" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
         </div>
         <div className="container-wide relative z-10">

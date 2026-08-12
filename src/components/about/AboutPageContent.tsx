@@ -11,6 +11,7 @@ import SafeImage from "@/components/shared/SafeImage";
 import ImageModal from "@/components/shared/ImageModal";
 import { useState } from "react";
 import { useGlobalSettings } from "@/context/GlobalSettingsContext";
+import { IMAGES } from "@/constants/images";
 
 function FadeIn({
   children,
@@ -51,7 +52,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
       {/* Page Header (Hero) */}
       <section className="relative pt-32 pb-24 min-h-[500px] flex items-center">
         <div className="absolute inset-0">
-          <Image src="/images/warehouse-interior.png" alt="Company Warehouse Operations" fill className="object-cover" priority />
+          <Image src={IMAGES.WAREHOUSE_INTERIOR} alt="Company Warehouse Operations" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
         </div>
         <div className="container-wide relative z-10 text-center">
@@ -104,7 +105,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
             <FadeIn delay={0.2}>
               <div className="relative rounded-sm overflow-hidden aspect-[3/4]">
                 <Image
-                  src="/images/warehouse-interior.png"
+                  src={IMAGES.WAREHOUSE_INTERIOR}
                   alt={`${companyName} warehouse operations`}
                   fill
                   className="object-cover"

@@ -10,6 +10,7 @@ import CTABanner from "@/components/shared/CTABanner";
 import SafeImage from "@/components/shared/SafeImage";
 import { API_BASE, fetchApi } from "@/lib/api";
 import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IMAGES } from "@/constants/images";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -47,12 +48,12 @@ interface InfrastructureItem {
 }
 
 const fallbackGalleryImages = [
-  { src: "/images/hero-port.png", alt: "Shipping port operations" },
-  { src: "/images/warehouse-interior.png", alt: "Warehouse interior" },
-  { src: "/images/container-trucks.png", alt: "Container truck fleet" },
-  { src: "/images/cargo-ship.png", alt: "Cargo ship at sea" },
-  { src: "/images/import-machinery.png", alt: "Machinery import operations" },
-  { src: "/images/agro-products.png", alt: "Agricultural products" },
+  { src: IMAGES.HERO_PORT, alt: "Shipping port operations" },
+  { src: IMAGES.WAREHOUSE_INTERIOR, alt: "Warehouse interior" },
+  { src: IMAGES.CONTAINER_TRUCKS, alt: "Container truck fleet" },
+  { src: IMAGES.CARGO_SHIP, alt: "Cargo ship at sea" },
+  { src: IMAGES.IMPORT_MACHINERY, alt: "Machinery import operations" },
+  { src: IMAGES.AGRO_PRODUCTS, alt: "Agricultural products" },
 ];
 
 export default function ServicesPageContent() {
@@ -120,7 +121,7 @@ export default function ServicesPageContent() {
       {/* Page Header (Hero) */}
       <section className="relative pt-32 pb-24 min-h-[500px] flex items-center">
         <div className="absolute inset-0">
-          <Image src="/images/cargo-ship.png" alt="Global Trade Services" fill className="object-cover" priority />
+          <Image src={IMAGES.CARGO_SHIP} alt="Global Trade Services" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
         </div>
         <div className="container-wide relative z-10 text-center">

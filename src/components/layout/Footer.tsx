@@ -7,6 +7,7 @@ import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa
 import { navLinks, companyInfo as fallbackCompanyInfo } from "@/data/siteData";
 import { fetchApi, formatExternalUrl } from "@/lib/api";
 import { useGlobalSettings } from "@/context/GlobalSettingsContext";
+import { IMAGES } from "@/constants/images";
 
 export default function Footer() {
   const [contactData, setContactData] = useState<any>(null);
@@ -46,7 +47,7 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-3">
               <div className="w-12 h-12 relative flex items-center justify-center">
                 <Image
-                  src="/images/maple-logo.png"
+                  src={IMAGES.MAPLE_LOGO}
                   alt={`${companyName} Logo`}
                   fill
                   sizes="160px"

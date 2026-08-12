@@ -7,6 +7,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import CTABanner from "@/components/shared/CTABanner";
 import TestimonialCarousel from "@/components/shared/TestimonialCarousel";
 import CategoryNetworkSection, { INetworkCategory } from "./CategoryNetworkSection";
+import { IMAGES } from "@/constants/images";
 
 function FadeIn({
   children,
@@ -31,10 +32,10 @@ function FadeIn({
 }
 
 const processImages = [
-  "/images/agro-products.png",
-  "/images/warehouse-interior.png",
-  "/images/cargo-ship.png",
-  "/images/container-trucks.png",
+  IMAGES.AGRO_PRODUCTS,
+  IMAGES.WAREHOUSE_INTERIOR,
+  IMAGES.CARGO_SHIP,
+  IMAGES.CONTAINER_TRUCKS,
 ];
 
 export default function GlobalNetworkContent({ networkData = [] }: { networkData?: INetworkCategory[] }) {
@@ -47,7 +48,7 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 min-h-[400px] flex items-center">
         <div className="absolute inset-0">
-          <Image src="/images/hero-port.png" alt="Shipping port operations" fill className="object-cover" priority />
+          <Image src={IMAGES.HERO_PORT} alt="Shipping port operations" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/85" />
         </div>
         <div className="container-wide relative z-10 text-center">

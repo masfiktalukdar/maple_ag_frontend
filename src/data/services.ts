@@ -1,3 +1,5 @@
+import { IMAGES } from "@/constants/images";
+
 export interface Service {
   id: string;
   title: string;
@@ -16,7 +18,7 @@ export const services: Service[] = [
     headline: "Sourcing the World for Bangladesh",
     description:
       "We streamline the import of industrial machinery, raw materials, chemicals, and consumer goods from global suppliers into Bangladesh. Our established relationships with manufacturers across Asia, Europe, and the Middle East ensure competitive pricing, quality assurance, and reliable logistics from origin to destination.",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     items: [
       "Industrial Machinery & Equipment",
       "Raw Materials & Chemicals",
@@ -43,7 +45,7 @@ export const services: Service[] = [
     headline: "Bangladesh's Finest, Delivered Worldwide",
     description:
       "We connect Bangladeshi manufacturers and producers with international buyers across Europe, the Middle East, East Asia, and North America. From textiles and garments to agricultural products and frozen foods, we handle every stage of the export process — from sourcing and quality inspection to documentation, logistics, and port-to-port delivery.",
-    image: "/images/cargo-ship.png",
+    image: IMAGES.CARGO_SHIP,
     items: [
       "Textiles & Ready-Made Garments",
       "Agricultural & Food Products",
@@ -70,7 +72,7 @@ export const services: Service[] = [
     headline: "End-to-End Supply Chain Solutions",
     description:
       "Beyond import and export, we provide comprehensive supply chain management — warehousing, inventory management, cold chain logistics, and inland distribution. Our infrastructure and partnerships ensure seamless product flow from manufacturer to market, whether domestically or internationally.",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     items: [
       "Warehousing & Storage",
       "Cold Chain Management",
@@ -97,19 +99,19 @@ export const pillars = [
   {
     title: "Import",
     description: "Sourcing machinery, raw materials, and goods from global markets to fuel Bangladesh's industries.",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     link: "/services/import",
   },
   {
     title: "Export",
     description: "Delivering Bangladesh's finest textiles, agro products, and goods to buyers across 40+ countries.",
-    image: "/images/cargo-ship.png",
+    image: IMAGES.CARGO_SHIP,
     link: "/services/export",
   },
   {
     title: "Supply",
     description: "End-to-end supply chain management — warehousing, cold chain, and distribution across the region.",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     link: "/services/supply",
   },
 ];

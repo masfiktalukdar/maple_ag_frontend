@@ -3,6 +3,7 @@
 import Link from "next/link";
 import SafeImage from "@/components/shared/SafeImage";
 import type { Product } from "@/data/products";
+import { IMAGES } from "@/constants/images";
 
 interface ProductCardProps {
   product: Product;
@@ -10,7 +11,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, onRequestQuote }: ProductCardProps) {
-  const imgSrc = product?.imageUrl || product?.image || "/images/placeholder.svg";
+  const imgSrc = product?.imageUrl || product?.image || IMAGES.PLACEHOLDER;
 
   const productType = (product.type || product.category || "").toLowerCase();
   let typeQuery = "";

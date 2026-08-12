@@ -11,32 +11,39 @@ export type ProductCategory =
   | "Machinery & Equipment";
 
 export type ProductType = "Import" | "Export" | "Supply";
+import { IMAGES } from "@/constants/images";
+
+export interface ProductSpec {
+  label: string;
+  value: string;
+}
 
 export interface Product {
-  id?: string;
   _id?: string;
+  id?: string;
   name: string;
-  category: ProductCategory | string;
-  type: ProductType | string;
+  category: string;
+  type?: "Import" | "Export" | "Supply" | string;
   image?: string;
   imageUrl?: string;
+  images?: string[];
   shortSpec?: string;
   description: string;
   origin?: string;
   applications?: string[];
-  specs?: { label: string; value: string }[];
+  specs?: ProductSpec[];
+  featured?: boolean;
 }
 
-export const productCategories: ProductCategory[] = [
-  "All",
+export const productCategories = [
+  "All Categories",
   "Textiles & Garments",
   "Agro & Food",
-  "Leather",
-  "Jute & Fiber",
-  "Handicrafts",
-  "Frozen Foods",
   "Industrial Chemicals",
   "Plastic Resins",
+  "Leather",
+  "Jute & Fiber",
+  "Frozen Foods",
   "Machinery & Equipment",
 ];
 
@@ -46,7 +53,7 @@ export const importProducts: Product[] = [
     name: "Industrial Chemicals",
     category: "Industrial Chemicals",
     type: "Import",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     shortSpec: "Bulk liquid & powder · ISO Certified",
     description: "High-grade industrial chemicals sourced globally for the textile, pharmaceutical, and manufacturing sectors. Ensuring continuous supply with rigorous quality checks.",
     origin: "China, Germany, India",
@@ -62,7 +69,7 @@ export const importProducts: Product[] = [
     name: "Plastic Resins & Polymers",
     category: "Plastic Resins",
     type: "Import",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     shortSpec: "Prime Grade HDPE/LDPE/PP/PET",
     description: "Premium plastic resins and polymers essential for packaging, injection molding, and consumer goods manufacturing. Sourced from leading petrochemical complexes.",
     origin: "Middle East, South Korea",
@@ -78,7 +85,7 @@ export const importProducts: Product[] = [
     name: "Food Grade Additives",
     category: "Agro & Food",
     type: "Import",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     shortSpec: "HACCP & Halal Certified",
     description: "Safe, high-quality food additives including preservatives, flavor enhancers, and stabilizers for the rapidly growing domestic food processing industry.",
     origin: "Europe, Southeast Asia",
@@ -94,7 +101,7 @@ export const importProducts: Product[] = [
     name: "Specialty Textile Chemicals",
     category: "Industrial Chemicals",
     type: "Import",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     shortSpec: "Oeko-Tex Standard Compliant",
     description: "Advanced textile auxiliaries, dyes, and finishing agents. We supply Bangladesh's massive RMG sector with eco-friendly chemicals that meet global standards.",
     origin: "Switzerland, Germany, China",
@@ -110,7 +117,7 @@ export const importProducts: Product[] = [
     name: "Metal Raw Materials",
     category: "Machinery & Equipment",
     type: "Import",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     shortSpec: "Steel Billets, Aluminum Ingots",
     description: "Essential metal raw materials feeding into the construction, automotive, and heavy industry sectors. Consistent quality and reliable delivery timelines.",
     origin: "Ukraine, UAE, India",
@@ -126,7 +133,7 @@ export const importProducts: Product[] = [
     name: "Advanced Packaging Materials",
     category: "Plastic Resins",
     type: "Import",
-    image: "/images/import-machinery.png",
+    image: IMAGES.IMPORT_MACHINERY,
     shortSpec: "BOPP Films, Specialized Foils",
     description: "High-barrier packaging materials ensuring product safety and extended shelf-life for food, pharmaceutical, and FMCG industries.",
     origin: "Taiwan, China, UAE",
@@ -145,7 +152,7 @@ export const exportProducts: Product[] = [
     name: "Cotton Knits & Ready-Made Garments",
     category: "Textiles & Garments",
     type: "Export",
-    image: "/images/textiles.png",
+    image: IMAGES.PLACEHOLDER,
     shortSpec: "BSCI-Compliant · Custom Labeling",
     description: "Premium quality cotton knit apparel manufactured in state-of-the-art facilities. Offering a full spectrum of styles for men, women, and children.",
     origin: "Dhaka & Gazipur, Bangladesh",
@@ -161,7 +168,7 @@ export const exportProducts: Product[] = [
     name: "Premium Aromatic Rice",
     category: "Agro & Food",
     type: "Export",
-    image: "/images/agro-products.png",
+    image: IMAGES.AGRO_PRODUCTS,
     shortSpec: "Sortex Cleaned · Phytosanitary Certified",
     description: "World-renowned aromatic rice varieties (Kataribhog, Kalijira) known for their distinct fragrance and fine grain. Perfect for international ethnic markets.",
     origin: "Dinajpur, Bangladesh",
@@ -177,7 +184,7 @@ export const exportProducts: Product[] = [
     name: "REACH-Compliant Finished Leather",
     category: "Leather",
     type: "Export",
-    image: "/images/leather-goods.png",
+    image: IMAGES.PLACEHOLDER,
     shortSpec: "LWG Silver Rated Tanneries",
     description: "High-quality finished bovine and goat leather exported for luxury goods manufacturing globally. Ensuring strict environmental compliance.",
     origin: "Savar Tannery Estate, Bangladesh",
@@ -193,7 +200,7 @@ export const exportProducts: Product[] = [
     name: "Eco-Friendly Jute Products",
     category: "Jute & Fiber",
     type: "Export",
-    image: "/images/jute-products.png",
+    image: IMAGES.PLACEHOLDER,
     shortSpec: "100% Biodegradable · Custom Prints",
     description: "Sustainable packaging solutions including jute shopping bags, sacks, and geo-textiles. Bangladesh is the global hub for premium 'Golden Fiber'.",
     origin: "Narayanganj & Faridpur, Bangladesh",
@@ -209,7 +216,7 @@ export const exportProducts: Product[] = [
     name: "Frozen Black Tiger Shrimp",
     category: "Frozen Foods",
     type: "Export",
-    image: "/images/frozen-seafood.png",
+    image: IMAGES.PLACEHOLDER,
     shortSpec: "IQF & Block Frozen · ASC Certified",
     description: "Premium Black Tiger Shrimp sourced from coastal aquaculture farms. Processed in EU-approved, HACCP-certified facilities for international markets.",
     origin: "Khulna & Cox's Bazar, Bangladesh",
@@ -225,7 +232,7 @@ export const exportProducts: Product[] = [
     name: "Processed Foods & Snacks",
     category: "Agro & Food",
     type: "Export",
-    image: "/images/agro-products.png",
+    image: IMAGES.AGRO_PRODUCTS,
     shortSpec: "Ready-to-eat · Halal Certified",
     description: "A diverse range of processed foods including biscuits, spices, frozen parathas, and juices, serving the global South Asian diaspora.",
     origin: "Dhaka & Chittagong, Bangladesh",
@@ -244,7 +251,7 @@ export const supplyProducts: Product[] = [
     name: "Cotton & Synthetic Yarn",
     category: "Textiles & Garments",
     type: "Supply",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     shortSpec: "Carded & Combed · Ring Spun",
     description: "Providing continuous raw material supply to knitting and weaving mills across Bangladesh. Consistent quality to keep production lines running smoothly.",
     origin: "Local Mills & Imported",
@@ -260,7 +267,7 @@ export const supplyProducts: Product[] = [
     name: "Textile Dyes & Auxiliaries",
     category: "Industrial Chemicals",
     type: "Supply",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     shortSpec: "Reactive & Disperse Dyes",
     description: "Just-in-time delivery of essential textile dyes and chemicals to dyeing factories, ensuring uninterrupted operations for export-oriented factories.",
     origin: "Global Partner Brands",
@@ -276,7 +283,7 @@ export const supplyProducts: Product[] = [
     name: "Corrugated Cartons & Trims",
     category: "Jute & Fiber",
     type: "Supply",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     shortSpec: "3-Ply & 5-Ply · Custom Prints",
     description: "Reliable supply of packaging materials, master cartons, and garment accessories delivered directly to manufacturing floors.",
     origin: "Local Manufacturing",
@@ -292,7 +299,7 @@ export const supplyProducts: Product[] = [
     name: "Recycled & Virgin Plastic Granules",
     category: "Plastic Resins",
     type: "Supply",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     shortSpec: "PP, PE, PET Grades",
     description: "Supplying the domestic plastics industry with a steady stream of raw materials for manufacturing household items, pipes, and furniture.",
     origin: "Imported & Locally Recycled",
@@ -308,7 +315,7 @@ export const supplyProducts: Product[] = [
     name: "Bulk Food Ingredients",
     category: "Agro & Food",
     type: "Supply",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     shortSpec: "Sugar, Wheat, Edible Oils",
     description: "Distributing essential bulk food commodities to large-scale food processors, bakeries, and consumer brands nationwide.",
     origin: "Global & Domestic",
@@ -324,7 +331,7 @@ export const supplyProducts: Product[] = [
     name: "Industrial Minerals & Cement Raw",
     category: "Machinery & Equipment",
     type: "Supply",
-    image: "/images/container-trucks.png",
+    image: IMAGES.CONTAINER_TRUCKS,
     shortSpec: "Clinker, Limestone, Gypsum",
     description: "Supplying heavy industries, particularly the cement manufacturing sector, with critical raw materials transported efficiently from ports to plants.",
     origin: "Middle East, SE Asia",

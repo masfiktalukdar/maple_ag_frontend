@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { IMAGES } from "@/constants/images";
 import { motion, useInView } from "framer-motion";
 import { useState, useRef } from "react";
 import { heroStats } from "@/data/siteData";
@@ -66,7 +67,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
       <section className="relative h-screen min-h-[600px] max-h-[900px] flex items-center">
         <div className="absolute inset-0">
           <Image
-            src={homeSettings?.heroImage || "/images/hero-port.png"}
+            src={homeSettings?.heroImage || IMAGES.HERO_PORT}
             alt="International shipping port at golden hour"
             fill
             sizes="100vw"

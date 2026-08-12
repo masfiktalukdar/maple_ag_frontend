@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 
+import { IMAGES } from "@/constants/images";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -13,9 +15,9 @@ export const metadata: Metadata = {
   title: "Admin Panel | Maple AG Global",
   description: "CMS for Maple AG Global",
   icons: {
-    icon: "/images/favicon.png",
-    shortcut: "/images/favicon.png",
-    apple: "/images/favicon.png",
+    icon: IMAGES.FAVICON,
+    shortcut: IMAGES.FAVICON,
+    apple: IMAGES.FAVICON,
   },
 };
 

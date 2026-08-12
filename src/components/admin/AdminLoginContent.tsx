@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { getAuthToken, API_BASE } from "@/lib/api";
 import { useGlobalSettings } from "@/context/GlobalSettingsContext";
 import SafeImage from "@/components/shared/SafeImage";
+import { IMAGES } from "@/constants/images";
 
 type ViewState = "login" | "verify_otp" | "reset_password";
 
@@ -186,7 +187,7 @@ export default function AdminLoginContent() {
         <div className="relative z-10 flex items-center gap-4">
           <div className="w-8 h-8 md:w-12 md:h-12 relative bg-white/95 backdrop-blur-md border border-white/40 rounded-2xl p-1 flex items-center justify-center shadow-xl shrink-0">
             <SafeImage
-              src="/images/maple-logo.png"
+              src={IMAGES.MAPLE_LOGO}
               alt={`${companyName} Logo`}
               className="w-full h-full object-contain"
             />

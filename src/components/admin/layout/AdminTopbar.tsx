@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { FaExternalLinkAlt, FaBars } from "react-icons/fa";
+import { IMAGES } from "@/constants/images";
 
 interface AdminTopbarProps {
   onMenuClick?: () => void;
@@ -34,7 +35,7 @@ export default function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
         {/* Logo — only on mobile/tablet */}
         <div className="lg:hidden w-7 h-7 relative shrink-0">
           <Image
-            src="/images/maple-logo.png"
+            src={IMAGES.MAPLE_LOGO}
             alt="Maple AG"
             fill
             sizes="28px"

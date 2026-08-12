@@ -3,6 +3,8 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { API_BASE } from "@/lib/api";
 
+import { IMAGES } from "@/constants/images";
+
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
@@ -35,9 +37,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `${companyName} — Import, Export & Supply Chain`,
     description: "A premier import–export and supply chain company headquartered in Dhaka, Bangladesh. Facilitating trade across 40+ countries with a commitment to quality, compliance, and reliability.",
     icons: {
-      icon: "/images/favicon.png",
-      shortcut: "/images/favicon.png",
-      apple: "/images/favicon.png",
+      icon: IMAGES.FAVICON,
+      shortcut: IMAGES.FAVICON,
+      apple: IMAGES.FAVICON,
     },
   };
 }

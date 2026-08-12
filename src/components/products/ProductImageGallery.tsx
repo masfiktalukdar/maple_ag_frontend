@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, MouseEvent } from "react";
 import SafeImage from "@/components/shared/SafeImage";
 import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
+import { IMAGES } from "@/constants/images";
 
 interface ProductImageGalleryProps {
   images?: string[];
@@ -24,7 +25,7 @@ export default function ProductImageGallery({
     new Set([mainImageUrl, ...(images || [])].filter(Boolean))
   );
   if (imageList.length === 0) {
-    imageList.push("/images/placeholder.svg");
+    imageList.push(IMAGES.PLACEHOLDER);
   }
 
   const [activeIndex, setActiveIndex] = useState(0);

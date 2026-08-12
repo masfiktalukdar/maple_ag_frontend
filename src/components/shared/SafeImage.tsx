@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
 
+import { IMAGES } from "@/constants/images";
+
 interface SafeImageProps extends Omit<ImageProps, "src" | "alt"> {
   src?: string | null;
   alt: string;
@@ -13,7 +15,7 @@ interface SafeImageProps extends Omit<ImageProps, "src" | "alt"> {
 export default function SafeImage({
   src,
   alt,
-  fallbackSrc = "/images/placeholder.svg",
+  fallbackSrc = IMAGES.PLACEHOLDER,
   useNextImage = false,
   className,
   ...props

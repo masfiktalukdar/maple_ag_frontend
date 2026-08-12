@@ -7,6 +7,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks } from "@/data/siteData";
 import { useGlobalSettings } from "@/context/GlobalSettingsContext";
+import { IMAGES } from "@/constants/images";
 
 function NavbarContent() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,7 +42,7 @@ function NavbarContent() {
                 className="w-12 h-12 relative flex items-center justify-center transition-all duration-300"
               >
                 <Image
-                  src="/images/maple-logo.png"
+                  src={IMAGES.MAPLE_LOGO}
                   alt={`${companyName} Logo`}
                   fill
                   sizes="192px"
