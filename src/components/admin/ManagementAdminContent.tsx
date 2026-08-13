@@ -15,6 +15,7 @@ interface TeamMember {
   email?: string;
   linkedin?: string;
   whatsapp?: string;
+  twitter?: string;
   imageUrl: string;
 }
 
@@ -33,6 +34,7 @@ export default function ManagementAdminContent() {
     email: "",
     linkedin: "",
     whatsapp: "",
+    twitter: "",
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -42,6 +44,7 @@ export default function ManagementAdminContent() {
       setTeam(res.data || []);
     } catch (error) {
       console.error(error);
+      toast.error("Failed to load team members");
     } finally {
       setLoading(false);
     }
@@ -61,6 +64,7 @@ export default function ManagementAdminContent() {
         email: member.email || "",
         linkedin: member.linkedin || "",
         whatsapp: member.whatsapp || "",
+        twitter: member.twitter || "",
       });
     } else {
       setEditingId(null);
@@ -71,6 +75,7 @@ export default function ManagementAdminContent() {
         email: "",
         linkedin: "",
         whatsapp: "",
+        twitter: "",
       });
     }
     setImageFile(null);
@@ -82,8 +87,16 @@ export default function ManagementAdminContent() {
     setEditingId(null);
   };
 
+  const descCharCount = (formData.description || "").replace(/<[^>]+>/g, "").trim().length;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (descCharCount > 450) {
+      toast.error("Description must be a maximum of 450 characters.");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -94,6 +107,7 @@ export default function ManagementAdminContent() {
       if (formData.email) fd.append("email", formData.email);
       if (formData.linkedin) fd.append("linkedin", formData.linkedin);
       if (formData.whatsapp) fd.append("whatsapp", formData.whatsapp);
+      if (formData.twitter) fd.append("twitter", formData.twitter);
       if (imageFile) fd.append("image", imageFile);
 
       if (editingId) {
@@ -108,7 +122,7 @@ export default function ManagementAdminContent() {
       loadTeam();
     } catch (error) {
       console.error(error);
-      toast.error("Failed to save team member.");
+      toast.error("Failed to save team member");
     } finally {
       setSubmitting(false);
     }
@@ -224,15 +238,20 @@ export default function ManagementAdminContent() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-1.5">Description (Bio)</label>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide">Description (Bio)</label>
+                    <span className={`text-xs font-semibold ${descCharCount > 450 ? 'text-red-600 font-bold' : 'text-stone-400'}`}>
+                      {descCharCount} / 450 max chars
+                    </span>
+                  </div>
                   <RichTextEditor
                     value={formData.description}
                     onChange={val => setFormData({ ...formData, description: val })}
-                    placeholder="Enter management bio..."
+                    placeholder="Enter management bio (max 450 characters)..."
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-stone-100 pt-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-stone-100 pt-5">
                   <div>
                     <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-1.5">Email (Optional)</label>
                     <input
@@ -258,6 +277,16 @@ export default function ManagementAdminContent() {
                       value={formData.whatsapp}
                       onChange={e => setFormData({ ...formData, whatsapp: e.target.value })}
                       placeholder="e.g. +8801700000000"
+                      className="admin-input"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-1.5">Twitter / X (Optional)</label>
+                    <input
+                      type="text"
+                      value={formData.twitter}
+                      onChange={e => setFormData({ ...formData, twitter: e.target.value })}
+                      placeholder="e.g. twitter.com/username"
                       className="admin-input"
                     />
                   </div>
