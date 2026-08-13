@@ -23,11 +23,11 @@ export default function NotFound() {
               <FaGlobe className="text-brand text-4xl" />
             </div>
             
-            <h1 className="text-[120px] md:text-[180px] font-serif font-bold text-brand leading-none tracking-tighter mb-4">
+            <h1 className="font-serif font-bold text-brand leading-none tracking-tighter mb-4" style={{ fontSize: 'clamp(6rem, 15vw + 1rem, 11.25rem)' }}>
               404
             </h1>
             
-            <h2 className="text-2xl md:text-3xl font-serif text-brand mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-brand mb-6">
               Page Not Found
             </h2>
             

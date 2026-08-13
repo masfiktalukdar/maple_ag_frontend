@@ -211,7 +211,7 @@ export default function NetworkAdminContent() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab as any)}
-            className={`px-6 py-3 font-bold text-sm tracking-widest uppercase transition-colors border-b-2 ${
+            className={`px-6 py-3 font-bold text-xs md:text-sm tracking-widest uppercase transition-colors border-b-2 ${
               activeTab === tab 
                 ? "border-brand text-brand bg-stone-50" 
                 : "border-transparent text-stone-400 hover:text-stone-600 hover:bg-stone-50"
@@ -301,11 +301,11 @@ export default function NetworkAdminContent() {
                         )}
                       </div>
                       <div className="flex gap-2 items-center pl-4 border-l border-stone-200">
-                        <button onClick={() => openCountryModal(country)} className="p-2 text-stone-400 hover:text-brand rounded" title={activeTab === "Supply" ? "Edit Place" : "Edit Country"}>
-                          <FaEdit />
+                        <button onClick={() => openCountryModal(country)} className="admin-btn-icon" title={activeTab === "Supply" ? "Edit Place" : "Edit Country"}>
+                          <FaEdit size={14} />
                         </button>
-                        <button onClick={() => deleteCountry(country._id)} className="p-2 text-stone-400 hover:text-red-600 rounded" title={activeTab === "Supply" ? "Delete Place" : "Delete Country"}>
-                          <FaTrash />
+                        <button onClick={() => deleteCountry(country._id)} className="admin-btn-icon-danger" title={activeTab === "Supply" ? "Delete Place" : "Delete Country"}>
+                          <FaTrash size={14} />
                         </button>
                       </div>
                     </div>
@@ -334,8 +334,8 @@ export default function NetworkAdminContent() {
                                   {marker.topProducts && <p className="text-[10px] text-stone-400 font-semibold">Products: {marker.topProducts}</p>}
                                 </div>
                                 <div className="flex gap-1">
-                                  <button onClick={() => openMarkerModal(country._id, marker)} className="p-1.5 text-stone-300 hover:text-brand" title="Edit"><FaEdit className="text-xs"/></button>
-                                  <button onClick={() => deleteMarker(country._id, marker._id)} className="p-1.5 text-stone-300 hover:text-red-500" title="Delete"><FaTrash className="text-xs"/></button>
+                                  <button onClick={() => openMarkerModal(country._id, marker)} className="admin-btn-icon" title="Edit"><FaEdit size={12} /></button>
+                                  <button onClick={() => deleteMarker(country._id, marker._id)} className="admin-btn-icon-danger" title="Delete"><FaTrash size={12} /></button>
                                 </div>
                               </div>
                             ))}

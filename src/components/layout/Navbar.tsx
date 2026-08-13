@@ -34,12 +34,12 @@ function NavbarContent() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-ivory shadow-[0_1px_0_0_rgba(218,211,196,0.6)]"
       >
-        <div className="container-wide flex justify-between items-center h-[90px]">
+        <div className="container-wide flex justify-between items-center h-[70px] sm:h-[80px] lg:h-[90px]">
           {/* Left: Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-3 group">
               <div
-                className="w-12 h-12 relative flex items-center justify-center transition-all duration-300"
+                className="w-10 h-10 sm:w-12 sm:h-12 relative flex items-center justify-center transition-all duration-300"
               >
                 <Image
                   src={IMAGES.MAPLE_LOGO}
@@ -55,7 +55,7 @@ function NavbarContent() {
           </div>
 
           {/* Center: Desktop Links */}
-          <div className="hidden lg:flex justify-center items-center gap-6 xl:gap-8 flex-grow">
+          <div className="hidden lg:flex justify-center items-center gap-5 xl:gap-8 flex-grow">
             {navLinks.map((link) => {
               const isServices = link.href === "/services";
               const isMainActive =
@@ -64,10 +64,10 @@ function NavbarContent() {
                 (!isServices && link.href !== "/" && pathname.startsWith(link.href));
 
               return (
-                <div key={link.href} className="relative group h-[80px] flex items-center">
+                <div key={link.href} className="relative group h-[80px] lg:h-[90px] flex items-center">
                   <Link
                     href={link.href}
-                    className={`text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-colors duration-200 flex items-center gap-1 ${isMainActive
+                    className={`text-[12px] xl:text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-colors duration-200 flex items-center gap-1 ${isMainActive
                         ? "text-gold font-semibold"
                         : "text-brand/80 cursor-pointer hover:text-brand"
                       }`}
@@ -92,7 +92,7 @@ function NavbarContent() {
 
                   {/* Desktop Dropdown */}
                   {link.children && (
-                    <div className="absolute top-[80px] left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:-translate-y-2">
+                    <div className="absolute top-[80px] lg:top-[90px] left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:-translate-y-2">
                       <div className="bg-ivory border border-stone/30 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-sm py-2 min-w-[200px]">
                         {link.children.map((child) => {
                           const isChildActive =
@@ -128,7 +128,7 @@ function NavbarContent() {
           <div className="flex-shrink-0 flex justify-end items-center gap-4">
             <Link
               href="/contact"
-              className="hidden lg:inline-flex items-center gap-2 px-6 py-2.5 bg-brand text-white border border-gold/60 text-[12px] font-bold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-[#044014] hover:border-gold shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group whitespace-nowrap"
+              className="hidden lg:inline-flex items-center gap-2 px-5 xl:px-6 py-2 xl:py-2.5 bg-brand text-white border border-gold/60 text-[11px] xl:text-[12px] font-bold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-[#044014] hover:border-gold shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group whitespace-nowrap"
             >
               <span>Get in Touch</span>
               <svg
@@ -186,9 +186,9 @@ function NavbarContent() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 top-[80px] z-40 bg-ivory lg:hidden overflow-y-auto"
+            className="fixed inset-0 top-[70px] sm:top-[80px] z-40 bg-ivory lg:hidden overflow-y-auto"
           >
-            <div className="container-wide py-8 flex flex-col gap-1 pb-24">
+            <div className="container-wide py-5 sm:py-8 flex flex-col gap-1 pb-24">
               {navLinks.map((link, i) => {
                 const isServices = link.href === "/services";
                 const isMainActive =
@@ -207,7 +207,7 @@ function NavbarContent() {
                     <div className="flex items-center justify-between">
                       <Link
                         href={link.href}
-                        className={`block py-4 text-lg font-serif font-medium flex-grow ${isMainActive ? "text-gold font-semibold" : "text-brand"
+                        className={`block py-3 sm:py-4 text-base sm:text-lg font-serif font-medium flex-grow ${isMainActive ? "text-gold font-semibold" : "text-brand"
                           }`}
                       >
                         {link.label}
@@ -276,7 +276,7 @@ function NavbarContent() {
               })}
               <Link
                 href="/contact"
-                className="mt-8 inline-flex justify-center px-6 py-3.5 bg-brand text-white border border-gold/60 text-sm font-bold uppercase tracking-wider rounded-sm shadow-md hover:bg-[#044014] cursor-pointer transition-all"
+                className="mt-6 sm:mt-8 inline-flex justify-center px-6 py-3 sm:py-3.5 bg-brand text-white border border-gold/60 text-xs sm:text-sm font-bold uppercase tracking-wider rounded-sm shadow-md hover:bg-[#044014] cursor-pointer transition-all"
               >
                 Get in Touch
               </Link>
@@ -291,7 +291,7 @@ function NavbarContent() {
 export default function Navbar() {
   return (
     <Suspense fallback={
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-ivory shadow-[0_1px_0_0_rgba(218,211,196,0.6)] h-[90px]" />
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-ivory shadow-[0_1px_0_0_rgba(218,211,196,0.6)] h-[70px] sm:h-[80px] lg:h-[90px]" />
     }>
       <NavbarContent />
     </Suspense>

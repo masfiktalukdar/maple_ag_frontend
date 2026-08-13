@@ -29,13 +29,13 @@ export default function LogoMarquee({ clients = [] }: { clients?: any[] }) {
         {repeatedLogos.map((logo, i) => (
           <div
             key={`${logo._id || logo.id}-${i}`}
-            className="flex-shrink-0 px-8 md:px-12 flex items-center justify-center w-[240px] md:w-[340px]"
+            className="flex-shrink-0 px-5 sm:px-8 md:px-12 flex items-center justify-center w-[180px] sm:w-[240px] md:w-[340px]"
           >
             {logo.imageUrl ? (
               <img 
                 src={logo.imageUrl} 
                 alt={logo.name} 
-                className="h-24 md:h-32 max-h-36 w-auto object-contain transition-transform duration-300 hover:scale-110 drop-shadow-sm"
+                className="h-16 sm:h-24 md:h-32 max-h-36 w-auto object-contain transition-transform duration-300 hover:scale-110 drop-shadow-sm"
               />
             ) : (
               <div className="flex items-center justify-center h-16 px-8 border border-stone-200 rounded-md w-full bg-white shadow-sm">

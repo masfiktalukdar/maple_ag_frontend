@@ -57,7 +57,7 @@ export default function GalleryPageContent({ photos, settings }: Props) {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 min-h-[420px] flex items-center overflow-hidden">
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] md:min-h-[420px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={IMAGES.WAREHOUSE_INTERIOR}
@@ -71,7 +71,7 @@ export default function GalleryPageContent({ photos, settings }: Props) {
         <div className="container-wide relative z-10 text-center">
           <FadeIn>
             <span className="eyebrow text-white block mb-4">COMPANY GALLERY</span>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-semibold mb-6 max-w-4xl mx-auto leading-tight">
+            <h1 className="font-serif text-white font-semibold mb-4 sm:mb-6 max-w-4xl mx-auto leading-tight" style={{ fontSize: 'clamp(2rem, 3vw + 0.75rem, 3.75rem)' }}>
               {heading}
             </h1>
             <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -82,7 +82,7 @@ export default function GalleryPageContent({ photos, settings }: Props) {
       </section>
 
       {/* Gallery Grid Section */}
-      <section className="bg-[#F8F6F2] min-h-[550px] md:min-h-[650px] py-16 md:py-24">
+      <section className="bg-[#F8F6F2] min-h-[400px] sm:min-h-[550px] md:min-h-[650px] py-16 md:py-24">
         <div className="container-wide">
           {photos.length === 0 ? (
             <FadeIn>
@@ -110,7 +110,7 @@ export default function GalleryPageContent({ photos, settings }: Props) {
               </FadeIn>
 
               {/* Uniform Grid with Cards matching screenshot design */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                 {paginatedPhotos.map((photo, i) => (
                   <motion.div
                     key={photo._id}

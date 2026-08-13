@@ -46,16 +46,16 @@ export default function ProductCard({ product, onRequestQuote }: ProductCardProp
       </div>
 
       {/* Content Container */}
-      <div className="p-4 md:p-5 flex flex-col flex-grow">
+      <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-grow">
         {/* Category Pill */}
         <div className="mb-3">
-          <span className="inline-block px-3 py-1 bg-[#f0ede5] text-stone-dark text-[10px] font-semibold uppercase tracking-widest rounded-sm">
+          <span className="inline-block px-2 py-0.5 sm:px-3 sm:py-1 bg-[#f0ede5] text-stone-dark text-[9px] sm:text-[10px] font-semibold uppercase tracking-widest rounded-sm">
             {product.category}
           </span>
         </div>
 
         {/* Title & Description */}
-        <h3 className="font-serif text-xl text-brand font-semibold mb-2 line-clamp-2">
+        <h3 className="font-serif text-lg sm:text-xl text-brand font-semibold mb-2 line-clamp-2">
           {product.name}
         </h3>
         <p className="text-text-muted text-sm leading-relaxed mb-4 flex-grow text-left">

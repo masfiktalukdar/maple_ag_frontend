@@ -206,14 +206,14 @@ export default function TestimonialsAdminContent() {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => openModal(testimonial)}
-                          className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center transition-colors cursor-pointer"
+                          className="admin-btn-icon"
                           title="Edit"
                         >
                           <FaEdit size={14} />
                         </button>
                         <button
                           onClick={() => handleDelete(testimonial._id)}
-                          className="w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 flex items-center justify-center transition-colors cursor-pointer"
+                          className="admin-btn-icon-danger"
                           title="Delete"
                         >
                           <FaTrash size={14} />

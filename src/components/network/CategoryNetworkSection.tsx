@@ -77,7 +77,7 @@ export default function CategoryNetworkSection({
       )}
 
       {category.countries && category.countries.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {category.countries.map((country, i) => (
             <FadeIn key={country._id || i} delay={i * 0.08}>
               <div className="bg-white border border-stone-200 rounded-sm p-5 hover:border-gold/50 hover:shadow-md transition-all duration-300 h-full flex flex-col shadow-sm">

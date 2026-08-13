@@ -91,7 +91,7 @@ export default function ImportPageContent({ products: importProducts, networkCat
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 min-h-[500px] flex items-center">
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] md:min-h-[500px] flex items-center">
         <div className="absolute inset-0">
           <Image src={service.image} alt={service.title} fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
@@ -99,7 +99,7 @@ export default function ImportPageContent({ products: importProducts, networkCat
         <div className="container-wide relative z-10 text-center">
           <FadeIn>
             <span className="eyebrow text-white block mb-4">SERVICE: IMPORT</span>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-semibold mb-6 max-w-4xl mx-auto leading-tight">
+            <h1 className="font-serif text-white font-semibold mb-4 sm:mb-6 max-w-4xl mx-auto leading-tight" style={{ fontSize: 'clamp(2rem, 3vw + 0.75rem, 3.75rem)' }}>
               {service.headline}
             </h1>
             <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -240,10 +240,10 @@ export default function ImportPageContent({ products: importProducts, networkCat
       {/* Products Display with Pagination */}
       <section id="product-catalog" className="section-padding bg-warm-white">
         <div className="container-wide">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4 sm:gap-6">
             <div>
               <span className="eyebrow block mb-3">IMPORT CATALOG</span>
-              <h2 className="font-serif text-3xl md:text-4xl text-brand font-semibold">
+              <h2 className="font-serif text-brand font-semibold" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 2.25rem)' }}>
                 All Commodities
               </h2>
             </div>
@@ -261,7 +261,7 @@ export default function ImportPageContent({ products: importProducts, networkCat
             </div>
           </div>
 
-          <div className="min-h-[600px]">
+          <div className="min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
             {filteredProducts.length === 0 ? (
               <div className="text-center py-20 bg-white border border-stone/30 rounded-sm">
                 <p className="text-text-muted">No products found for this category.</p>
@@ -275,7 +275,7 @@ export default function ImportPageContent({ products: importProducts, networkCat
             ) : (
               <motion.div
                 layout
-                className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
               >
                 <AnimatePresence mode="popLayout">
                   {paginatedProducts.map((product: any, i: number) => (

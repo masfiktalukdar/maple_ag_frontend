@@ -64,7 +64,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-[550px] md:min-h-[650px] lg:h-screen lg:max-h-[900px] flex items-center pt-28 pb-16 md:py-24">
+      <section className="relative min-h-[420px] sm:min-h-[550px] md:min-h-[650px] lg:h-screen lg:max-h-[900px] flex items-center pt-24 sm:pt-28 pb-12 sm:pb-16 md:py-24">
         <div className="absolute inset-0">
           <Image
             src={homeSettings?.heroImage || IMAGES.HERO_PORT}
@@ -84,25 +84,25 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
             transition={{ duration: 0.7, delay: 0.2 }}
             className="max-w-2xl"
           >
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-[76px] text-white font-semibold leading-[1.1] tracking-tight">
+            <h1 className="font-serif text-white font-semibold leading-[1.1] tracking-tight" style={{ fontSize: 'clamp(1.875rem, 4vw + 0.75rem, 4.75rem)' }}>
               {companyName}
             </h1>
-            <p className="mt-3 md:mt-4 text-lg sm:text-xl md:text-2xl text-white font-medium tracking-wide text-left">
+            <p className="mt-3 md:mt-4 text-base sm:text-lg md:text-2xl text-white font-medium tracking-wide text-left">
               {homeSettings?.heroTitle || "Empowering Global Trade, Connecting Continents."}
             </p>
             <p className="mt-3 md:mt-4 text-sm sm:text-base md:text-xl text-white/80 max-w-lg leading-relaxed text-left">
               {homeSettings?.heroSubtitle || "Import, export, and supply chain solutions trusted by businesses across 40+ countries."}
             </p>
-            <div className="flex flex-wrap gap-3 sm:gap-4 mt-8 md:mt-10">
+            <div className="flex flex-wrap gap-2.5 sm:gap-4 mt-6 sm:mt-8 md:mt-10">
               <Link
                 href="/services"
-                className="px-6 sm:px-7 py-3 sm:py-3.5 bg-brand text-white text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-brand-light transition-colors duration-200 border border-gold/40"
+                className="px-5 sm:px-7 py-2.5 sm:py-3.5 bg-brand text-white text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-brand-light transition-colors duration-200 border border-gold/40"
               >
                 Explore Services
               </Link>
               <Link
                 href="/contact"
-                className="px-6 sm:px-7 py-3 sm:py-3.5 border border-white/30 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-sm hover:bg-white/10 transition-colors duration-200"
+                className="px-5 sm:px-7 py-2.5 sm:py-3.5 border border-white/30 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-sm hover:bg-white/10 transition-colors duration-200"
               >
                 Contact Us
               </Link>
@@ -114,7 +114,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
       {/* Numbers / Stats Bar */}
       <section className="section-padding bg-brand">
         <div className="container-wide">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 md:gap-12 relative z-10">
             {(homeSettings?.stats || heroStats).map((stat: any, index: number) => {
               const isFirst = index === 0;
               const isEvenIndex = index % 2 === 0;
@@ -131,7 +131,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
                       : "pl-6 border-l-2 border-gold/20"
                     }`}
                 >
-                  <div className="text-4xl md:text-5xl font-serif text-white font-semibold mb-2">
+                  <div className="text-3xl sm:text-4xl md:text-5xl font-serif text-white font-semibold mb-2">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </div>
                   <div className="text-white/60 text-sm font-medium tracking-wide uppercase">
@@ -154,7 +154,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
             description="End-to-end trade and logistics solutions connecting Bangladeshi producers with global markets."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {pillars.map((pillar, i) => (
               <FadeIn key={pillar.title} delay={i * 0.12}>
                 <Link href={pillar.link} className="group block">
@@ -169,7 +169,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
                     </div>
                   </div>
                   <div className="mt-5">
-                    <h3 className="font-serif text-2xl font-semibold text-brand group-hover:text-gold transition-colors">
+                    <h3 className="font-serif text-xl sm:text-2xl font-semibold text-brand group-hover:text-gold transition-colors">
                       {pillar.title}
                     </h3>
                     <p className="mt-2 text-sm text-text-muted leading-relaxed">
@@ -203,7 +203,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
         <div className="container-wide mb-10 text-center">
           <FadeIn>
             <span className="eyebrow text-brand">OUR SISTER CONCERNS</span>
-            <h2 className="font-serif text-3xl md:text-4xl text-brand font-semibold mt-4 mb-4">
+            <h2 className="font-serif text-brand font-semibold mt-4 mb-4" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 2.25rem)' }}>
               Our Sister Concerns & Business Entities
             </h2>
           </FadeIn>
@@ -275,14 +275,14 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
 
       {/* Import, Export, Supply Products Grids */}
       <section className="section-padding bg-ivory">
-        <div className="container-wide space-y-24">
+        <div className="container-wide space-y-16 sm:space-y-20 md:space-y-24">
 
           {/* WHAT WE IMPORT */}
           <div>
-            <div className="max-w-3xl mb-12">
+            <div className="max-w-3xl mb-8 sm:mb-12">
               <FadeIn>
                 <span className="eyebrow">WHAT WE IMPORT</span>
-                <h2 className="font-serif text-3xl md:text-4xl text-brand font-semibold mt-4 mb-4">
+                <h2 className="font-serif text-brand font-semibold mt-4 mb-4" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 2.25rem)' }}>
                   Sourcing Essential Raw Materials & Machinery
                 </h2>
                 <p className="text-text-muted leading-relaxed">
@@ -291,7 +291,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
               </FadeIn>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {importItems.map((product: any, i: number) => (
                 <FadeIn key={product._id || product.id || `import-${i}`} delay={i * 0.1}>
                   <ProductCard product={product} onRequestQuote={(p) => setSelectedProductForQuote(p)} />
@@ -309,10 +309,10 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
 
           {/* WHAT WE EXPORT */}
           <div>
-            <div className="max-w-3xl mb-12">
+            <div className="max-w-3xl mb-8 sm:mb-12">
               <FadeIn>
                 <span className="eyebrow">WHAT WE EXPORT</span>
-                <h2 className="font-serif text-3xl md:text-4xl text-brand font-semibold mt-4 mb-4">
+                <h2 className="font-serif text-brand font-semibold mt-4 mb-4" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 2.25rem)' }}>
                   Delivering Quality Goods to the World
                 </h2>
                 <p className="text-text-muted leading-relaxed">
@@ -321,7 +321,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
               </FadeIn>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {exportItems.map((product: any, i: number) => (
                 <FadeIn key={product._id || product.id || `export-${i}`} delay={i * 0.1}>
                   <ProductCard product={product} onRequestQuote={(p) => setSelectedProductForQuote(p)} />
@@ -339,10 +339,10 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
 
           {/* WHAT WE SUPPLY */}
           <div>
-            <div className="max-w-3xl mb-12">
+            <div className="max-w-3xl mb-8 sm:mb-12">
               <FadeIn>
                 <span className="eyebrow">WHAT WE SUPPLY</span>
-                <h2 className="font-serif text-3xl md:text-4xl text-brand font-semibold mt-4 mb-4">
+                <h2 className="font-serif text-brand font-semibold mt-4 mb-4" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 2.25rem)' }}>
                   Seamless Raw Material Supply Chains
                 </h2>
                 <p className="text-text-muted leading-relaxed">
@@ -351,7 +351,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
               </FadeIn>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {supplyItems.map((product: any, i: number) => (
                 <FadeIn key={product._id || product.id || `supply-${i}`} delay={i * 0.1}>
                   <ProductCard product={product} onRequestQuote={(p) => setSelectedProductForQuote(p)} />
@@ -407,16 +407,16 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
             title="Certifications & Compliance"
             description="We strictly adhere to global quality benchmarks, international trade compliance regulations, and sustainable sourcing practices across all our import and export operations."
           />
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 max-w-6xl mx-auto">
             {certifications.map((cert: any, i: number) => (
               <FadeIn
                 key={cert._id || cert.id || cert.title || cert.name}
                 delay={i * 0.05}
-                className="w-[calc(50%-10px)] sm:w-[calc(33.333%-16px)] lg:w-[calc(20%-20px)] min-w-[160px] max-w-[220px]"
+                className="w-[calc(50%-8px)] sm:w-[calc(33.333%-16px)] lg:w-[calc(20%-20px)] min-w-[140px] sm:min-w-[160px] max-w-[220px]"
               >
                 <div 
                   onClick={() => setSelectedCertForModal(cert)}
-                  className="group cursor-pointer bg-ivory rounded-sm border border-stone/30 hover:border-gold/50 hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between overflow-hidden min-h-[220px]"
+                  className="group cursor-pointer bg-ivory rounded-sm border border-stone/30 hover:border-gold/50 hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between overflow-hidden min-h-[180px] sm:min-h-[220px]"
                 >
                   <div className="h-32 sm:h-36 w-full relative flex items-center justify-center bg-white/60 p-3 overflow-hidden">
                     {cert.imageUrl ? (

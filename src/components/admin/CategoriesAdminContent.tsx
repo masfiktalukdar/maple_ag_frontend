@@ -171,13 +171,13 @@ export default function CategoriesAdminContent() {
                     <div className="flex justify-end gap-2">
                       <button
                         onClick={() => openModal(category)}
-                        className="p-2 text-stone-600 hover:text-brand hover:bg-stone-100 rounded transition-colors"
+                        className="admin-btn-icon"
                       >
                         <FaEdit size={14} />
                       </button>
                       <button
                         onClick={() => handleDelete(category._id)}
-                        className="p-2 text-stone-600 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                        className="admin-btn-icon-danger"
                       >
                         <FaTrash size={14} />
                       </button>

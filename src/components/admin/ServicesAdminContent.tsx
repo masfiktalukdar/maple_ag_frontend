@@ -344,10 +344,10 @@ export default function ServicesAdminContent() {
                     <div className="flex justify-between items-start mb-2">
                       <span className="text-2xl font-serif font-bold text-brand">{stat.value}</span>
                       <div className="flex gap-1.5 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => openStatModal(stat)} className="p-1.5 text-stone-500 hover:text-brand hover:bg-white rounded transition-colors">
+                        <button onClick={() => openStatModal(stat)} className="admin-btn-icon bg-transparent hover:bg-white">
                           <FaEdit size={14} />
                         </button>
-                        <button onClick={() => handleStatDelete(stat._id)} className="p-1.5 text-stone-500 hover:text-red-600 hover:bg-white rounded transition-colors">
+                        <button onClick={() => handleStatDelete(stat._id)} className="admin-btn-icon-danger bg-transparent hover:bg-white">
                           <FaTrash size={14} />
                         </button>
                       </div>
@@ -405,10 +405,10 @@ export default function ServicesAdminContent() {
                       <td className="py-3 px-4 font-medium text-brand">{partner.name}</td>
                       <td className="py-3 px-4">
                         <div className="flex gap-2 justify-end">
-                          <button onClick={() => openPartnerModal(partner)} className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center transition-colors">
+                          <button onClick={() => openPartnerModal(partner)} className="admin-btn-icon">
                             <FaEdit size={14} />
                           </button>
-                          <button onClick={() => handlePartnerDelete(partner._id)} className="w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 flex items-center justify-center transition-colors">
+                          <button onClick={() => handlePartnerDelete(partner._id)} className="admin-btn-icon-danger">
                             <FaTrash size={14} />
                           </button>
                         </div>

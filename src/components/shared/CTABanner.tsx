@@ -25,15 +25,15 @@ export default function CTABanner({
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white font-semibold leading-tight">
+          <h2 className="font-serif text-white font-semibold leading-tight" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 3rem)' }}>
             {headline}
           </h2>
-          <p className="mt-4 text-base md:text-lg text-white/50 max-w-xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-white/50 max-w-xl mx-auto">
             {description}
           </p>
           <Link
             href={buttonHref}
-            className="inline-block mt-8 px-8 py-3.5 bg-gold text-white text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-gold-dark transition-colors duration-200"
+            className="inline-block mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-3.5 bg-gold text-white text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-gold-dark transition-colors duration-200"
           >
             {buttonText}
           </Link>

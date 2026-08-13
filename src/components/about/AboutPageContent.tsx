@@ -50,7 +50,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
   return (
     <>
       {/* Page Header (Hero) */}
-      <section className="relative pt-32 pb-24 min-h-[500px] flex items-center">
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] md:min-h-[500px] flex items-center">
         <div className="absolute inset-0">
           <Image src={IMAGES.WAREHOUSE_INTERIOR} alt="Company Warehouse Operations" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
@@ -58,7 +58,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
         <div className="container-wide relative z-10 text-center">
           <FadeIn>
             <span className="eyebrow text-white block mb-4">ABOUT US</span>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-semibold mb-6 max-w-4xl mx-auto leading-tight">
+            <h1 className="font-serif text-white font-semibold mb-4 sm:mb-6 max-w-4xl mx-auto leading-tight" style={{ fontSize: 'clamp(2rem, 3vw + 0.75rem, 3.75rem)' }}>
               Built on Trust, Trading Across Borders
             </h1>
             <p className="text-white/70 text-lg max-w-3xl mx-auto leading-relaxed">
@@ -71,11 +71,11 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
       {/* Story Section */}
       <section className="section-padding bg-warm-white">
         <div className="container-wide">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             <FadeIn>
               <div>
                 <span className="eyebrow">Our Story</span>
-                <h3 className="font-serif text-3xl md:text-4xl font-semibold text-brand mt-3 mb-6 leading-tight">
+                <h3 className="font-serif text-brand mt-3 mb-4 sm:mb-6 leading-tight" style={{ fontSize: 'clamp(1.5rem, 1.5vw + 0.75rem, 2.25rem)' }}>
                   From a Small Office in Motijheel to 40+ Countries
                 </h3>
                 <div className="space-y-4 text-text-muted leading-relaxed">
@@ -124,10 +124,10 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
             title="The Principles That Guide Us"
             description="Our core values dictate every business decision, partnership, and operational process we undertake."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {companyValues.map((value, i) => (
               <FadeIn key={value.title} delay={i * 0.1}>
-                <div className="bg-white p-8 rounded-sm shadow-sm border border-stone/30 hover:border-gold/40 hover:shadow-md transition-all duration-300 h-full group">
+                <div className="bg-white p-5 sm:p-6 md:p-8 rounded-sm shadow-sm border border-stone/30 hover:border-gold/40 hover:shadow-md transition-all duration-300 h-full group">
                   <div className="w-12 h-12 bg-stone/20 rounded-full flex items-center justify-center mb-6 group-cursor-pointer hover:bg-gold/10 transition-colors">
                     {/* Render basic icon placeholders based on value.icon */}
                     {value.icon === "shield" && <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-brand group-hover:text-gold"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
@@ -137,7 +137,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
                     {value.icon === "leaf" && <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-brand group-hover:text-gold"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>}
                     {value.icon === "users" && <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-brand group-hover:text-gold"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>}
                   </div>
-                  <h4 className="font-serif text-xl font-semibold text-brand mb-3">{value.title}</h4>
+                  <h4 className="font-serif text-lg sm:text-xl font-semibold text-brand mb-3">{value.title}</h4>
                   <p className="text-sm text-text-muted leading-relaxed">{value.description}</p>
                 </div>
               </FadeIn>
@@ -165,7 +165,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
               />
             </div>
 
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-12">
               {journey.map((milestone, i) => (
                 <FadeIn
                   key={milestone._id || milestone.year}
@@ -202,7 +202,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
         <div className="container-wide mb-10 text-center">
           <FadeIn>
             <span className="eyebrow text-brand">OUR SISTER CONCERNS</span>
-            <h2 className="font-serif text-3xl md:text-4xl text-brand font-semibold mt-4 mb-4">
+            <h2 className="font-serif text-brand font-semibold mt-4 mb-4" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 2.25rem)' }}>
               Our Sister Concerns & Business Entities
             </h2>
           </FadeIn>
@@ -220,16 +220,16 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
             title="Certifications & Compliance"
             description="We strictly adhere to global quality benchmarks, international trade compliance regulations, and sustainable sourcing practices across all our import and export operations."
           />
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 max-w-6xl mx-auto">
             {certifications.map((cert: any, i: number) => (
               <FadeIn 
                 key={cert._id || cert.id || cert.title || cert.name} 
                 delay={i * 0.05} 
-                className="w-[calc(50%-10px)] sm:w-[calc(33.333%-16px)] lg:w-[calc(20%-20px)] min-w-[160px] max-w-[220px]"
+                className="w-[calc(50%-8px)] sm:w-[calc(33.333%-16px)] lg:w-[calc(20%-20px)] min-w-[140px] sm:min-w-[160px] max-w-[220px]"
               >
                 <div 
                   onClick={() => setSelectedCertForModal(cert)}
-                  className="group cursor-pointer bg-ivory rounded-sm border border-stone/30 hover:border-gold/50 hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between overflow-hidden min-h-[220px]"
+                  className="group cursor-pointer bg-ivory rounded-sm border border-stone/30 hover:border-gold/50 hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between overflow-hidden min-h-[180px] sm:min-h-[220px]"
                 >
                   <div className="h-32 sm:h-36 w-full relative flex items-center justify-center bg-white/60 p-3 overflow-hidden">
                     {cert.imageUrl ? (

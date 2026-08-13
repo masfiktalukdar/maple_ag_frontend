@@ -114,16 +114,16 @@ export default function TestimonialCarousel() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center md:text-left"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 text-center md:text-left"
         >
           {visible.map((t) => (
             <div
               key={t._id}
-              className="flex flex-col justify-between bg-white/40 backdrop-blur-sm p-3 md:p-5 rounded-sm border border-brand/10 shadow-xs hover:border-gold/30 hover:bg-white/60 transition-all duration-300"
+              className="flex flex-col justify-between bg-white/40 backdrop-blur-sm p-3 sm:p-4 md:p-5 rounded-sm border border-brand/10 shadow-xs hover:border-gold/30 hover:bg-white/60 transition-all duration-300"
             >
               <RichTextRenderer 
                 content={t.quote} 
-                className="font-serif text-lg md:text-xl text-brand italic leading-relaxed font-light" 
+                className="font-serif text-base sm:text-lg md:text-xl text-brand italic leading-relaxed font-light" 
               />
 
               <div className="mt-6">
@@ -139,10 +139,10 @@ export default function TestimonialCarousel() {
 
       {/* Navigation arrows */}
       {totalSlides > 1 && (
-        <div className="flex items-center justify-center gap-4 mt-12">
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-12">
           <button
             onClick={prev}
-            className="w-10 h-10 rounded-full border border-stone flex items-center justify-center text-brand/40 cursor-pointer hover:text-brand hover:border-brand/30 transition-colors"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-stone flex items-center justify-center text-brand/40 cursor-pointer hover:text-brand hover:border-brand/30 transition-colors"
             aria-label="Previous testimonials"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -165,7 +165,7 @@ export default function TestimonialCarousel() {
 
           <button
             onClick={next}
-            className="w-10 h-10 rounded-full border border-stone flex items-center justify-center text-brand/40 cursor-pointer hover:text-brand hover:border-brand/30 transition-colors"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-stone flex items-center justify-center text-brand/40 cursor-pointer hover:text-brand hover:border-brand/30 transition-colors"
             aria-label="Next testimonials"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

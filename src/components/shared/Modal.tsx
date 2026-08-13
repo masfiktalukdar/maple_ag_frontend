@@ -50,8 +50,8 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="relative w-full max-w-2xl bg-ivory rounded-sm shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
           >
-            <div className="flex items-center justify-between px-6 py-3.5 border-b border-stone/30 bg-warm-white">
-              <h3 className="font-serif text-2xl text-brand font-semibold">{title}</h3>
+            <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-3.5 border-b border-stone/30 bg-warm-white">
+              <h3 className="font-serif text-xl sm:text-2xl text-brand font-semibold">{title}</h3>
               <button
                 onClick={onClose}
                 className="p-2 text-brand/60 hover:text-gold transition-colors rounded-full hover:bg-stone/20 cursor-pointer"
@@ -63,7 +63,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
                 </svg>
               </button>
             </div>
-            <div className="p-6 overflow-y-auto custom-scrollbar">
+            <div className="p-4 sm:p-6 overflow-y-auto custom-scrollbar">
               {children}
             </div>
           </motion.div>

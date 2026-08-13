@@ -125,7 +125,7 @@ function ContactContent() {
 
   return (
     <>
-      <section className="relative pt-32 pb-24 min-h-[400px] flex items-center bg-brand text-white">
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center bg-brand text-white">
         <div className="absolute inset-0">
           <Image src={IMAGES.HERO_PORT} alt="Contact Us" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
@@ -148,7 +148,7 @@ function ContactContent() {
             {/* Form Column */}
             <div className="lg:col-span-7">
               <FadeIn>
-                <div className="bg-white p-8 md:p-12 border border-stone/30 shadow-sm rounded-sm h-full">
+                <div className="bg-white p-5 sm:p-8 md:p-12 border border-stone/30 shadow-sm rounded-sm h-full">
                   <h3 className="font-serif text-2xl font-semibold text-brand mb-8">Send an Inquiry</h3>
                   {apiError && (
                     <div className="mb-6 p-4 bg-red-50 text-red-600 border border-red-200 text-sm rounded-sm">
@@ -266,7 +266,7 @@ function ContactContent() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full md:w-auto px-10 py-4 bg-brand text-white text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-gold transition-colors shadow-sm disabled:opacity-50"
+                        className="w-full md:w-auto px-6 py-3 sm:px-10 sm:py-4 bg-brand text-white text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-gold transition-colors shadow-sm disabled:opacity-50"
                       >
                         {isSubmitting ? "Submitting..." : "Submit Inquiry"}
                       </button>
@@ -281,7 +281,7 @@ function ContactContent() {
               <FadeIn delay={0.2} className="h-full flex flex-col justify-between space-y-8">
 
                 {/* Contact Details */}
-                <div className="bg-ivory p-8 border border-stone/30 shadow-sm rounded-sm">
+                <div className="bg-ivory p-5 sm:p-8 border border-stone/30 shadow-sm rounded-sm">
                   <h4 className="font-serif text-xl font-semibold text-brand mb-6">Contact Information</h4>
                   <div className="space-y-6">
                     {headOffice && (
@@ -318,7 +318,7 @@ function ContactContent() {
                 </div>
 
                 {/* Get in Touch Socials */}
-                <div className="bg-brand p-8 rounded-sm shadow-md text-white">
+                <div className="bg-brand p-5 sm:p-8 rounded-sm shadow-md text-white">
                   <h4 className="font-serif text-xl font-semibold mb-6">Connect With Us</h4>
                   <p className="text-white/70 mb-6 text-sm leading-relaxed">
                     Stay updated with our latest shipments, market insights, and corporate news through our social channels.

@@ -34,7 +34,7 @@ export default function MissionVisionContent({ goals = [] }: { goals?: any[] }) 
 
   return (
     <>
-      <section className="relative pt-32 pb-24 min-h-[400px] flex items-center bg-brand text-white">
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center bg-brand text-white">
         <div className="absolute inset-0">
           <Image src={IMAGES.CARGO_SHIP} alt="Mission and Vision" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
@@ -52,26 +52,26 @@ export default function MissionVisionContent({ goals = [] }: { goals?: any[] }) 
 
       <section className="section-padding bg-ivory">
         <div className="container-wide">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
             <FadeIn>
-              <div className="bg-warm-white p-10 md:p-14 rounded-sm border border-stone/30 shadow-sm relative">
+              <div className="bg-warm-white p-6 sm:p-8 md:p-10 lg:p-14 rounded-sm border border-stone/30 shadow-sm relative">
                 <div className="absolute -top-6 -left-6 w-12 h-12 bg-gold text-white flex items-center justify-center rounded-sm font-serif text-2xl font-bold">
                   M
                 </div>
-                <h3 className="font-serif text-3xl font-semibold text-brand mb-6">Our Mission</h3>
-                <p className="text-lg text-text-muted leading-relaxed">
+                <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-brand mb-4 sm:mb-6">Our Mission</h3>
+                <p className="text-base sm:text-lg text-text-muted leading-relaxed">
                   To serve as the most trusted bridge between Bangladeshi producers and international markets. We are committed to empowering local industries by providing seamless, compliant, and highly efficient import-export solutions, while maintaining uncompromising quality standards in every transaction.
                 </p>
               </div>
             </FadeIn>
             
             <FadeIn delay={0.2}>
-              <div className="bg-brand p-10 md:p-14 rounded-sm border border-brand shadow-sm relative text-white">
+              <div className="bg-brand p-6 sm:p-8 md:p-10 lg:p-14 rounded-sm border border-brand shadow-sm relative text-white">
                 <div className="absolute -top-6 -right-6 w-12 h-12 bg-gold text-brand flex items-center justify-center rounded-sm font-serif text-2xl font-bold">
                   V
                 </div>
-                <h3 className="font-serif text-3xl font-semibold text-white mb-6">Our Vision</h3>
-                <p className="text-lg text-white/80 leading-relaxed">
+                <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-white mb-4 sm:mb-6">Our Vision</h3>
+                <p className="text-base sm:text-lg text-white/80 leading-relaxed">
                   To position Bangladesh as a global benchmark for export quality and supply chain reliability. We envision a future where &apos;Sourced from Bangladesh&apos; is universally recognized as a hallmark of excellence, sustainability, and ethical business practices.
                 </p>
               </div>
@@ -84,10 +84,10 @@ export default function MissionVisionContent({ goals = [] }: { goals?: any[] }) 
         <div className="container-wide max-w-4xl text-center">
           <FadeIn>
             <span className="eyebrow">BUSINESS PHILOSOPHY</span>
-            <h2 className="font-serif text-3xl md:text-4xl text-brand font-semibold mt-4 mb-8">
+            <h2 className="font-serif text-brand font-semibold mt-4 mb-6 sm:mb-8" style={{ fontSize: 'clamp(1.625rem, 2vw + 0.75rem, 2.25rem)' }}>
               Partnership over Procurement
             </h2>
-            <div className="space-y-6 text-text-muted leading-relaxed text-lg">
+            <div className="space-y-4 sm:space-y-6 text-text-muted leading-relaxed text-base sm:text-lg">
               <p>
                 In the world of international trade, transactions are easy to come by, but true partnerships are rare. At {companyName}, our philosophy is rooted in long-term collaboration. We do not view our clients merely as buyers, nor our suppliers merely as vendors. We are stakeholders in each other&apos;s success.
               </p>
@@ -107,7 +107,7 @@ export default function MissionVisionContent({ goals = [] }: { goals?: any[] }) 
             description="Continuous improvement and expansion to better serve our global network."
             light
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {displayGoals.map((goal: any, i: number) => (
               <FadeIn key={goal._id || goal.year || i} delay={i * 0.1}>
                 <div className="border-l-2 border-gold pl-6 py-2">

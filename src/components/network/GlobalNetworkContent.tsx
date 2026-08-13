@@ -46,7 +46,7 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 min-h-[400px] flex items-center">
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center">
         <div className="absolute inset-0">
           <Image src={IMAGES.HERO_PORT} alt="Shipping port operations" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/85" />
@@ -54,7 +54,7 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
         <div className="container-wide relative z-10 text-center">
           <FadeIn>
             <span className="eyebrow text-white block mb-4">GLOBAL NETWORK</span>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-semibold mb-6 max-w-4xl mx-auto leading-tight">
+            <h1 className="font-serif text-white font-semibold mb-4 sm:mb-6 max-w-4xl mx-auto leading-tight" style={{ fontSize: 'clamp(2rem, 3vw + 0.75rem, 3.75rem)' }}>
               Connecting Markets, Moving Goods
             </h1>
             <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -108,7 +108,7 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
       {/* Network Category Sections with Country Cards */}
       {sortedCategories.some(cat => cat.countries && cat.countries.length > 0) && (
         <section className="section-padding bg-warm-white border-t border-stone-200">
-          <div className="container-wide space-y-20">
+          <div className="container-wide space-y-16 sm:space-y-20">
             {sortedCategories
               .filter((category) => category.countries && category.countries.length > 0)
               .map((category) => (
@@ -133,10 +133,10 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
             description="Every shipment follows our four-stage process — designed for transparency, compliance, and on-time delivery."
           />
 
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-12 sm:space-y-16 md:space-y-24">
             {processSteps.map((step, i) => (
               <FadeIn key={step.step}>
-                <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center ${i % 2 === 1 ? "md:direction-rtl" : ""
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center ${i % 2 === 1 ? "md:direction-rtl" : ""
                   }`}>
                   <div className={i % 2 === 1 ? "md:order-2" : ""}>
                     <div className="flex items-center gap-3 mb-4">

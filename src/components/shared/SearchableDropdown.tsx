@@ -32,7 +32,7 @@ export default function SearchableDropdown({ options, value, onChange, placehold
   return (
     <div className={`relative w-full max-w-sm ${isOpen ? 'z-50' : 'z-10'}`} ref={dropdownRef}>
       <div 
-        className="flex items-center justify-between w-full px-5 py-3.5 bg-ivory border border-stone/50 rounded-sm cursor-pointer shadow-sm hover:border-gold/50 transition-colors"
+        className="flex items-center justify-between w-full px-4 py-3 sm:px-5 sm:py-3.5 bg-ivory border border-stone/50 rounded-sm cursor-pointer shadow-sm hover:border-gold/50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className={`text-sm ${value ? "text-brand" : "text-brand/50"}`}>
@@ -81,7 +81,7 @@ export default function SearchableDropdown({ options, value, onChange, placehold
                 filteredOptions.map((option) => (
                   <div
                     key={option}
-                    className={`px-5 py-3 text-sm cursor-pointer transition-colors ${
+                    className={`px-4 py-2.5 sm:px-5 sm:py-3 text-sm cursor-pointer transition-colors ${
                       value === option 
                         ? "bg-gold/10 text-gold font-medium" 
                         : "text-brand hover:bg-stone/20"

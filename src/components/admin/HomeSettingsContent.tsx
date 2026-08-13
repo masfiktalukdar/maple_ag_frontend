@@ -121,8 +121,8 @@ export default function HomeSettingsContent() {
                   onChange={(e) => updateStat(i, 'label', e.target.value)}
                   className="admin-input"
                 />
-                <button type="button" onClick={() => removeStat(i)} className="text-red-500 hover:text-red-700 p-2 sm:p-2 bg-white border border-stone-200 sm:border-none rounded sm:bg-transparent flex justify-center items-center h-10 w-full sm:w-10">
-                  <FaTrash />
+                <button type="button" onClick={() => removeStat(i)} className="admin-btn-icon-danger border border-red-100 sm:border-none w-full sm:w-auto" title="Remove Stat">
+                  <FaTrash size={14} />
                   <span className="ml-2 sm:hidden text-sm font-medium">Remove</span>
                 </button>
               </div>

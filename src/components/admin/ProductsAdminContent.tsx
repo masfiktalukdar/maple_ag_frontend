@@ -54,6 +54,7 @@ export default function ProductsAdminContent() {
   // Filters, Views & Pagination
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
@@ -294,7 +295,7 @@ export default function ProductsAdminContent() {
   // Reset to Page 1 when search or category filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedType]);
+  }, [searchQuery, selectedType, selectedCategory]);
 
   // Filtered Products
   const filteredProducts = products.filter((p) => {
@@ -303,7 +304,8 @@ export default function ProductsAdminContent() {
       (p.category?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
       (p.origin?.toLowerCase() || "").includes(searchQuery.toLowerCase());
     const matchesType = selectedType === "all" || p.type === selectedType;
-    return matchesSearch && matchesType;
+    const matchesCategory = selectedCategory === "all" || p.category?.toLowerCase() === selectedCategory.toLowerCase();
+    return matchesSearch && matchesType && matchesCategory;
   });
 
   // Pagination Calculations
@@ -344,61 +346,61 @@ export default function ProductsAdminContent() {
         </div>
       </div>
 
-      {/* KPI Stats Widgets */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
-        <div className="bg-white p-4 rounded-lg border border-stone-200 shadow-sm flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-stone-100 text-brand flex items-center justify-center text-lg shrink-0">
+      {/* KPI Stats Widgets - Responsive Grid & Shrinking Icons */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 xl:gap-4">
+        <div className="bg-white p-2.5 sm:p-3 xl:p-4 rounded-lg border border-stone-200 shadow-2xs flex items-center gap-2 sm:gap-2.5 xl:gap-3">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-stone-100 text-brand flex items-center justify-center text-xs sm:text-sm xl:text-lg shrink-0">
             <FaBoxOpen />
           </div>
-          <div>
-            <p className="text-xs text-text-muted font-medium uppercase tracking-wider">Total</p>
-            <p className="text-xl font-serif font-bold text-brand">{products.length}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium uppercase tracking-wider truncate">Total</p>
+            <p className="text-sm sm:text-base xl:text-xl font-serif font-bold text-brand">{products.length}</p>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-lg border border-stone-200 shadow-sm flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg shrink-0">
+        <div className="bg-white p-2.5 sm:p-3 xl:p-4 rounded-lg border border-stone-200 shadow-2xs flex items-center gap-2 sm:gap-2.5 xl:gap-3">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs sm:text-sm xl:text-lg shrink-0">
             <FaGlobe />
           </div>
-          <div>
-            <p className="text-xs text-text-muted font-medium uppercase tracking-wider">Import</p>
-            <p className="text-xl font-serif font-bold text-brand">{importCount}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium uppercase tracking-wider truncate">Import</p>
+            <p className="text-sm sm:text-base xl:text-xl font-serif font-bold text-brand">{importCount}</p>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-lg border border-stone-200 shadow-sm flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-lg shrink-0">
+        <div className="bg-white p-2.5 sm:p-3 xl:p-4 rounded-lg border border-stone-200 shadow-2xs flex items-center gap-2 sm:gap-2.5 xl:gap-3">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-xs sm:text-sm xl:text-lg shrink-0">
             <FaShip />
           </div>
-          <div>
-            <p className="text-xs text-text-muted font-medium uppercase tracking-wider">Export</p>
-            <p className="text-xl font-serif font-bold text-brand">{exportCount}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium uppercase tracking-wider truncate">Export</p>
+            <p className="text-sm sm:text-base xl:text-xl font-serif font-bold text-brand">{exportCount}</p>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-lg border border-stone-200 shadow-sm flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-lg shrink-0">
+        <div className="bg-white p-2.5 sm:p-3 xl:p-4 rounded-lg border border-stone-200 shadow-2xs flex items-center gap-2 sm:gap-2.5 xl:gap-3">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-xs sm:text-sm xl:text-lg shrink-0">
             <FaTruck />
           </div>
-          <div>
-            <p className="text-xs text-text-muted font-medium uppercase tracking-wider">Supply</p>
-            <p className="text-xl font-serif font-bold text-brand">{supplyCount}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium uppercase tracking-wider truncate">Supply</p>
+            <p className="text-sm sm:text-base xl:text-xl font-serif font-bold text-brand">{supplyCount}</p>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-lg border border-stone-200 shadow-sm flex items-center gap-3 col-span-2 sm:col-span-1">
-          <div className="w-10 h-10 rounded-full bg-gold/10 text-gold-dark flex items-center justify-center text-lg shrink-0">
+        <div className="bg-white p-2.5 sm:p-3 xl:p-4 rounded-lg border border-stone-200 shadow-2xs flex items-center gap-2 sm:gap-2.5 xl:gap-3 col-span-2 sm:col-span-1">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 xl:w-10 xl:h-10 rounded-full bg-gold/10 text-gold-dark flex items-center justify-center text-xs sm:text-sm xl:text-lg shrink-0">
             <FaStar />
           </div>
-          <div>
-            <p className="text-xs text-text-muted font-medium uppercase tracking-wider">Featured</p>
-            <p className="text-xl font-serif font-bold text-brand">{featuredCount}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] sm:text-xs text-text-muted font-medium uppercase tracking-wider truncate">Featured</p>
+            <p className="text-sm sm:text-base xl:text-xl font-serif font-bold text-brand">{featuredCount}</p>
           </div>
         </div>
       </div>
 
       {/* Filter & Toolbar */}
-      <div className="admin-card !p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="admin-card !p-3 sm:!p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div className="relative flex-1 w-full max-w-full md:max-w-md">
           <FaSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-sm" />
           <input
@@ -406,55 +408,111 @@ export default function ProductsAdminContent() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search products by name, category, origin..."
-            className="admin-input !pl-10"
+            className="admin-input !pl-10 text-xs sm:text-sm"
           />
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 flex-wrap">
-          {/* Type Filter Buttons */}
-          <div className="flex overflow-x-auto whitespace-nowrap bg-stone-100 p-1 rounded border border-stone-200 text-xs font-semibold">
-            <button
-              onClick={() => setSelectedType("all")}
-              className={`px-3 py-1.5 rounded transition-colors ${selectedType === "all" ? "bg-white text-brand shadow-xs font-bold" : "text-stone-600 hover:text-brand"
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+          {/* Mobile Category & Type Select Dropdowns (< sm) */}
+          <div className="flex sm:hidden flex-col gap-2 w-full">
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-bold text-stone-600 shrink-0">Type:</label>
+              <select
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                className="w-full border border-stone-300 rounded px-2.5 py-1.5 text-xs font-semibold text-brand bg-white focus:ring-2 focus:ring-gold/50 outline-none cursor-pointer"
+              >
+                <option value="all">All Types ({products.length})</option>
+                <option value="import">Import ({importCount})</option>
+                <option value="export">Export ({exportCount})</option>
+                <option value="supply">Supply ({supplyCount})</option>
+              </select>
+            </div>
+            {categories.length > 0 && (
+              <div className="flex items-center gap-2">
+                <label className="text-xs font-bold text-stone-600 shrink-0">Category:</label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full border border-stone-300 rounded px-2.5 py-1.5 text-xs font-semibold text-brand bg-white focus:ring-2 focus:ring-gold/50 outline-none cursor-pointer"
+                >
+                  <option value="all">All Categories</option>
+                  {categories.map((cat) => (
+                    <option key={cat._id} value={cat.name}>
+                      {cat.name} ({cat.type})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Filter Tabs & Category Select (>= sm) */}
+          <div className="hidden sm:flex items-center gap-3">
+            {categories.length > 0 && (
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="border border-stone-300 rounded px-2.5 py-1.5 text-xs font-semibold text-brand bg-white focus:ring-2 focus:ring-gold/50 outline-none cursor-pointer"
+              >
+                <option value="all">All Categories</option>
+                {categories.map((cat) => (
+                  <option key={cat._id} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            )}
+
+            {/* Type Filter Buttons */}
+            <div className="flex overflow-x-auto whitespace-nowrap bg-stone-100 p-1 rounded border border-stone-200 text-xs font-semibold">
+              <button
+                onClick={() => setSelectedType("all")}
+                className={`px-3 py-1.5 rounded transition-colors cursor-pointer ${
+                  selectedType === "all" ? "bg-white text-brand shadow-2xs font-bold" : "text-stone-600 hover:text-brand"
                 }`}
-            >
-              All ({products.length})
-            </button>
-            <button
-              onClick={() => setSelectedType("import")}
-              className={`px-3 py-1.5 rounded transition-colors ${selectedType === "import" ? "bg-white text-emerald-700 shadow-xs font-bold" : "text-stone-600 hover:text-brand"
+              >
+                All ({products.length})
+              </button>
+              <button
+                onClick={() => setSelectedType("import")}
+                className={`px-3 py-1.5 rounded transition-colors cursor-pointer ${
+                  selectedType === "import" ? "bg-white text-emerald-700 shadow-2xs font-bold" : "text-stone-600 hover:text-brand"
                 }`}
-            >
-              Import
-            </button>
-            <button
-              onClick={() => setSelectedType("export")}
-              className={`px-3 py-1.5 rounded transition-colors ${selectedType === "export" ? "bg-white text-blue-700 shadow-xs font-bold" : "text-stone-600 hover:text-brand"
+              >
+                Import
+              </button>
+              <button
+                onClick={() => setSelectedType("export")}
+                className={`px-3 py-1.5 rounded transition-colors cursor-pointer ${
+                  selectedType === "export" ? "bg-white text-blue-700 shadow-2xs font-bold" : "text-stone-600 hover:text-brand"
                 }`}
-            >
-              Export
-            </button>
-            <button
-              onClick={() => setSelectedType("supply")}
-              className={`px-3 py-1.5 rounded transition-colors ${selectedType === "supply" ? "bg-white text-amber-700 shadow-xs font-bold" : "text-stone-600 hover:text-brand"
+              >
+                Export
+              </button>
+              <button
+                onClick={() => setSelectedType("supply")}
+                className={`px-3 py-1.5 rounded transition-colors cursor-pointer ${
+                  selectedType === "supply" ? "bg-white text-amber-700 shadow-2xs font-bold" : "text-stone-600 hover:text-brand"
                 }`}
-            >
-              Supply
-            </button>
+              >
+                Supply
+              </button>
+            </div>
           </div>
 
           {/* View Switcher */}
-          <div className="flex bg-stone-100 p-1 rounded border border-stone-200 text-stone-600">
+          <div className="flex bg-stone-100 p-1 rounded border border-stone-200 text-stone-600 self-end sm:self-auto">
             <button
               onClick={() => setViewMode("table")}
-              className={`p-1.5 rounded transition-colors ${viewMode === "table" ? "bg-white text-brand shadow-xs" : "hover:text-brand"}`}
+              className={`p-1.5 rounded transition-colors cursor-pointer ${viewMode === "table" ? "bg-white text-brand shadow-2xs" : "hover:text-brand"}`}
               title="Table View"
             >
               <FaThList size={14} />
             </button>
             <button
               onClick={() => setViewMode("grid")}
-              className={`p-1.5 rounded transition-colors ${viewMode === "grid" ? "bg-white text-brand shadow-xs" : "hover:text-brand"}`}
+              className={`p-1.5 rounded transition-colors cursor-pointer ${viewMode === "grid" ? "bg-white text-brand shadow-2xs" : "hover:text-brand"}`}
               title="Grid View"
             >
               <FaThLarge size={14} />
@@ -538,14 +596,14 @@ export default function ProductsAdminContent() {
                         <div className="flex justify-end gap-1.5">
                           <button
                             onClick={() => openModal(product)}
-                            className="p-2 text-stone-600 hover:text-brand hover:bg-stone-100 rounded transition-colors cursor-pointer"
+                            className="admin-btn-icon"
                             title="Edit Product"
                           >
                             <FaEdit size={14} />
                           </button>
                           <button
                             onClick={() => handleDelete(product._id)}
-                            className="p-2 text-stone-600 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer"
+                            className="admin-btn-icon-danger"
                             title="Delete Product"
                           >
                             <FaTrash size={14} />
@@ -670,14 +728,14 @@ export default function ProductsAdminContent() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => openModal(product)}
-                        className="p-1.5 text-stone-600 hover:text-brand hover:bg-stone-100 rounded transition-colors cursor-pointer"
+                        className="admin-btn-icon"
                         title="Edit"
                       >
                         <FaEdit size={14} />
                       </button>
                       <button
                         onClick={() => handleDelete(product._id)}
-                        className="p-1.5 text-stone-600 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer"
+                        className="admin-btn-icon-danger"
                         title="Delete"
                       >
                         <FaTrash size={14} />

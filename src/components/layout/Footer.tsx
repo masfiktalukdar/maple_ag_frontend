@@ -39,13 +39,13 @@ export default function Footer() {
   return (
     <footer className="bg-ivory border-t border-stone-200 text-charcoal">
       {/* Main Footer Grid */}
-      <div className="container-wide py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
+      <div className="container-wide py-4 sm:py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-8">
 
           {/* Column 1: Company Info */}
           <div className="lg:col-span-4 pr-4">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-12 h-12 relative flex items-center justify-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 relative flex items-center justify-center">
                 <Image
                   src={IMAGES.MAPLE_LOGO}
                   alt={`${companyName} Logo`}
@@ -56,7 +56,7 @@ export default function Footer() {
                   className="object-contain"
                 />
               </div>
-              <span className="font-serif text-lg text-brand font-semibold tracking-tight">
+              <span className="font-serif text-base sm:text-lg text-brand font-semibold tracking-tight">
                 {companyName}
               </span>
             </div>
@@ -110,7 +110,7 @@ export default function Footer() {
           </div>
 
           {/* Mobile 2-Column Wrapper for Quick Links & Contact Details */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:contents gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:contents gap-4 sm:gap-6 lg:gap-8">
             {/* Column 2: Quick Links */}
             <div className="lg:col-span-2">
               <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
@@ -135,7 +135,7 @@ export default function Footer() {
               <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
                 Contact Us
               </h5>
-              <ul className="space-y-5 text-sm">
+              <ul className="space-y-3 sm:space-y-5 text-sm">
                 <li>
                   <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">Head Office</span>
                   <p className="text-charcoal font-medium mt-1 leading-relaxed">{address}</p>
@@ -166,7 +166,7 @@ export default function Footer() {
                 allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-[150px] rounded"
+                className="w-full h-[120px] sm:h-[150px] rounded"
               ></iframe>
               <div className="pt-2 pb-1 text-center">
                 <a

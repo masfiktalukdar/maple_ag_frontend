@@ -138,10 +138,10 @@ export default function ClientsAdminContent() {
                   <td className="py-3 px-4 font-medium text-brand">{client.name}</td>
                   <td className="py-3 px-4">
                     <div className="flex gap-2 justify-end">
-                      <button onClick={() => openModal(client)} className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center transition-colors cursor-pointer" title="Edit">
+                      <button onClick={() => openModal(client)} className="admin-btn-icon" title="Edit">
                         <FaEdit size={14} />
                       </button>
-                      <button onClick={() => handleDelete(client._id)} className="w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 flex items-center justify-center transition-colors cursor-pointer" title="Delete">
+                      <button onClick={() => handleDelete(client._id)} className="admin-btn-icon-danger" title="Delete">
                         <FaTrash size={14} />
                       </button>
                     </div>

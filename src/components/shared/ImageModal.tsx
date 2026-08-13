@@ -32,7 +32,7 @@ export default function ImageModal({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.25 }}
-          className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-lg p-6 md:p-8 overflow-hidden shadow-2xl flex flex-col items-center justify-center cursor-default"
+          className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-lg p-3 sm:p-6 md:p-8 overflow-hidden shadow-2xl flex flex-col items-center justify-center cursor-default"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close button */}
@@ -45,7 +45,7 @@ export default function ImageModal({
           </button>
 
           {/* Image preview */}
-          <div className="relative w-full h-[55vh] min-h-[280px] flex items-center justify-center bg-stone-50/50 rounded-md overflow-hidden p-4">
+          <div className="relative w-full h-[45vh] sm:h-[55vh] min-h-[220px] sm:min-h-[280px] flex items-center justify-center bg-stone-50/50 rounded-md overflow-hidden p-2 sm:p-4">
             <SafeImage
               src={src}
               alt={title || "Certificate Preview"}
@@ -56,7 +56,7 @@ export default function ImageModal({
           {/* Text Info */}
           {(title || description) && (
             <div className="mt-4 text-center">
-              {title && <h3 className="font-serif text-xl font-bold text-brand">{title}</h3>}
+              {title && <h3 className="font-serif text-lg sm:text-xl font-bold text-brand">{title}</h3>}
               {description && <p className="text-sm text-stone-600 mt-1 max-w-xl">{description}</p>}
             </div>
           )}

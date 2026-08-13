@@ -157,10 +157,10 @@ export default function GoalsAdminContent() {
                   <td className="py-3.5 px-4 text-sm text-stone-600 max-w-xs truncate">{goal.description}</td>
                   <td className="py-3.5 px-4">
                     <div className="flex gap-2 justify-end">
-                      <button onClick={() => openModal(goal)} className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center transition-colors cursor-pointer" title="Edit">
+                      <button onClick={() => openModal(goal)} className="admin-btn-icon" title="Edit">
                         <FaEdit size={14} />
                       </button>
-                      <button onClick={() => handleDelete(goal._id)} className="w-8 h-8 rounded-full bg-red-50 text-red-600 hover:bg-red-100 flex items-center justify-center transition-colors cursor-pointer" title="Delete">
+                      <button onClick={() => handleDelete(goal._id)} className="admin-btn-icon-danger" title="Delete">
                         <FaTrash size={14} />
                       </button>
                     </div>

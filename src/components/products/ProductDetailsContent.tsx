@@ -53,7 +53,7 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
 
   return (
     <>
-      <div className="bg-warm-white min-h-screen pt-24 pb-8">
+      <div className="bg-warm-white min-h-screen pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 md:pb-16">
         <div className="container-wide">
           {/* Breadcrumb */}
           <Link
@@ -80,7 +80,7 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
               <span className="text-xs font-bold text-gold-dark uppercase tracking-wider mb-0.5 block">
                 {product.category}
               </span>
-              <h1 className="font-serif text-xl md:text-2xl text-brand font-semibold mb-2">
+              <h1 className="font-serif text-2xl md:text-3xl lg:text-4xl text-brand font-semibold mb-2">
                 {product.name}
               </h1>
               <div className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-2 flex-1 text-justify">

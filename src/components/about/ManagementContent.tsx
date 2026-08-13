@@ -121,9 +121,9 @@ function ManagementModal({ member, onClose }: { member: any, onClose: () => void
         </button>
 
         {/* Left: Image */}
-        <div className="w-full md:w-[320px] lg:w-[350px] h-[260px] sm:h-[300px] md:h-[380px] shrink-0 relative bg-stone-100 overflow-hidden">
+        <div className="w-full md:w-[280px] lg:w-[350px] h-[200px] sm:h-[260px] md:h-[380px] shrink-0 relative bg-stone-100 overflow-hidden">
           {member.imageUrl ? (
-            <Image src={member.imageUrl} alt={member.name} fill className="object-cover object-top" />
+            <Image src={member.imageUrl} alt={member.name} fill className="object-contain md:object-cover object-top" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-navy/5 to-navy/10">
               <span className="font-serif text-8xl text-brand/15 font-bold uppercase">
@@ -134,9 +134,9 @@ function ManagementModal({ member, onClose }: { member: any, onClose: () => void
         </div>
 
         {/* Right: Content */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col max-h-[60vh] md:max-h-[85vh]">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 flex flex-col max-h-[60vh] md:max-h-[85vh]">
           <div className="mb-2 border-b border-stone-100 pb-2">
-            <h3 className="font-serif text-2xl md:text-3xl font-semibold text-brand mb-0.5">{member.name}</h3>
+            <h3 className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold text-brand mb-0.5">{member.name}</h3>
             <p className="text-xs uppercase tracking-widest text-gold font-bold">{member.position || member.title}</p>
 
             {/* Social Links in Modal */}
@@ -184,11 +184,11 @@ function ManagementCard({ member, index, onSeeMore }: { member: any; index: numb
 
   return (
     <FadeIn delay={index * 0.1}>
-      <div className="group flex flex-col md:flex-row bg-white rounded-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 ring-1 ring-black/5 transition-all duration-300 overflow-hidden items-stretch min-h-[500px] md:min-h-[450px]">
+      <div className="group flex flex-col md:flex-row bg-white rounded-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 ring-1 ring-black/5 transition-all duration-300 overflow-hidden items-stretch min-h-[400px] sm:min-h-[450px] md:min-h-[450px]">
         {/* Left: Info */}
-        <div className="p-4 md:p-6 flex-1 flex flex-col order-2 md:order-1 justify-between">
+        <div className="p-3 sm:p-4 md:p-6 flex-1 flex flex-col order-2 md:order-1 justify-between">
           <div>
-            <h4 className="font-serif text-3xl font-semibold text-brand group-hover:text-gold transition-colors mb-1">
+            <h4 className="font-serif text-2xl sm:text-3xl font-semibold text-brand group-hover:text-gold transition-colors mb-1">
               {member.name}
             </h4>
             <p className="text-xs uppercase tracking-widest text-gold font-bold mb-5">
@@ -237,9 +237,9 @@ function ManagementCard({ member, index, onSeeMore }: { member: any; index: numb
         </div>
 
         {/* Right: Image */}
-        <div className="order-1 md:order-2 w-full md:w-[320px] lg:w-[380px] shrink-0 min-h-[320px] md:min-h-full relative bg-stone-100 overflow-hidden">
+        <div className="order-1 md:order-2 w-full md:w-[280px] lg:w-[380px] shrink-0 min-h-[250px] sm:min-h-[320px] md:min-h-full relative bg-stone-100 overflow-hidden">
           {member.imageUrl ? (
-            <Image src={member.imageUrl} alt={member.name} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-700" />
+            <Image src={member.imageUrl} alt={member.name} fill className="object-contain md:object-cover object-center group-hover:scale-105 transition-transform duration-700" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-navy/5 to-navy/10 group-hover:scale-105 transition-transform duration-700">
               <span className="font-serif text-8xl text-brand/15 font-bold uppercase">
@@ -260,7 +260,7 @@ export default function ManagementContent({ team = [] }: { team?: any[] }) {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 min-h-[400px] flex items-center">
+      <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center">
         <div className="absolute inset-0">
           <Image src={IMAGES.WAREHOUSE_INTERIOR} alt="Warehouse interior" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/85" />
@@ -268,7 +268,7 @@ export default function ManagementContent({ team = [] }: { team?: any[] }) {
         <div className="container-wide relative z-10 text-center">
           <FadeIn>
             <span className="eyebrow text-white block mb-4">EXECUTIVE TEAM</span>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-semibold mb-6 max-w-4xl mx-auto leading-tight">
+            <h1 className="font-serif text-white font-semibold mb-4 sm:mb-6 max-w-4xl mx-auto leading-tight" style={{ fontSize: 'clamp(2rem, 3vw + 0.75rem, 3.75rem)' }}>
               Leadership & Management
             </h1>
             <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed">
