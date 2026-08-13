@@ -92,11 +92,6 @@ export default function ManagementAdminContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (descCharCount > 450) {
-      toast.error("Description must be a maximum of 450 characters.");
-      return;
-    }
-
     setSubmitting(true);
 
     try {
@@ -240,14 +235,11 @@ export default function ManagementAdminContent() {
                 <div>
                   <div className="flex justify-between items-center mb-1.5">
                     <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide">Description (Bio)</label>
-                    <span className={`text-xs font-semibold ${descCharCount > 450 ? 'text-red-600 font-bold' : 'text-stone-400'}`}>
-                      {descCharCount} / 450 max chars
-                    </span>
                   </div>
                   <RichTextEditor
                     value={formData.description}
                     onChange={val => setFormData({ ...formData, description: val })}
-                    placeholder="Enter management bio (max 450 characters)..."
+                    placeholder="Enter management bio..."
                   />
                 </div>
 
