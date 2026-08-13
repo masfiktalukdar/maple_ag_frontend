@@ -78,7 +78,7 @@ export default function AdminDashboardLayoutContent({
 
   return (
     <ToastProvider>
-      <div className="flex h-screen bg-stone-light overflow-hidden">
+      <div className="flex h-screen bg-stone-light overflow-hidden admin-root">
         {/* Desktop Sidebar — hidden on mobile */}
         <div className="hidden lg:block">
           <AdminSidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />

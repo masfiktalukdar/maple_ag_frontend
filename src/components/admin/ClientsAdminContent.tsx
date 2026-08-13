@@ -5,6 +5,7 @@ import { fetchApi } from "@/lib/api";
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaImage } from "react-icons/fa";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
+import AdminUploadButton from "@/components/admin/shared/AdminUploadButton";
 
 interface ClientData {
   _id: string;
@@ -188,15 +189,13 @@ export default function ClientsAdminContent() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-stone-700 mb-1.5">
+                  <label className="block text-sm font-semibold text-stone-700 mb-2">
                     Logo {editingId ? '(Optional)' : <span className="text-red-500">*</span>}
                   </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={e => setImageFile(e.target.files?.[0] || null)}
-                    className="admin-input"
-                    required={!editingId}
+                  <AdminUploadButton
+                    onFileSelect={file => setImageFile(file)}
+                    selectedFile={imageFile}
+                    label="Upload Logo"
                   />
                   <p className="text-xs text-stone-500 mt-1.5">Please upload a high-quality logo with a transparent background (PNG or SVG preferred).</p>
                 </div>

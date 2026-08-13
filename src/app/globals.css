@@ -45,8 +45,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
@@ -54,6 +59,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -65,6 +71,7 @@
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -75,6 +82,7 @@
   from {
     width: 0;
   }
+
   to {
     width: 100%;
   }
@@ -84,6 +92,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -103,6 +112,30 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Client-Facing Left-Aligned Paragraph Justification */
+:not(.admin-root) p:not(.text-center):not(.text-right):not(.text-left):not(.no-justify) {
+  text-align: justify;
+}
+
+/* Explicit Alignment Priority Overrides */
+.text-center,
+.text-center p,
+[class*="text-center"] p {
+  text-align: center !important;
+}
+
+.text-left,
+.text-left p,
+[class*="text-left"] p {
+  text-align: left !important;
+}
+
+.text-justify,
+.text-justify p,
+[class*="text-justify"] p {
+  text-align: justify !important;
 }
 
 ::selection {
@@ -130,14 +163,14 @@ body {
 
 /* Section Spacing */
 .section-padding {
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 @media (max-width: 768px) {
   .section-padding {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 }
 
@@ -310,6 +343,7 @@ body {
 .prose p {
   @apply mb-2;
 }
+
 .prose p:last-child {
   @apply mb-0;
 }

@@ -5,6 +5,7 @@ import { fetchApi } from "@/lib/api";
 import { FaPlus, FaEdit, FaTrash, FaTimes, FaCertificate } from "react-icons/fa";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
+import AdminUploadButton from "@/components/admin/shared/AdminUploadButton";
 
 interface Cert {
   _id: string;
@@ -204,15 +205,13 @@ export default function CertificationsAdminContent() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-stone-700 mb-1.5">
+                  <label className="block text-sm font-semibold text-stone-700 mb-2">
                     Image {editingId ? '(Optional)' : <span className="text-red-500">*</span>}
                   </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={e => setImageFile(e.target.files?.[0] || null)}
-                    className="admin-input"
-                    required={!editingId}
+                  <AdminUploadButton
+                    onFileSelect={file => setImageFile(file)}
+                    selectedFile={imageFile}
+                    label="Upload Image"
                   />
                 </div>
               </form>

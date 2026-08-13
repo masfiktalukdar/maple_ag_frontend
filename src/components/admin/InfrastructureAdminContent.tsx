@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef, ChangeEvent } from "react";
-import { FaPlus, FaTrash, FaCheck, FaSpinner, FaArrowLeft, FaArrowRight, FaUpload, FaImages, FaExchangeAlt, FaEdit, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
+import { FaPlus, FaTrash, FaImages, FaExchangeAlt, FaEdit, FaSave, FaTimes, FaSpinner, FaCheck, FaUpload, FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { fetchApi, uploadFile } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
+import AdminUploadButton from "@/components/admin/shared/AdminUploadButton";
 import SafeImage from "@/components/shared/SafeImage";
 
 interface InfrastructureItem {
@@ -195,13 +196,16 @@ export default function InfrastructureAdminContent() {
             {infraItems.length} Photo{infraItems.length !== 1 ? "s" : ""} Total
           </span>
 
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="admin-btn-primary"
-          >
-            <FaPlus size={11} /> Add Photos
-          </button>
+          <AdminUploadButton
+            label="Upload Photos"
+            multiple
+            accept="image/jpeg,image/png,image/webp,image/avif"
+            onMultipleFilesSelect={(files) => {
+              setInfraFiles(files);
+              const urls = files.map((file) => URL.createObjectURL(file));
+              setInfraPreviews(urls);
+            }}
+          />
         </div>
       </div>
 
@@ -399,21 +403,19 @@ export default function InfrastructureAdminContent() {
                   />
                 </div>
                 
-                <input
-                  ref={modalFileInputRef}
-                  type="file"
+                <AdminUploadButton
+                  label="Upload Image"
                   accept="image/jpeg,image/png,image/webp,image/avif"
-                  className="hidden"
-                  onChange={handleSelectEditFile}
+                  onFileSelect={(file) => {
+                    if (file) {
+                      setEditFile(file);
+                      setEditPreview(URL.createObjectURL(file));
+                    }
+                  }}
+                  selectedFile={editFile}
+                  compact
+                  className="w-full justify-center"
                 />
-
-                <button
-                  type="button"
-                  onClick={() => modalFileInputRef.current?.click()}
-                  className="admin-btn-secondary w-full justify-center text-xs"
-                >
-                  <FaExchangeAlt size={11} /> Change Image File
-                </button>
               </div>
 
               {/* Photo Label Input */}

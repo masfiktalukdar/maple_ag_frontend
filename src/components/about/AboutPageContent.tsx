@@ -198,7 +198,7 @@ export default function AboutPageContent({ journey = [], clients = [], certifica
       </section>
       
       {/* Our Sister Concerns / Logo Marquee */}
-      <section className="py-16 bg-white border-y border-stone-light group">
+      <section className="section-padding bg-white border-y border-stone-light group">
         <div className="container-wide mb-10 text-center">
           <FadeIn>
             <span className="eyebrow text-brand">OUR SISTER CONCERNS</span>

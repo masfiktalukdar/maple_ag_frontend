@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { FaPlus, FaEdit, FaTrash, FaCheck, FaSpinner, FaMapMarkerAlt, FaGlobe, FaImage, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { fetchApi, uploadFile } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
+import AdminUploadButton from "@/components/admin/shared/AdminUploadButton";
 import Image from "next/image";
 
 interface IMarker {
@@ -232,20 +233,27 @@ export default function NetworkAdminContent() {
               <p className="text-xs text-stone-500 mb-4">
                 Upload a static map or infographic for this category. This will be displayed in the public pages without any dynamic overlay.
               </p>
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                className="hidden" 
-                accept="image/*" 
-                onChange={handleMapImageUpload} 
+              <AdminUploadButton
+                label="Upload New Map"
+                isLoading={submitting}
+                onFileSelect={(file) => {
+                  if (file && activeCategory) {
+                    const fd = new FormData();
+                    fd.append("mapImage", file);
+                    setSubmitting(true);
+                    fetchApi(`/network/category/${activeCategory.name}/map`, { method: "PUT", body: fd })
+                      .then(() => {
+                        toast.success("Map image updated successfully");
+                        loadCategories();
+                      })
+                      .catch(err => {
+                        console.error(err);
+                        toast.error("Failed to upload map image");
+                      })
+                      .finally(() => setSubmitting(false));
+                  }
+                }}
               />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={submitting}
-                className="admin-btn-secondary w-full sm:w-auto"
-              >
-                {submitting ? <FaSpinner className="animate-spin" /> : <FaImage />} Upload New Map
-              </button>
             </div>
             <div className="w-full md:w-2/3 bg-stone-50 border border-stone-200 rounded flex items-center justify-center overflow-hidden aspect-[21/9] p-2">
               {activeCategory.mapImage ? (

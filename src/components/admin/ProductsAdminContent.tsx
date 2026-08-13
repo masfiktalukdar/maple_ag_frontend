@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import AdminUploadButton from "@/components/admin/shared/AdminUploadButton";
 import {
   FaPlus,
   FaEdit,
@@ -877,22 +878,18 @@ export default function ProductsAdminContent() {
                       Upload high-resolution product images. Supported formats: <strong>JPG, JPEG, PNG, WEBP, AVIF</strong> up to 10MB.
                     </p>
 
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileChange}
-                      accept="image/jpeg, image/jpg, image/png, image/webp, image/avif"
-                      className="hidden"
-                    />
-
                     <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={() => fileInputRef.current?.click()}
-                        className="px-4 py-2 bg-brand text-white rounded text-xs font-semibold uppercase tracking-wider hover:bg-gold transition-colors flex items-center gap-2 cursor-pointer shadow-sm"
-                      >
-                        <FaUpload /> {imagePreview ? "Change / Upload Image" : "Upload Image"}
-                      </button>
+                      <AdminUploadButton
+                        onFileSelect={(file) => {
+                          if (file) {
+                            setImageFile(file);
+                            setImagePreview(URL.createObjectURL(file));
+                          }
+                        }}
+                        selectedFile={imageFile}
+                        accept="image/jpeg, image/jpg, image/png, image/webp, image/avif"
+                        label="Upload Image"
+                      />
 
                       {imagePreview && (
                         <button

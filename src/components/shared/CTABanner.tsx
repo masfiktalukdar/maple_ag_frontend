@@ -17,8 +17,8 @@ export default function CTABanner({
   buttonHref = "/contact",
 }: CTABannerProps) {
   return (
-    <section className="bg-brand">
-      <div className="container-wide py-20 md:py-24 text-center">
+    <section className="section-padding bg-brand">
+      <div className="container-wide text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

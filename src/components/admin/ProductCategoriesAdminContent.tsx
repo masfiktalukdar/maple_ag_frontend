@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import AdminUploadButton from "@/components/admin/shared/AdminUploadButton";
 import {
   FaPlus,
   FaEdit,
@@ -428,9 +429,9 @@ export default function ProductCategoriesAdminContent() {
                 <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider mb-1">
                   Category Image {!editingId && "*"}
                 </label>
-                {imagePreview ? (
-                  <div className="relative rounded-lg overflow-hidden border border-stone-200 bg-stone-50">
-                    <SafeImage
+                {imagePreview && (
+                  <div className="relative rounded-lg overflow-hidden border border-stone-200 mb-3">
+                    <img
                       src={imagePreview}
                       alt="Preview"
                       className="w-full h-48 object-cover"
@@ -442,37 +443,20 @@ export default function ProductCategoriesAdminContent() {
                     >
                       <FaTimes size={10} />
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="absolute bottom-2 right-2 flex items-center gap-1.5 px-3 py-1.5 bg-white/90 rounded-md text-xs font-semibold text-brand hover:bg-white shadow-sm transition-colors"
-                    >
-                      <FaUpload size={10} /> Change
-                    </button>
-                  </div>
-                ) : (
-                  <div
-                    onClick={() => fileInputRef.current?.click()}
-                    onDragOver={(e) => e.preventDefault()}
-                    onDrop={handleImageDrop}
-                    className="border-2 border-dashed border-stone-300 rounded-lg p-8 text-center cursor-pointer hover:border-brand hover:bg-stone-50 transition-colors"
-                  >
-                    <FaImage className="text-3xl text-stone-300 mx-auto mb-3" />
-                    <p className="text-sm font-medium text-stone-600">
-                      Click to upload or drag & drop
-                    </p>
-                    <p className="text-[11px] text-stone-400 mt-1">
-                      JPG, PNG, WEBP up to 10MB
-                    </p>
                   </div>
                 )}
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
+                <div>
+                  <AdminUploadButton
+                    onFileSelect={(file) => {
+                      if (file) {
+                        setImageFile(file);
+                        setImagePreview(URL.createObjectURL(file));
+                      }
+                    }}
+                    selectedFile={imageFile}
+                    label="Upload Image"
+                  />
+                </div>
               </div>
 
               {/* Description (optional) */}

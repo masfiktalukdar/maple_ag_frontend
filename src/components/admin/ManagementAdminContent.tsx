@@ -6,6 +6,7 @@ import { FaPlus, FaEdit, FaTrash, FaTimes, FaUsers } from "react-icons/fa";
 import { useToast } from "@/context/ToastContext";
 import SafeImage from "@/components/shared/SafeImage";
 import RichTextEditor from "@/components/shared/RichTextEditor";
+import AdminUploadButton from "@/components/admin/shared/AdminUploadButton";
 
 interface TeamMember {
   _id: string;
@@ -243,7 +244,7 @@ export default function ManagementAdminContent() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-stone-100 pt-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-stone-100 pt-5">
                   <div>
                     <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-1.5">Email (Optional)</label>
                     <input
@@ -285,13 +286,11 @@ export default function ManagementAdminContent() {
                 </div>
 
                 <div className="border-t border-stone-100 pt-5">
-                  <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-1.5">Image {editingId ? '(Optional)' : '*'}</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={e => setImageFile(e.target.files?.[0] || null)}
-                    className="admin-input !p-1.5"
-                    required={!editingId}
+                  <label className="block text-xs font-bold text-stone-500 uppercase tracking-wide mb-2">Image {editingId ? '(Optional)' : '*'}</label>
+                  <AdminUploadButton
+                    onFileSelect={file => setImageFile(file)}
+                    selectedFile={imageFile}
+                    label="Upload Photo"
                   />
                 </div>
               </form>

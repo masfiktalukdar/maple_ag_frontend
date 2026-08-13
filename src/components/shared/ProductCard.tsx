@@ -22,10 +22,17 @@ export default function ProductCard({ product, onRequestQuote }: ProductCardProp
 
   const productUrl = product._id ? `/products/${product._id}${typeQuery}` : "#";
 
+  const formatDescription = (desc?: string, maxChars = 80) => {
+    if (!desc) return "";
+    const cleanText = desc.replace(/<[^>]*>/g, "").trim();
+    if (cleanText.length <= maxChars) return cleanText;
+    return cleanText.slice(0, maxChars).trim() + "...";
+  };
+
   const CardContent = (
     <div className="group flex flex-col bg-[#fdfaf6] border border-stone/20 overflow-hidden h-full">
-      {/* Image Container */}
-      <div className="relative aspect-[4/3] w-full bg-stone/20 overflow-hidden">
+      {/* Image Container — 1.2x taller aspect ratio (10/9) */}
+      <div className="relative aspect-[10/9] w-full bg-stone/20 overflow-hidden">
         {imgSrc && (
           <SafeImage
             src={imgSrc}
@@ -51,11 +58,9 @@ export default function ProductCard({ product, onRequestQuote }: ProductCardProp
         <h3 className="font-serif text-xl text-brand font-semibold mb-2 line-clamp-2">
           {product.name}
         </h3>
-        <RichTextRenderer 
-          content={product.description} 
-          className="text-text-muted text-sm leading-relaxed mb-4 flex-grow"
-          clampLines={3}
-        />
+        <p className="text-text-muted text-sm leading-relaxed mb-4 flex-grow text-left">
+          {formatDescription(product.description, 80)}
+        </p>
 
         {/* CTA */}
         <div className="mt-auto">

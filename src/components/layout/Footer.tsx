@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer className="bg-ivory border-t border-stone-200 text-charcoal">
       {/* Main Footer Grid */}
-      <div className="container-wide py-8">
+      <div className="container-wide py-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8">
 
           {/* Column 1: Company Info */}
@@ -60,11 +60,11 @@ export default function Footer() {
                 {companyName}
               </span>
             </div>
-            <p className="text-sm leading-relaxed text-text-muted mb-6 pr-4">
+            <p className="text-sm leading-relaxed text-text-muted mb-0 pr-4">
               {fallbackCompanyInfo.description}
             </p>
             {/* Get in Touch & Minimalist Brand Icons */}
-            <div className="mt-6">
+            <div className="mt-4">
               <h5 className="text-xs font-semibold uppercase tracking-widest text-stone-500 mb-3">
                 Get in Touch
               </h5>
@@ -109,44 +109,47 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="lg:col-span-2">
-            <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
-              Quick Links
-            </h5>
-            <ul className="space-y-3">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-text-muted hover:text-gold transition-colors font-medium"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Mobile 2-Column Wrapper for Quick Links & Contact Details */}
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:contents gap-6 lg:gap-8">
+            {/* Column 2: Quick Links */}
+            <div className="lg:col-span-2">
+              <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
+                Quick Links
+              </h5>
+              <ul className="space-y-3">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-text-muted hover:text-gold transition-colors font-medium"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Column 3: Contact Details */}
-          <div className="lg:col-span-3">
-            <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
-              Contact Us
-            </h5>
-            <ul className="space-y-5 text-sm">
-              <li>
-                <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">Head Office</span>
-                <p className="text-charcoal font-medium mt-1 leading-relaxed">{address}</p>
-              </li>
-              <li>
-                <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">Phone</span>
-                <p className="text-brand font-medium mt-1">{phone}</p>
-              </li>
-              <li>
-                <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">General Inquiries</span>
-                <p className="text-brand font-medium mt-1">{email}</p>
-              </li>
-            </ul>
+            {/* Column 3: Contact Details */}
+            <div className="lg:col-span-3">
+              <h5 className="text-xs font-semibold uppercase tracking-widest text-brand mb-5">
+                Contact Us
+              </h5>
+              <ul className="space-y-5 text-sm">
+                <li>
+                  <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">Head Office</span>
+                  <p className="text-charcoal font-medium mt-1 leading-relaxed">{address}</p>
+                </li>
+                <li>
+                  <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">Phone</span>
+                  <p className="text-brand font-medium mt-1">{phone}</p>
+                </li>
+                <li>
+                  <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">General Inquiries</span>
+                  <p className="text-brand font-medium mt-1">{email}</p>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Column 4: Location Map */}

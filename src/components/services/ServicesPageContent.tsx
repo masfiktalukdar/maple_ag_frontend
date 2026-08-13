@@ -8,8 +8,7 @@ import { services } from "@/data/services";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTABanner from "@/components/shared/CTABanner";
 import SafeImage from "@/components/shared/SafeImage";
-import { API_BASE, fetchApi } from "@/lib/api";
-import { FaExpand, FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { API_BASE } from "@/lib/api";
 import { IMAGES } from "@/constants/images";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -40,27 +39,9 @@ interface ServiceHeaderData {
   description: string;
 }
 
-interface InfrastructureItem {
-  _id: string;
-  imageUrl: string;
-  caption?: string;
-  order: number;
-}
-
-const fallbackGalleryImages = [
-  { src: IMAGES.HERO_PORT, alt: "Shipping port operations" },
-  { src: IMAGES.WAREHOUSE_INTERIOR, alt: "Warehouse interior" },
-  { src: IMAGES.CONTAINER_TRUCKS, alt: "Container truck fleet" },
-  { src: IMAGES.CARGO_SHIP, alt: "Cargo ship at sea" },
-  { src: IMAGES.IMPORT_MACHINERY, alt: "Machinery import operations" },
-  { src: IMAGES.AGRO_PRODUCTS, alt: "Agricultural products" },
-];
-
 export default function ServicesPageContent() {
   const [dynamicStats, setDynamicStats] = useState<StatItem[]>([]);
   const [dynamicHeaders, setDynamicHeaders] = useState<ServiceHeaderData[]>([]);
-  const [infraItems, setInfraItems] = useState<InfrastructureItem[]>([]);
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
     fetch(`${API_BASE}/services`)
@@ -80,14 +61,6 @@ export default function ServicesPageContent() {
         }
       })
       .catch((err) => console.error("Failed to fetch service headers:", err));
-
-    fetchApi("/network/infrastructure")
-      .then((res) => {
-        if (res.data && Array.isArray(res.data)) {
-          setInfraItems(res.data);
-        }
-      })
-      .catch((err) => console.error("Failed to fetch infrastructure items:", err));
   }, []);
 
   const getStatsForService = (serviceId: string, fallbackStats: StatItem[]) => {
@@ -108,13 +81,6 @@ export default function ServicesPageContent() {
     }
     return { headline: fallbackHeadline, description: fallbackDesc };
   };
-
-  const galleryImages = infraItems.length > 0
-    ? infraItems.map((item) => ({
-        src: item.imageUrl,
-        alt: item.caption || "Infrastructure & Logistics operation photo",
-      }))
-    : fallbackGalleryImages;
 
   return (
     <>
@@ -156,7 +122,7 @@ export default function ServicesPageContent() {
                     <div className="absolute inset-0 bg-brand/10" />
                   </div>
                 </FadeIn>
-                
+
                 <FadeIn className="w-full lg:w-1/2" delay={0.2}>
                   <span className="eyebrow block mb-3 text-accent">0{i + 1} {"//"} {service.title}</span>
                   <h3 className="font-serif text-3xl md:text-4xl text-brand font-semibold mb-6">
@@ -165,7 +131,7 @@ export default function ServicesPageContent() {
                   <p className="text-text-muted leading-relaxed mb-8 text-lg">
                     {description}
                   </p>
-                  
+
                   <div className="grid grid-cols-2 gap-4 mb-10">
                     {currentStats.map((stat, idx) => (
                       <div key={stat._id || `${stat.label}-${idx}`} className="bg-white p-4 border border-stone/30 rounded-sm">
@@ -191,85 +157,6 @@ export default function ServicesPageContent() {
           })}
         </div>
       </section>
-
-      {/* Infrastructure & Logistics Gallery Section */}
-      <section className="section-padding bg-ivory border-t border-stone-200">
-        <div className="container-wide">
-          <SectionHeader
-            eyebrow="OUR OPERATIONS"
-            title="Infrastructure & Logistics"
-          />
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-            {galleryImages.map((img, i) => (
-              <FadeIn key={i} delay={i * 0.06}>
-                <div
-                  onClick={() => setLightboxIndex(i)}
-                  className={`relative rounded-lg overflow-hidden bg-stone-900/5 group cursor-zoom-in shadow-xs hover:shadow-md transition-all ${
-                    i === 0 ? "aspect-[4/3] md:col-span-2 md:row-span-2 md:aspect-auto md:h-full min-h-[280px]" : "aspect-square"
-                  }`}
-                >
-                  <SafeImage
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/30 transition-colors flex items-center justify-center pointer-events-none">
-                    <FaExpand className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-xl drop-shadow-md" />
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Lightbox Modal */}
-      {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-50 bg-stone-950/90 backdrop-blur-md flex items-center justify-center p-4"
-          onClick={() => setLightboxIndex(null)}
-        >
-          <button
-            onClick={() => setLightboxIndex(null)}
-            className="absolute top-6 right-6 text-white/80 hover:text-white p-2 text-2xl transition-colors cursor-pointer"
-          >
-            <FaTimes />
-          </button>
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightboxIndex((prev) => (prev === 0 ? galleryImages.length - 1 : (prev || 0) - 1));
-            }}
-            className="absolute left-4 sm:left-8 text-white/80 hover:text-white p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-xl transition-colors cursor-pointer"
-          >
-            <FaChevronLeft />
-          </button>
-
-          <div
-            className="relative max-w-5xl max-h-[85vh] w-full flex items-center justify-center p-2"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <SafeImage
-              src={galleryImages[lightboxIndex].src}
-              alt={galleryImages[lightboxIndex].alt}
-              className="max-w-full max-h-[85vh] object-contain rounded shadow-2xl"
-            />
-          </div>
-
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightboxIndex((prev) => (prev === galleryImages.length - 1 ? 0 : (prev || 0) + 1));
-            }}
-            className="absolute right-4 sm:right-8 text-white/80 hover:text-white p-3 rounded-full bg-stone-900/60 hover:bg-stone-900 text-xl transition-colors cursor-pointer"
-          >
-            <FaChevronRight />
-          </button>
-        </div>
-      )}
 
       <CTABanner
         headline="Ready to scale your supply chain?"

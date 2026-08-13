@@ -83,7 +83,7 @@ export default function ProductDetailsContent({ product }: ProductDetailsContent
               <h1 className="font-serif text-xl md:text-2xl text-brand font-semibold mb-2">
                 {product.name}
               </h1>
-              <div className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-2 flex-1">
+              <div className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-2 flex-1 text-justify">
                 <RichTextRenderer content={product.description} />
                 
                 {product.type === "import" && product.importDetails?.specifications && (

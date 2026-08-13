@@ -65,7 +65,7 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
       </section>
 
       {/* Where We Operate - 3 Maps Side by Side */}
-      <section className="py-12 md:py-16 bg-ivory">
+      <section className="section-padding bg-ivory">
         <div className="container-wide max-w-7xl">
           <FadeIn>
             <SectionHeader

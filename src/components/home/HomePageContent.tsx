@@ -64,7 +64,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-screen min-h-[600px] max-h-[900px] flex items-center">
+      <section className="relative min-h-[550px] md:min-h-[650px] lg:h-screen lg:max-h-[900px] flex items-center pt-28 pb-16 md:py-24">
         <div className="absolute inset-0">
           <Image
             src={homeSettings?.heroImage || IMAGES.HERO_PORT}
@@ -84,25 +84,25 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
             transition={{ duration: 0.7, delay: 0.2 }}
             className="max-w-2xl"
           >
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-[80px] text-white font-semibold leading-[1.08] tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-[76px] text-white font-semibold leading-[1.1] tracking-tight">
               {companyName}
             </h1>
-            <p className="mt-4 text-xl md:text-2xl text-white font-medium tracking-wide">
+            <p className="mt-3 md:mt-4 text-lg sm:text-xl md:text-2xl text-white font-medium tracking-wide text-left">
               {homeSettings?.heroTitle || "Empowering Global Trade, Connecting Continents."}
             </p>
-            <p className="mt-4 text-lg md:text-xl text-white/60 max-w-lg leading-relaxed">
+            <p className="mt-3 md:mt-4 text-sm sm:text-base md:text-xl text-white/80 max-w-lg leading-relaxed text-left">
               {homeSettings?.heroSubtitle || "Import, export, and supply chain solutions trusted by businesses across 40+ countries."}
             </p>
-            <div className="flex flex-wrap gap-4 mt-10">
+            <div className="flex flex-wrap gap-3 sm:gap-4 mt-8 md:mt-10">
               <Link
                 href="/services"
-                className="px-7 py-3.5 bg-brand text-white text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-brand-light transition-colors duration-200 border border-gold/40"
+                className="px-6 sm:px-7 py-3 sm:py-3.5 bg-brand text-white text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-sm cursor-pointer hover:bg-brand-light transition-colors duration-200 border border-gold/40"
               >
                 Explore Services
               </Link>
               <Link
                 href="/contact"
-                className="px-7 py-3.5 border border-white/30 text-white text-sm font-semibold uppercase tracking-wider rounded-sm hover:bg-white/10 transition-colors duration-200"
+                className="px-6 sm:px-7 py-3 sm:py-3.5 border border-white/30 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-sm hover:bg-white/10 transition-colors duration-200"
               >
                 Contact Us
               </Link>
@@ -112,8 +112,8 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
       </section>
 
       {/* Numbers / Stats Bar */}
-      <section className="bg-brand">
-        <div className="container-wide py-12 md:py-16">
+      <section className="section-padding bg-brand">
+        <div className="container-wide">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative z-10">
             {(homeSettings?.stats || heroStats).map((stat: any, index: number) => {
               const isFirst = index === 0;
@@ -199,7 +199,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
       </section>
 
       {/* Our Sister Concerns / Logo Marquee */}
-      <section className="py-16 bg-warm-white border-b border-stone-light group">
+      <section className="section-padding bg-warm-white border-b border-stone-light group">
         <div className="container-wide mb-10 text-center">
           <FadeIn>
             <span className="eyebrow text-brand">OUR SISTER CONCERNS</span>
@@ -274,7 +274,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
       </section>
 
       {/* Import, Export, Supply Products Grids */}
-      <section className="py-24 bg-ivory">
+      <section className="section-padding bg-ivory">
         <div className="container-wide space-y-24">
 
           {/* WHAT WE IMPORT */}

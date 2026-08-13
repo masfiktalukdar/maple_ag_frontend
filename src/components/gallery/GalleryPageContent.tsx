@@ -82,7 +82,7 @@ export default function GalleryPageContent({ photos, settings }: Props) {
       </section>
 
       {/* Gallery Grid Section */}
-      <section className="section-padding bg-[#F8F6F2]">
+      <section className="bg-[#F8F6F2] min-h-[550px] md:min-h-[650px] py-16 md:py-24">
         <div className="container-wide">
           {photos.length === 0 ? (
             <FadeIn>
@@ -171,8 +171,8 @@ export default function GalleryPageContent({ photos, settings }: Props) {
                           key={pageNum}
                           onClick={() => handlePageChange(pageNum)}
                           className={`w-8 h-8 text-xs font-bold rounded transition-all cursor-pointer ${currentPage === pageNum
-                              ? "bg-brand text-white shadow-sm"
-                              : "bg-white text-stone-600 border border-stone-200 hover:border-brand hover:text-brand"
+                            ? "bg-brand text-white shadow-sm"
+                            : "bg-white text-stone-600 border border-stone-200 hover:border-brand hover:text-brand"
                             }`}
                         >
                           {pageNum}
