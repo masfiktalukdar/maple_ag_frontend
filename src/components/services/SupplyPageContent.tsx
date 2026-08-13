@@ -99,7 +99,7 @@ export default function SupplyPageContent({ products: supplyProducts, networkCat
         </div>
         <div className="container-wide relative z-10 text-center">
           <FadeIn>
-            <span className="eyebrow text-accent block mb-4">SERVICE: SUPPLY & DISTRIBUTION</span>
+            <span className="eyebrow text-white block mb-4">SERVICE: SUPPLY & DISTRIBUTION</span>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white font-semibold mb-6 max-w-4xl mx-auto leading-tight">
               {service.headline}
             </h1>

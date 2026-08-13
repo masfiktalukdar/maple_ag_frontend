@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&display=swap');
 @import "tailwindcss";
 
 @theme inline {
@@ -17,8 +18,8 @@
   --color-stone-dark: #5a5347;
 
   /* Fonts */
-  --font-serif: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
 
   /* Spacing (8px grid) */
   --spacing-1: 8px;
@@ -125,7 +126,6 @@ body {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--color-brand);
 }
 
 /* Section Spacing */
@@ -260,6 +260,25 @@ body {
 /* Rich Text Editor & Renderer Styles */
 .ProseMirror {
   @apply outline-none w-full min-h-[150px];
+}
+
+.ProseMirror strong,
+.ProseMirror b,
+.prose strong,
+.prose b {
+  font-weight: 700 !important;
+}
+
+.ProseMirror em,
+.ProseMirror i,
+.prose em,
+.prose i {
+  font-style: italic !important;
+}
+
+.ProseMirror u,
+.prose u {
+  text-decoration: underline !important;
 }
 
 .ProseMirror ul,

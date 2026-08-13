@@ -25,7 +25,7 @@ export default function SectionHeader({
       transition={{ duration: 0.5 }}
       className={`mb-12 md:mb-16 ${centered ? "text-center" : ""}`}
     >
-      <span className={`eyebrow ${light ? "text-accent" : ""}`}>{eyebrow}</span>
+      <span className={`eyebrow ${light ? "text-white" : "text-brand"}`}>{eyebrow}</span>
       <h2
         className={`font-serif text-3xl md:text-4xl lg:text-5xl font-semibold mt-3 leading-[1.15] ${
           light ? "text-white" : "text-brand"

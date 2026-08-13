@@ -20,7 +20,8 @@ import {
   FaSignOutAlt,
   FaAngleDoubleLeft,
   FaAngleDoubleRight,
-  FaCog
+  FaCog,
+  FaImages
 } from "react-icons/fa";
 
 type NavItem = {
@@ -38,6 +39,7 @@ const navItems: NavItem[] = [
     subItems: [
       { label: "Mission, Vision & History", href: "/admin/about/mission-vision" },
       { label: "Management", href: "/admin/about/management" },
+      { label: "Gallery", href: "/admin/about/gallery" },
     ]
   },
   { label: "Services", href: "/admin/services", icon: FaConciergeBell },
@@ -71,9 +73,8 @@ function NavGroup({ item, pathname, isCollapsed, onLinkClick }: NavGroupProps) {
     <div className="mb-1 relative group">
       <button
         onClick={() => !isCollapsed && setIsOpen(!isOpen)}
-        className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} px-3 py-2.5 rounded-md transition-colors cursor-pointer ${
-          isParentActive ? "bg-white/10 text-white" : "hover:bg-white/5 text-white/80 hover:text-white"
-        }`}
+        className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} px-3 py-2.5 rounded-md transition-colors cursor-pointer ${isParentActive ? "bg-white/10 text-white" : "hover:bg-white/5 text-white/80 hover:text-white"
+          }`}
         title={isCollapsed ? item.label : undefined}
       >
         <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
@@ -95,11 +96,10 @@ function NavGroup({ item, pathname, isCollapsed, onLinkClick }: NavGroupProps) {
                 key={sub.href}
                 href={sub.href}
                 onClick={onLinkClick}
-                className={`flex items-center gap-2 px-2.5 py-2 text-[12px] rounded-md transition-colors cursor-pointer min-h-[36px] ${
-                  isActive
+                className={`flex items-center gap-2 px-2.5 py-2 text-[12px] rounded-md transition-colors cursor-pointer min-h-[36px] ${isActive
                     ? "bg-white/10 text-gold font-medium"
                     : "text-white/70 hover:text-white hover:bg-white/5"
-                }`}
+                  }`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${isActive ? "bg-gold" : "bg-white/30"}`} />
                 <span className="leading-tight">{sub.label}</span>
@@ -122,11 +122,10 @@ function NavGroup({ item, pathname, isCollapsed, onLinkClick }: NavGroupProps) {
                 <Link
                   key={sub.href}
                   href={sub.href}
-                  className={`block px-4 py-2.5 text-[12px] transition-colors cursor-pointer min-h-[40px] flex items-center ${
-                    isActive
+                  className={`block px-4 py-2.5 text-[12px] transition-colors cursor-pointer min-h-[40px] flex items-center ${isActive
                       ? "bg-white/10 text-gold font-medium"
                       : "text-white/80 hover:text-white hover:bg-white/5"
-                  }`}
+                    }`}
                 >
                   {sub.label}
                 </Link>
@@ -181,18 +180,16 @@ export default function AdminSidebar({
       <>
         {/* Backdrop */}
         <div
-          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[59] transition-opacity duration-300 ${
-            isMobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          }`}
+          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[59] transition-opacity duration-300 ${isMobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
           onClick={onMobileClose}
           aria-hidden="true"
         />
 
         {/* Drawer panel */}
         <aside
-          className={`fixed inset-y-0 left-0 w-64 bg-brand flex flex-col text-white/80 z-[60] shadow-2xl transition-transform duration-300 ease-in-out ${
-            isMobileOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`fixed inset-y-0 left-0 w-64 bg-brand flex flex-col text-white/80 z-[60] shadow-2xl transition-transform duration-300 ease-in-out ${isMobileOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
           role="dialog"
@@ -247,11 +244,10 @@ export default function AdminSidebar({
                     key={item.href}
                     href={item.href!}
                     onClick={onMobileClose}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors cursor-pointer mb-1 min-h-[44px] ${
-                      isActive
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors cursor-pointer mb-1 min-h-[44px] ${isActive
                         ? "bg-white/10 text-gold font-medium"
                         : "hover:bg-white/5 hover:text-white text-white/80"
-                    }`}
+                      }`}
                   >
                     <item.icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-gold" : "text-white/60"}`} />
                     <span className="text-[13px] font-medium tracking-wide">{item.label}</span>
@@ -322,11 +318,10 @@ export default function AdminSidebar({
                 key={item.href}
                 href={item.href!}
                 title={isCollapsed ? item.label : undefined}
-                className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} px-3 py-2.5 rounded-md transition-colors cursor-pointer mb-1 ${
-                  isActive
+                className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} px-3 py-2.5 rounded-md transition-colors cursor-pointer mb-1 ${isActive
                     ? "bg-white/10 text-gold font-medium"
                     : "hover:bg-white/5 hover:text-white text-white/80"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-center shrink-0">
                   <item.icon className={`w-3.5 h-3.5 ${isActive ? "text-gold" : "text-white/60"}`} />

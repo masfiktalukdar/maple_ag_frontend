@@ -7,7 +7,6 @@ import { useToast } from "@/context/ToastContext";
 import CertificationsAdminContent from "./CertificationsAdminContent";
 import ClientsAdminContent from "./ClientsAdminContent";
 import GoalsAdminContent from "./GoalsAdminContent";
-import InfrastructureAdminContent from "./InfrastructureAdminContent";
 
 interface Journey {
   _id: string;
@@ -209,10 +208,7 @@ export default function MissionVisionAdminContent() {
           <CertificationsAdminContent />
         </section>
 
-        {/* INFRASTRUCTURE & LOGISTICS SECTION */}
-        <section className="admin-card !p-0 overflow-hidden relative">
-          <InfrastructureAdminContent />
-        </section>
+
       </div>
 
       {/* JOURNEY MILESTONE MODAL */}

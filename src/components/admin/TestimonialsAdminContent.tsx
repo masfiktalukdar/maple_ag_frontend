@@ -12,6 +12,7 @@ import {
 import { getAuthToken, API_BASE } from "@/lib/api";
 import { useToast } from "@/context/ToastContext";
 import RichTextEditor from "@/components/shared/RichTextEditor";
+import RichTextRenderer from "@/components/shared/RichTextRenderer";
 
 interface Testimonial {
   _id: string;
@@ -199,7 +200,7 @@ export default function TestimonialsAdminContent() {
                       <div className="text-xs text-text-muted mt-1">{testimonial.authorTitle}</div>
                     </td>
                     <td className="py-4 px-4 align-top">
-                      <p className="text-sm text-stone-600 italic line-clamp-3">&quot;{testimonial.quote}&quot;</p>
+                      <RichTextRenderer content={testimonial.quote} clampLines={2} className="text-sm text-stone-600 italic" />
                     </td>
                     <td className="py-4 px-4 text-right align-top">
                       <div className="flex items-center justify-end gap-2">

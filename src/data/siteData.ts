@@ -26,7 +26,8 @@ export const navLinks: NavLink[] = [
       { label: "Supply", href: "/services/supply" }
     ]
   },
-  { label: "Global Network", href: "/global-network" }
+  { label: "Global Network", href: "/global-network" },
+  { label: "Gallery", href: "/gallery" }
 ];
 
 // ─── Stats ────────────────────────────────────────────────────

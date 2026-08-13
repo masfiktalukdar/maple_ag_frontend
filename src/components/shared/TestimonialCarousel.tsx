@@ -90,7 +90,12 @@ export default function TestimonialCarousel() {
   }
 
   if (total === 0) {
-    return null;
+    return (
+      <div className="text-center py-12 px-6 max-w-lg mx-auto bg-white/40 backdrop-blur-sm rounded-lg border border-brand/10 shadow-xs">
+        <p className="font-serif text-lg text-brand font-medium">No testimonials found</p>
+        <p className="text-xs text-text-muted mt-1">Client reviews and feedback will be displayed here.</p>
+      </div>
+    );
   }
 
   const getVisibleTestimonials = () => {
