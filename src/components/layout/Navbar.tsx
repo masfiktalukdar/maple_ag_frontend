@@ -68,8 +68,8 @@ function NavbarContent() {
                   <Link
                     href={link.href}
                     className={`text-[12px] xl:text-[13px] font-medium tracking-wide uppercase whitespace-nowrap transition-colors duration-200 flex items-center gap-1 ${isMainActive
-                        ? "text-gold font-semibold"
-                        : "text-brand/80 cursor-pointer hover:text-brand"
+                      ? "text-gold font-semibold"
+                      : "text-brand/80 cursor-pointer hover:text-brand"
                       }`}
                   >
                     {link.label}
@@ -108,8 +108,8 @@ function NavbarContent() {
                               key={child.href}
                               href={child.href}
                               className={`block px-5 py-2.5 text-sm transition-colors ${isChildActive
-                                  ? "text-gold bg-stone/20 font-semibold"
-                                  : "text-brand hover:bg-stone/30 hover:text-gold"
+                                ? "text-gold bg-stone/20 font-semibold"
+                                : "text-brand hover:bg-stone/30 hover:text-gold"
                                 }`}
                             >
                               {child.label}

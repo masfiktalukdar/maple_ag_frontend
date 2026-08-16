@@ -121,9 +121,9 @@ export default function TestimonialCarousel() {
               key={t._id}
               className="flex flex-col justify-between bg-white/40 backdrop-blur-sm p-3 sm:p-4 md:p-5 rounded-sm border border-brand/10 shadow-xs hover:border-gold/30 hover:bg-white/60 transition-all duration-300"
             >
-              <RichTextRenderer 
-                content={t.quote} 
-                className="font-serif text-base sm:text-lg md:text-xl text-brand italic leading-relaxed font-light" 
+              <RichTextRenderer
+                content={t.quote}
+                className="font-serif text-base sm:text-lg md:text-xl text-brand italic leading-relaxed font-light"
               />
 
               <div className="mt-6">

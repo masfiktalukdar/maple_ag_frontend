@@ -63,6 +63,8 @@ export default function GalleryPageContent({ photos, settings }: Props) {
             src={IMAGES.WAREHOUSE_INTERIOR}
             alt="Company operations"
             fill
+            sizes="100vw"
+            quality={80}
             className="object-cover"
             priority
           />
@@ -126,10 +128,10 @@ export default function GalleryPageContent({ photos, settings }: Props) {
                         src={photo.imageUrl}
                         alt={photo.caption || `Gallery photo ${startIndex + i + 1}`}
                         fill
-                        unoptimized
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                         loading={i < 4 ? "eager" : "lazy"}
                         sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        quality={80}
                       />
                     </div>
 

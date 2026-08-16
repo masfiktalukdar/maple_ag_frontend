@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Image, { ImageProps } from "next/image";
-
 import { IMAGES } from "@/constants/images";
+import { getOptimizedCloudinaryUrl } from "@/lib/images";
 
 interface SafeImageProps extends Omit<ImageProps, "src" | "alt"> {
   src?: string | null;
   alt: string;
   fallbackSrc?: string;
-  useNextImage?: boolean; // Set to true to use next/image, false to use standard <img>
+  useNextImage?: boolean;
 }
 
 export default function SafeImage({
@@ -18,6 +18,9 @@ export default function SafeImage({
   fallbackSrc = IMAGES.PLACEHOLDER,
   useNextImage = false,
   className,
+  sizes,
+  quality = 80,
+  fill,
   ...props
 }: SafeImageProps) {
   const getValidSrc = (inputSrc?: string | null) => {
@@ -49,25 +52,33 @@ export default function SafeImage({
   };
 
   if (useNextImage) {
+    const computedSizes = sizes || (fill ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" : undefined);
+
     return (
       <Image
         {...props}
+        fill={fill}
         src={imgSrc}
         alt={alt || "Image"}
         className={className}
         onError={handleError}
-        unoptimized
+        sizes={computedSizes}
+        quality={quality}
       />
     );
   }
 
   // NextImage props may contain layout, fill, sizes which are invalid for standard <img>, 
   // so we selectively pass valid standard HTML image attributes
-  const { width, height, loading, style, title, onClick, onLoad } = props;
+  const { width, height, loading = "lazy", style, title, onClick, onLoad } = props;
+  const optimizedSrc = getOptimizedCloudinaryUrl(imgSrc, {
+    width: typeof width === "number" ? width : undefined,
+    height: typeof height === "number" ? height : undefined,
+  });
 
   return (
     <img
-      src={imgSrc}
+      src={optimizedSrc}
       alt={alt || "Image"}
       className={className}
       onError={handleError}
@@ -75,6 +86,7 @@ export default function SafeImage({
       width={width}
       height={height}
       loading={loading}
+      decoding="async"
       style={style}
       title={title}
       onClick={onClick}

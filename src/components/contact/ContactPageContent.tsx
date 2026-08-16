@@ -8,8 +8,9 @@ import { IMAGES } from "@/constants/images";
 import { companyInfo as fallbackCompanyInfo } from "@/data/siteData";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
-import { fetchApi, formatExternalUrl, API_BASE } from "@/lib/api";
+import { formatExternalUrl, API_BASE } from "@/lib/api";
 import { z } from "zod";
+import { contactConfig } from "@/config/contactConfig";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -49,25 +50,11 @@ function ContactContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState("");
 
-  const [contactData, setContactData] = useState<any>(null);
-
-  const loadContactData = async () => {
-    try {
-      const res = await fetchApi("/contact");
-      if (res.data) {
-        setContactData(res.data);
-      }
-    } catch (error) {
-      console.error("Failed to load contact data:", error);
-    }
-  };
-
   useEffect(() => {
     const product = searchParams.get("product");
     if (product) {
       setFormData((prev) => ({ ...prev, product }));
     }
-    loadContactData();
   }, [searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -113,21 +100,21 @@ function ContactContent() {
     }
   };
 
-  const headOffice = contactData?.offices?.headOffice?.address || fallbackCompanyInfo.address;
-  const corpOffice = contactData?.offices?.corporateOffice?.address;
-  const portOffice = contactData?.offices?.portOffice?.address;
-  const phones = contactData?.contactDetails?.phones?.length ? contactData.contactDetails.phones : [fallbackCompanyInfo.phone];
-  const emails = contactData?.contactDetails?.emails?.length ? contactData.contactDetails.emails : [fallbackCompanyInfo.email];
-  const facebookUrl = formatExternalUrl(contactData?.socialMedia?.facebook);
-  const youtubeUrl = formatExternalUrl(contactData?.socialMedia?.youtube);
-  const linkedinUrl = formatExternalUrl(contactData?.socialMedia?.linkedin);
-  const whatsappUrl = formatExternalUrl(contactData?.socialMedia?.whatsapp);
+  const headOffice = contactConfig.offices.headOffice.address || fallbackCompanyInfo.address;
+  const corpOffice = contactConfig.offices.corporateOffice.address;
+  const portOffice = contactConfig.offices.portOffice.address;
+  const phones = contactConfig.contactDetails.phones.length ? contactConfig.contactDetails.phones : [fallbackCompanyInfo.phone];
+  const emails = contactConfig.contactDetails.emails.length ? contactConfig.contactDetails.emails : [fallbackCompanyInfo.email];
+  const facebookUrl = formatExternalUrl(contactConfig.socialMedia.facebook);
+  const youtubeUrl = formatExternalUrl(contactConfig.socialMedia.youtube);
+  const linkedinUrl = formatExternalUrl(contactConfig.socialMedia.linkedin);
+  const whatsappUrl = formatExternalUrl(contactConfig.socialMedia.whatsapp);
 
   return (
     <>
       <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center bg-brand text-white">
         <div className="absolute inset-0">
-          <Image src={IMAGES.HERO_PORT} alt="Contact Us" fill className="object-cover" priority />
+          <Image src={IMAGES.HERO_PORT} alt="Contact Us" fill sizes="100vw" quality={80} className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
         </div>
         <div className="container-wide relative z-10">
@@ -286,25 +273,25 @@ function ContactContent() {
                   <div className="space-y-6">
                     {headOffice && (
                       <div>
-                        <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactData?.offices?.headOffice?.name || "Head Office"}</p>
+                        <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactConfig.offices.headOffice.name || "Head Office"}</p>
                         <p className="text-brand leading-relaxed whitespace-pre-line">{headOffice}</p>
                       </div>
                     )}
                     {corpOffice && (
                       <div>
-                        <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactData?.offices?.corporateOffice?.name || "Corporate Office"}</p>
+                        <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactConfig.offices.corporateOffice.name || "Corporate Office"}</p>
                         <p className="text-brand leading-relaxed whitespace-pre-line">{corpOffice}</p>
                       </div>
                     )}
                     {portOffice && (
                       <div>
-                        <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactData?.offices?.portOffice?.name || "Port Office"}</p>
+                        <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactConfig.offices.portOffice.name || "Port Office"}</p>
                         <p className="text-brand leading-relaxed whitespace-pre-line">{portOffice}</p>
                       </div>
                     )}
 
                     <div className="pt-4 border-t border-stone/30">
-                      <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactData?.contactDetails?.directLinesTitle || "Direct Lines"}</p>
+                      <p className="text-xs uppercase tracking-widest text-text-muted font-semibold mb-1">{contactConfig.contactDetails.directLinesTitle || "Direct Lines"}</p>
                       {phones.map((p: string, i: number) => (
                         <p key={`phone-${i}`} className="text-brand">{p}</p>
                       ))}

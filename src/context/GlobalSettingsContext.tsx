@@ -1,7 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { fetchApi } from "@/lib/api";
+import React, { createContext, useContext, useState } from "react";
+import { siteConfig } from "@/config/siteConfig";
 
 type GlobalSettingsContextType = {
   companyName: string;
@@ -9,35 +9,19 @@ type GlobalSettingsContextType = {
 };
 
 const GlobalSettingsContext = createContext<GlobalSettingsContextType>({
-  companyName: "Maple AG Global LTD",
-  loading: true,
+  companyName: siteConfig.companyName,
+  loading: false,
 });
 
 export const GlobalSettingsProvider = ({ 
   children, 
-  initialCompanyName 
 }: { 
   children: React.ReactNode, 
-  initialCompanyName?: string 
 }) => {
-  const [companyName, setCompanyName] = useState(initialCompanyName || "Maple AG Global LTD");
-  const [loading, setLoading] = useState(!initialCompanyName);
-
-  useEffect(() => {
-    if (!initialCompanyName) {
-      fetchApi("/settings/companyName")
-        .then((res) => {
-          if (res.data) {
-            setCompanyName(res.data.companyName || res.data);
-          }
-        })
-        .catch(console.error)
-        .finally(() => setLoading(false));
-    }
-  }, [initialCompanyName]);
+  const [companyName] = useState(siteConfig.companyName);
 
   return (
-    <GlobalSettingsContext.Provider value={{ companyName, loading }}>
+    <GlobalSettingsContext.Provider value={{ companyName, loading: false }}>
       {children}
     </GlobalSettingsContext.Provider>
   );

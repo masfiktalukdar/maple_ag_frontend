@@ -5,36 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 import { navLinks, companyInfo as fallbackCompanyInfo } from "@/data/siteData";
-import { fetchApi, formatExternalUrl } from "@/lib/api";
-import { useGlobalSettings } from "@/context/GlobalSettingsContext";
+import { formatExternalUrl } from "@/lib/api";
+import { siteConfig } from "@/config/siteConfig";
+import { contactConfig } from "@/config/contactConfig";
 import { IMAGES } from "@/constants/images";
 
 export default function Footer() {
-  const [contactData, setContactData] = useState<any>(null);
-  const { companyName } = useGlobalSettings();
+  const companyName = siteConfig.companyName;
 
-  const loadContactData = async () => {
-    try {
-      const res = await fetchApi("/contact");
-      if (res.data) {
-        setContactData(res.data);
-      }
-    } catch (error) {
-      console.error("Failed to load contact data:", error);
-    }
-  };
-
-  useEffect(() => {
-    loadContactData();
-  }, []);
-
-  const address = contactData?.offices?.headOffice?.address || fallbackCompanyInfo.address;
-  const phone = contactData?.contactDetails?.phones?.[0] || fallbackCompanyInfo.phone;
-  const email = contactData?.contactDetails?.emails?.[0] || fallbackCompanyInfo.email;
-  const facebookUrl = formatExternalUrl(contactData?.socialMedia?.facebook || "https://facebook.com");
-  const youtubeUrl = formatExternalUrl(contactData?.socialMedia?.youtube || "https://youtube.com");
-  const linkedinUrl = formatExternalUrl(contactData?.socialMedia?.linkedin || "https://linkedin.com");
-  const whatsappUrl = formatExternalUrl(contactData?.socialMedia?.whatsapp || "https://wa.me/");
+  const address = contactConfig.offices.headOffice.address || fallbackCompanyInfo.address;
+  const phone = contactConfig.contactDetails.phones[0] || fallbackCompanyInfo.phone;
+  const email = contactConfig.contactDetails.emails[0] || fallbackCompanyInfo.email;
+  const facebookUrl = formatExternalUrl(contactConfig.socialMedia.facebook || "https://facebook.com");
+  const youtubeUrl = formatExternalUrl(contactConfig.socialMedia.youtube || "https://youtube.com");
+  const linkedinUrl = formatExternalUrl(contactConfig.socialMedia.linkedin || "https://linkedin.com");
+  const whatsappUrl = formatExternalUrl(contactConfig.socialMedia.whatsapp || "https://wa.me/");
 
   return (
     <footer className="bg-ivory border-t border-stone-200 text-charcoal">

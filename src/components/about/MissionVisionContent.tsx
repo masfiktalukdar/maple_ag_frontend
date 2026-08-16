@@ -36,7 +36,7 @@ export default function MissionVisionContent({ goals = [] }: { goals?: any[] }) 
     <>
       <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center bg-brand text-white">
         <div className="absolute inset-0">
-          <Image src={IMAGES.CARGO_SHIP} alt="Mission and Vision" fill className="object-cover" priority />
+          <Image src={IMAGES.CARGO_SHIP} alt="Mission and Vision" fill sizes="100vw" quality={80} className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/80" />
         </div>
         <div className="container-wide relative z-10">

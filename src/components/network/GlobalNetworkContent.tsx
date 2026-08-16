@@ -48,7 +48,7 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
       {/* Hero Section */}
       <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center">
         <div className="absolute inset-0">
-          <Image src={IMAGES.HERO_PORT} alt="Shipping port operations" fill className="object-cover" priority />
+          <Image src={IMAGES.HERO_PORT} alt="Shipping port operations" fill sizes="100vw" quality={80} className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/85" />
         </div>
         <div className="container-wide relative z-10 text-center">
@@ -87,10 +87,11 @@ export default function GlobalNetworkContent({ networkData = [] }: { networkData
                       <Image 
                         src={cat.mapImage}
                         alt={`${cat.name} Map`}
-                        width={1200}
-                        height={750}
+                        width={600}
+                        height={400}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        quality={80}
                         className="w-full h-full object-contain block"
-                        unoptimized
                       />
                     </div>
                   ) : (

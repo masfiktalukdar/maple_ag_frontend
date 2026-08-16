@@ -61,10 +61,11 @@ export default function CategoryNetworkSection({
                 <Image 
                   src={category.mapImage} 
                   alt={`${category.name} Map`} 
-                  width={1920}
-                  height={1080}
+                  width={1200}
+                  height={675}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                  quality={85}
                   className="w-full h-auto object-contain block max-h-[550px]"
-                  unoptimized
                 />
               </div>
             ) : (

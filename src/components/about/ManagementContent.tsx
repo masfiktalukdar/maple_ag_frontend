@@ -123,7 +123,7 @@ function ManagementModal({ member, onClose }: { member: any, onClose: () => void
         {/* Left: Image */}
         <div className="w-full md:w-[280px] lg:w-[350px] h-[200px] sm:h-[260px] md:h-[380px] shrink-0 relative bg-stone-100 overflow-hidden">
           {member.imageUrl ? (
-            <Image src={member.imageUrl} alt={member.name} fill className="object-contain md:object-cover object-top" />
+            <Image src={member.imageUrl} alt={member.name} fill sizes="(max-width: 768px) 100vw, 350px" quality={80} className="object-contain md:object-cover object-top" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-navy/5 to-navy/10">
               <span className="font-serif text-8xl text-brand/15 font-bold uppercase">
@@ -239,7 +239,7 @@ function ManagementCard({ member, index, onSeeMore }: { member: any; index: numb
         {/* Right: Image */}
         <div className="order-1 md:order-2 w-full md:w-[280px] lg:w-[380px] shrink-0 min-h-[250px] sm:min-h-[320px] md:min-h-full relative bg-stone-100 overflow-hidden">
           {member.imageUrl ? (
-            <Image src={member.imageUrl} alt={member.name} fill className="object-contain md:object-cover object-center group-hover:scale-105 transition-transform duration-700" />
+            <Image src={member.imageUrl} alt={member.name} fill sizes="(max-width: 768px) 100vw, 380px" quality={80} className="object-contain md:object-cover object-center group-hover:scale-105 transition-transform duration-700" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-navy/5 to-navy/10 group-hover:scale-105 transition-transform duration-700">
               <span className="font-serif text-8xl text-brand/15 font-bold uppercase">
@@ -262,7 +262,7 @@ export default function ManagementContent({ team = [] }: { team?: any[] }) {
       {/* Hero Section */}
       <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24 min-h-[350px] sm:min-h-[400px] flex items-center">
         <div className="absolute inset-0">
-          <Image src={IMAGES.WAREHOUSE_INTERIOR} alt="Warehouse interior" fill className="object-cover" priority />
+          <Image src={IMAGES.WAREHOUSE_INTERIOR} alt="Warehouse interior" fill sizes="100vw" quality={80} className="object-cover" priority />
           <div className="absolute inset-0 bg-brand/85" />
         </div>
         <div className="container-wide relative z-10 text-center">

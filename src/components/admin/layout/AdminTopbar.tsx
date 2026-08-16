@@ -39,8 +39,7 @@ export default function AdminTopbar({ onMenuClick }: AdminTopbarProps) {
             alt="Maple AG"
             fill
             sizes="28px"
-            quality={100}
-            unoptimized
+            quality={85}
             className="object-contain"
           />
         </div>

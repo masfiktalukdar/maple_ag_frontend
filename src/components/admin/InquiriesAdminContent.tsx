@@ -99,6 +99,25 @@ export default function InquiriesAdminContent() {
       setSendingReply(false);
     }
   };
+  const handleSelectInquiry = async (item: Inquiry) => {
+    if (item.status === "new") {
+      const updatedItem: Inquiry = { ...item, status: "read" };
+      setSelectedInquiry(updatedItem);
+      setInquiries((prev) =>
+        prev.map((i) => (i._id === item._id ? { ...i, status: "read" } : i))
+      );
+      try {
+        await fetchApi(`/inquiries/${item._id}/status`, {
+          method: "PATCH",
+          body: JSON.stringify({ status: "read" }),
+        });
+      } catch (error) {
+        console.error("Failed to automatically update inquiry status to read:", error);
+      }
+    } else {
+      setSelectedInquiry(item);
+    }
+  };
 
   const handleStatusChange = async (id: string, newStatus: "new" | "read" | "replied") => {
     setUpdatingId(id);
@@ -392,7 +411,7 @@ export default function InquiriesAdminContent() {
                   key={item._id}
                   className={`hover:bg-stone-50/80 transition-colors cursor-pointer ${item.status === "new" ? "bg-amber-50/20 font-medium" : ""
                     }`}
-                  onClick={() => setSelectedInquiry(item)}
+                  onClick={() => handleSelectInquiry(item)}
                 >
                   {/* Category Badge */}
                   <td className="py-3 px-4">
@@ -447,7 +466,7 @@ export default function InquiriesAdminContent() {
                   <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
                     <div className="flex items-center justify-end gap-2">
                       <button
-                        onClick={() => setSelectedInquiry(item)}
+                        onClick={() => handleSelectInquiry(item)}
                         className="admin-btn-icon"
                         title="View Details"
                       >

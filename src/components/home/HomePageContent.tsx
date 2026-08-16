@@ -71,6 +71,7 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
             alt="International shipping port at golden hour"
             fill
             sizes="100vw"
+            quality={80}
             priority
             className="object-cover"
           />
@@ -164,6 +165,8 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
                         src={pillar.image}
                         alt={pillar.title}
                         fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        quality={80}
                         className="object-cover"
                       />
                     </div>
@@ -423,6 +426,8 @@ export default function HomePageContent({ importItems, exportItems, supplyItems,
                       <SafeImage 
                         src={cert.imageUrl} 
                         alt={cert.title || cert.name || "Certification"} 
+                        width={160}
+                        height={120}
                         className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300 ease-out" 
                       />
                     ) : (

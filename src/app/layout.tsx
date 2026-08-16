@@ -1,26 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { API_BASE } from "@/lib/api";
+import { siteConfig } from "@/config/siteConfig";
 
 import { IMAGES } from "@/constants/images";
 
 export async function generateMetadata(): Promise<Metadata> {
-  let companyName = "Maple AG Global LTD";
-  try {
-    const res = await fetch(`${API_BASE}/settings/companyName`, { next: { revalidate: 60 } });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.data) {
-        companyName = data.data.companyName || data.data;
-      }
-    }
-  } catch {
-    // Fallback to default companyName if backend is offline during build
-  }
+  const { companyName, description } = siteConfig;
 
   return {
     title: `${companyName} — Import, Export & Supply Chain`,
-    description: "A premier import–export and supply chain company headquartered in Dhaka, Bangladesh. Facilitating trade across 40+ countries with a commitment to quality, compliance, and reliability.",
+    description: description,
     icons: {
       icon: IMAGES.FAVICON,
       shortcut: IMAGES.FAVICON,
